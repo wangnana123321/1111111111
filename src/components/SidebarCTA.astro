@@ -9,14 +9,14 @@ const list = Astro.props.ids.map(getExchange);
 ---
 
 <div class="card side-box">
-  <p class="side-title">🎁 交易所注册返佣</p>
+  <p class="side-title">🎁 交易所注册推荐</p>
   {
     list.map((ex) => (
       <div class="side-ex">
         <ExchangeBadge ex={ex} size="sm" />
         <div class="info">
           <b>{ex.name}</b>
-          <span>{ex.inviteeRebate != null ? `手续费返还 ${Math.round(ex.inviteeRebate * 100)}%` : ex.tagline}</span>
+          <span>{ex.inviteeRebate != null ? `最高返还 ${Math.round(ex.inviteeRebate * 100)}%（以注册页为准）` : ex.tagline}</span>
         </div>
         <a class="btn btn--accent btn--sm" href={ex.goUrl} rel="sponsored nofollow" data-cta="sidebar" data-ex={ex.id}>
           注册

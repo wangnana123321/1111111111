@@ -7,14 +7,13 @@ import PolymarketCTA from '../../components/PolymarketCTA.astro';
 import FAQ from '../../components/FAQ.astro';
 import RiskNote from '../../components/RiskNote.astro';
 import { SITE } from '../../config/site';
-import { AFFILIATES } from '../../config/affiliates';
 import { getHotMarkets } from '../../lib/markets';
-import { MARKET_CATEGORY_LABELS, refQueryFrom, type CategoryKey } from '../../lib/markets-parse';
+import { MARKET_CATEGORY_LABELS, type CategoryKey } from '../../lib/markets-parse';
 import { breadcrumbLd, faqLd } from '../../lib/seo';
 
 const { markets, fetchedAt } = await getHotMarkets();
 const cats = [...new Set(markets.map((m) => m.categoryKey))] as CategoryKey[];
-const refQuery = refQueryFrom(AFFILIATES.polymarket.inviteUrl);
+const refQuery = '';
 const updated = fetchedAt
   ? fetchedAt.toISOString().replace('T', ' ').slice(0, 16) + ' UTC'
   : '';

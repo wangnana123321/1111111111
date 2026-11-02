@@ -47,8 +47,7 @@ export const AFFILIATES: Record<AffiliateId, AffiliateConfig> = {
     inviteeRebate: null,
   },
   polymarket: {
-    // Polymarket 邀请链接（例如 https://polymarket.com/?via=xxx 这种形式，以你后台实际给出的为准）
-    // 填好后，“热门市场”页面里每个市场的链接也会自动带上同样的邀请参数。
+    // Polymarket 邀请链接：只填站长后台实际给出的完整链接，不要自行拼接参数（?r= / ?via= 格式未确认）。只用于 /go/polymarket/ 跳转。
     inviteUrl: '',
     inviteCode: '',
     inviteeRebate: null,

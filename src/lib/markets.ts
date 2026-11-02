@@ -4,8 +4,7 @@
  * - 拉取失败时返回空数组，页面显示空状态，并在浏览器端再尝试一次。
  * - 定时重新构建（见 .github/workflows/deploy.yml）即可保持数据新鲜。
  */
-import { AFFILIATES } from '../config/affiliates';
-import { API_EVENTS_URL, parseEvents, refQueryFrom, type HotMarket } from './markets-parse';
+import { API_EVENTS_URL, parseEvents, type HotMarket } from './markets-parse';
 
 export interface MarketsSnapshot {
   markets: HotMarket[];
@@ -20,7 +19,7 @@ async function load(): Promise<MarketsSnapshot> {
   if (process.env.MARKETS_FIXTURE) {
     const { readFile } = await import('node:fs/promises');
     const json = JSON.parse(await readFile(process.env.MARKETS_FIXTURE, 'utf8'));
-    return { markets: parseEvents(json, refQueryFrom(AFFILIATES.polymarket.inviteUrl)), fetchedAt: new Date() };
+    return { markets: parseEvents(json), fetchedAt: new Date() };
   }
   if (process.env.SKIP_MARKETS_FETCH === '1') {
     return { markets: [], fetchedAt: null, error: 'skipped' };
@@ -32,7 +31,7 @@ async function load(): Promise<MarketsSnapshot> {
     });
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     const json = await res.json();
-    const markets = parseEvents(json, refQueryFrom(AFFILIATES.polymarket.inviteUrl));
+    const markets = parseEvents(json);
     console.log(`[markets] 获取 Polymarket 热门市场 ${markets.length} 个`);
     return { markets, fetchedAt: new Date() };
   } catch (err) {

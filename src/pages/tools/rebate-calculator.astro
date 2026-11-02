@@ -80,7 +80,7 @@ const jsonLd = [breadcrumbLd(crumbs), webAppLd({ name, description, path }), faq
               <button type="button" class="btn btn--ghost btn--sm" data-vol="1000000">100 万</button>
               <button type="button" class="btn btn--ghost btn--sm" data-vol="10000000">1000 万</button>
             </div>
-            <span class="hint">交易额 = 每笔成交金额之和（买和卖都算）。合约按名义价值（含杠杆）计算。</span>
+            <span class="hint">交易额 = 每笔成交金额之和（买和卖都算）。合约按名义价值（含杠杆）计算。合约带杠杆，亏损会被放大，新手不建议参与。</span>
           </div>
           <div class="field">
             <label for="taker">吃单比例：<span id="taker-val">70%</span></label>
@@ -152,10 +152,10 @@ const jsonLd = [breadcrumbLd(crumbs), webAppLd({ name, description, path }), faq
       <div class="prose" style="max-width:860px">
         <h2>返佣是怎么算出来的？</h2>
         <p>
-          每月手续费 = 月交易额 ×（吃单比例 × 吃单费率 +（1 − 吃单比例）× 挂单费率）。返佣 = 手续费 × 返佣比例。例如每月现货交易 5 万 USDT、全部吃单、费率 0.1%，手续费是 50 USDT；如果返还 20%，每月可省 10 USDT，一年 120 USDT。
+          每月手续费 = 月交易额 ×（吃单比例 × 吃单费率 +（1 − 吃单比例）× 挂单费率）。返佣 = 手续费 × 返佣比例。例如每月现货交易 5 万 USDT、全部吃单、费率 0.1%，手续费是 50 USDT；假设返还比例为 10%（仅为算术示例，实际以注册页为准），每月可省 5 USDT，一年 60 USDT。
         </p>
         <p>
-          对只是偶尔买点 USDC 去 Polymarket 的用户来说，返佣金额不大；但如果你同时做现货或合约交易，返佣会随交易量线性增长，是实打实的成本节省。关于各家费率和优缺点，可以看 <a href="/exchange/">交易所对比</a>。
+          对只是偶尔买点 USDC 去 Polymarket 的用户来说，返佣金额不大；交易越频繁返佣越多，但不要为了返佣加大交易频率；合约带杠杆，亏损会被放大，本站不建议新手参与。关于各家费率和优缺点，可以看 <a href="/exchange/">交易所对比</a>。
         </p>
         <h2>相关教程</h2>
         <ul>

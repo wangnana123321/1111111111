@@ -108,13 +108,13 @@ const jsonLd = [breadcrumbLd(crumbs), webAppLd({ name, description, path }), faq
             <div class="kpi"><div class="k">提前卖出盈亏</div><div class="v" id="r-sellpl">—</div></div>
           </div>
           <div class="explain" id="r-explain">—</div>
-          <p class="note" style="margin:0">费率参数整理自 Polymarket 官方文档（{POLYMARKET.takerFeeRates.map((r) => `${r.label} ${r.rate}`).join('，')}），平台可能调整；未包含出入金等其他费用，结果仅供参考。</p>
+          <p class="note" style="margin:0">费率参数为 2026-10 参考值，整理自 Polymarket 官方文档（{POLYMARKET.takerFeeRates.map((r) => `${r.label} ${r.rate}`).join('，')}），可能已变，以下单预览为准；部分较早的体育市场仍按 0.03 收取；未包含出入金等其他费用，结果仅供参考。</p>
         </div>
       </div>
 
       <CTA
         title="算好了？先准备 USDC"
-        text="Polymarket 用 USDC 结算。通过邀请链接注册交易所买 USDC，可享手续费优惠，再按教程提到 Polymarket。"
+        text="Polymarket 用 USDC 结算。在交易所买 USDC（返佣以注册页面显示为准），再按教程提到 Polymarket。"
       />
 
       <div class="prose" style="max-width:860px">

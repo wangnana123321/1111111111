@@ -11,7 +11,7 @@ const ex = getExchange(Astro.props.exchange);
   <span class="ex-badge ex-badge--sm" style={`background:${ex.color};color:${ex.textColor}`}>{ex.initials}</span>
   <div class="txt">
     <b>先在 {ex.nameZh} 买 USDC</b>
-    <span>邀请注册享手续费优惠</span>
+    <span>返佣与新人奖励以注册页为准</span>
   </div>
   <a class="btn btn--accent btn--sm" href={ex.goUrl} rel="sponsored nofollow" data-cta="mobile-sticky" data-ex={ex.id}>
     去注册

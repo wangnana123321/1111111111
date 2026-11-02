@@ -36,7 +36,7 @@ const top = getExchange(FEATURED_ORDER[0]);
     </nav>
 
     <a class="btn btn--accent btn--sm header-cta" href="/exchange/" data-cta="header">
-      领取交易所返佣
+      交易所返佣对比
     </a>
 
     <details class="nav-mobile">
@@ -49,7 +49,7 @@ const top = getExchange(FEATURED_ORDER[0]);
         <a href="/">首页</a>
         {NAV.map((item) => <a href={item.href}>{item.label}</a>)}
         <a class="btn btn--accent btn--block" href={top.goUrl} rel="sponsored nofollow" data-cta="mobile-menu" data-ex={top.id}>
-          注册 {top.nameZh} 领返佣
+          {top.ctaLabel}
         </a>
       </nav>
     </details>

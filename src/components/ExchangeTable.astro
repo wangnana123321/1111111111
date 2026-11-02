@@ -70,7 +70,7 @@ const polygonText = (v: boolean | null) => (v === true ? '✅ 支持' : v === fa
                 <div class="muted small">{ex.predictionAccess ?? '—'}</div>
               </td>
             )}
-            <td class="small">{ex.inviteeRebate != null ? `手续费返还 ${Math.round(ex.inviteeRebate * 100)}%` : '以注册页为准'}</td>
+            <td class="small">{ex.inviteeRebate != null ? `最高返还 ${Math.round(ex.inviteeRebate * 100)}%（以注册页为准）` : '以注册页为准'}</td>
             <td>
               <a class="btn btn--accent btn--sm" href={ex.goUrl} rel="sponsored nofollow" data-cta="table" data-ex={ex.id}>
                 注册
@@ -83,5 +83,5 @@ const polygonText = (v: boolean | null) => (v === true ? '✅ 支持' : v === fa
   </table>
 </div>
 <p class="note">
-  费率为普通用户（VIP0）标准费率，数据整理于 {SITE.factsCheckedAt}，交易所可能随时调整，请以官网费率页面为准。“邀请优惠”指通过本站邀请链接注册可获得的手续费返还。
+  费率为普通用户（VIP0）标准费率，数据整理于 {SITE.factsCheckedAt}，交易所可能随时调整，请以官网费率页面为准。“邀请优惠”指通过本站邀请链接注册可能获得的手续费返还或新人奖励，比例和条件以注册页面为准。
 </p>

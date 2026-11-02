@@ -6,7 +6,7 @@ keywords: ["usdc polygon", "usdc.e 和 usdc 区别", "pusd 是什么", "polymark
 tldr:
   - "Polygon 是网络，USDC、USDC.e、pUSD 是跑在上面的三种代币"
   - "原生 USDC 和 USDC.e 合约不同，币安只支持原生 USDC"
-  - "pUSD 是 Polymarket 自 2026-04-28 起的余额币，由 USDC 1:1 支持"
+  - "pUSD 是 Polymarket 自 2026-04-28 起的余额币，官方称由 USDC 1:1 支持"
   - "充值发 Polygon 原生 USDC，会自动转成 pUSD"
   - "提现回交易所选 USDC（Polygon），不要发 pUSD 或 USDC.e"
 faq:
@@ -36,7 +36,7 @@ order: 6
 | Polygon | 以太坊的扩容网络，转账费用低，gas 代币是 POL | 不适用（是网络不是代币） | 交易所提币时的“网络”选项 | 给 Polymarket 充值和提现都选它 |
 | 原生 USDC | Circle 直接在 Polygon 上发行的 USDC | `0x3c499c542cEF5E3811e1192ce70d8cC03d5c3359` | 交易所的 USDC 充提页 | 充值和提现的首选 |
 | USDC.e | 早期从以太坊桥接到 Polygon 的 USDC | `0x2791Bca1f2de4661ED88A30C99A7a9449Aa84174` | 老钱包、老教程，部分交易所改名显示 | 不主动使用；不要发到只支持原生 USDC 的交易所 |
-| pUSD | Polymarket 的交易抵押币，由 USDC 1:1 支持 | 以官方文档为准 | Polymarket 账户余额 | 只在 Polymarket 内部使用，不往交易所发 |
+| pUSD | Polymarket 的交易抵押币，官方称由 USDC 1:1 支持 | 以官方文档为准 | Polymarket 账户余额 | 只在 Polymarket 内部使用，不往交易所发 |
 
 记住一个原则：**网络和代币是两回事。** “USDC + Polygon”才是一个完整的选择，只选对其中一个不够。
 
@@ -66,8 +66,6 @@ Polygon 是建立在以太坊生态上的扩容网络，转账确认快、费用
 | 推荐程度 | 首选 | 只在明确知道对方支持时使用 |
 
 **怎么核对**：在交易所的 USDC 充值或提币页，选 Polygon 网络后，页面通常会显示合约地址或末尾几位。和上面的地址对一下就知道是哪一种。OKX、Bitget 等交易所的 Polygon USDC 是原生还是 USDC.e，目前没有找到官方的明确说法，所以每次都要以 App 里显示的合约为准。
-
-<CTA text="注册后在 USDC 充值页选 Polygon 网络，核对合约地址再充提，第一次先小额测试。邀请返佣以注册页面显示为准。" />
 
 ## pUSD 是什么？Polymarket 为什么改用 pUSD？
 
@@ -107,6 +105,8 @@ Polymarket 的入金桥会把多种资产自动换成 Polygon 上的 pUSD。官�
 币安不支持 Polygon 上的 USDC.e。另据报道，币安在 2026-10-29 发生热钱包被盗事件，2026-11-01 起提币分阶段恢复，第一阶段包含 Polygon 网络。截至 2026 年 11 月初情况仍在变化，充提前请以币安官方公告为准，详见 [币安充值 Polymarket 教程](/deposit/binance-to-polymarket/)。
 
 </Callout>
+
+<CTA title="需要一个能收发 Polygon USDC 的交易所账户？" text="注册后在 USDC 充值页选 Polygon 网络，核对合约地址再充提，第一次先小额测试。邀请返佣以注册页面显示为准。" />
 
 ## 发错代币或网络怎么办？
 

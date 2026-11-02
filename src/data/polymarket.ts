@@ -17,8 +17,7 @@ export const POLYMARKET = {
   signupMethods: ['Google 账号', '邮箱 + 6 位验证码', '加密钱包（MetaMask、Rabby、Phantom 等）'],
   /** 充值桥支持的网络（充值后自动换成 pUSD） */
   depositNetworks: ['Polygon', 'Arbitrum', 'Base', 'Optimism', 'Solana', 'Ethereum', 'BNB Chain', 'Tron', 'Bitcoin'],
-  depositMinimumNote:
-    '官方文档给出的最低充值额约为：Polygon / Arbitrum / Base / Optimism / Solana 约 2 美元，以太坊主网约 7 美元，比特币和 Tron 上的 USDT 约 9 美元（以充值页面显示为准）。',
+  depositMinimumNote: '最低充值额以充值页面显示为准（官方文档与第三方资料数字不一致）。',
   /** Polymarket 自身不收充值、提现费；交易 Gas 由平台代付 */
   platformDepositFee: 0,
   platformWithdrawFee: 0,

@@ -1,5 +1,6 @@
 ---
 import { feePair, getExchange, type ExchangeId } from '../data/exchanges';
+import { SITE } from '../config/site';
 import ExchangeBadge from './ExchangeBadge.astro';
 import Stars from './Stars.astro';
 
@@ -28,7 +29,7 @@ const polygon =
   <div class="perk">🎁 {ex.rebateLabel}</div>
   {ex.alert && <div class="ex-alert">⚠️ {ex.alert}</div>}
   {
-    showFacts && (
+    showFacts && (<>
       <dl class="facts">
         <dt>现货费率</dt>
         <dd>
@@ -41,11 +42,11 @@ const polygon =
         <dt>Polygon 提 USDC</dt>
         <dd>{polygon}</dd>
       </dl>
-    )
+      <p class="small muted" style="margin:0">VIP0 标准费率，{SITE.factsCheckedAt} 整理，以官网为准</p></>)
   }
   <div class="actions">
     <a class="btn btn--accent btn--block" href={ex.goUrl} rel="sponsored nofollow" data-cta={placement} data-ex={ex.id}>
-      注册 {ex.nameZh} 领返佣 →
+      {ex.ctaLabel} →
     </a>
     {ex.inviteCode && (
       <div class="code">

@@ -83,7 +83,7 @@ export const EXCHANGE_DATA: Record<ExchangeId, ExchangeData> = {
       note: '支持 Polygon 原生 USDC（不支持桥接版 USDC.e）。2026 年 10 月底安全事件后，提币于 11 月 1 日起分阶段恢复，操作前请查看官方公告。',
     },
     usdcNetworks: ['Polygon', 'Arbitrum', 'Base', 'Optimism', 'Solana', 'BNB Chain', 'Ethereum'],
-    fiat: 'P2P 支持 100+ 种法币（含新台币等），也可银行卡买币',
+    fiat: 'P2P 支持 100+ 种法币（具体以所在地区 App 显示为准），也可银行卡买币',
     kyc: '必须完成身份认证（KYC）',
     pros: ['交易品种多、流动性好', 'P2P 法币通道覆盖广', '支持 Polygon 原生 USDC 提币'],
     alert: '据报道 2026-10-29 发生安全事件，11 月 1 日起分阶段恢复提币，操作前请看官方公告',
@@ -93,7 +93,7 @@ export const EXCHANGE_DATA: Record<ExchangeId, ExchangeData> = {
     inAppPolymarket: false,
     cons: [
       '据报道 2026 年 10 月 29 日热钱包遭盗（官方称用户不承担损失），提币分阶段恢复中',
-      '不服务美国、英国新用户、加拿大、马来西亚、新加坡、中国大陆等地区，欧盟新业务已暂停',
+      '不服务美国、英国新用户、加拿大、马来西亚、新加坡、中国大陆等地区，官网声明产品不面向香港用户，欧盟新业务已暂停',
     ],
   },
   okx: {
@@ -116,7 +116,7 @@ export const EXCHANGE_DATA: Record<ExchangeId, ExchangeData> = {
     },
     usdcPolygon: {
       supported: true,
-      fee: '以提币页面显示为准（Polygon 通常只需零点几 USDC）',
+      fee: '以提币页面显示为准（据追踪站数据，Polygon 通常只要几美分）',
       min: '以提币页面显示为准',
       note: '支持 Polygon 网络 USDC 充提，也支持 Base、Arbitrum、Solana 等低费用网络。',
     },
@@ -141,9 +141,9 @@ export const EXCHANGE_DATA: Record<ExchangeId, ExchangeData> = {
     color: '#1DA2B4',
     textColor: '#FFFFFF',
     officialUrl: 'https://www.bitget.com/',
-    tagline: '以跟单交易出名，新用户活动多',
+    tagline: '新用户活动多，旗下 Bitget Wallet 已接入 Polymarket',
     rating: 4.4,
-    bestFor: '想参加新人活动、尝试跟单交易的用户',
+    bestFor: '想参加新人活动、同时关注 Bitget Wallet 的用户',
     fees: {
       spotMaker: 0.1,
       spotTaker: 0.1,
@@ -160,7 +160,7 @@ export const EXCHANGE_DATA: Record<ExchangeId, ExchangeData> = {
     usdcNetworks: ['Arbitrum', 'Base', 'Solana', 'BNB Chain', 'Ethereum'],
     fiat: '有 P2P 市场，支持哪些法币以官网为准',
     kyc: '必须完成身份认证（KYC）',
-    pros: ['跟单交易生态成熟', '新用户福利活动多', '旗下 Bitget Wallet 已接入 Polymarket'],
+    pros: ['新用户福利活动多', '旗下 Bitget Wallet 已接入 Polymarket'],
     guidePath: '/exchange/bitget-register/',
     depositGuidePath: '/deposit/bitget-to-polymarket/',
     predictionAccess: '自托管的 Bitget Wallet 已接入 Polymarket（交易所账户本身没有）',
@@ -232,7 +232,7 @@ export const EXCHANGE_DATA: Record<ExchangeId, ExchangeData> = {
     predictionAccess: 'Bybit Prediction（2026 年 6 月上线）使用 Polymarket 流动性，用账户内 USDC 参与',
     inAppPolymarket: true,
     cons: [
-      '2025 年 2 月冷钱包被盗约 14 亿美元（平台已垫付，未影响用户资产）',
+      '据报道 2025 年 2 月 ETH 冷钱包被盗约 14–15 亿美元，平台照常运营并在几天内补足储备',
       '据资料不服务美国、新加坡、加拿大、马来西亚、香港、中国大陆等地区（以官网为准）',
     ],
   },
@@ -245,6 +245,8 @@ export interface Exchange extends ExchangeData {
   inviteeRebate: number | null;
   /** 返佣文案：已配置比例时显示具体比例，否则统一提示以注册页为准 */
   rebateLabel: string;
+  /** 注册按钮文案：配置了返还比例时带上比例 */
+  ctaLabel: string;
   rebateNote?: string;
 }
 
@@ -263,8 +265,8 @@ export function getExchange(id: ExchangeId): Exchange {
   const hasInvite = Boolean(aff.inviteUrl);
   const rebateLabel =
     aff.inviteeRebate != null
-      ? `通过本站链接注册，手续费返还 ${formatPct(aff.inviteeRebate)}`
-      : '通过邀请链接注册可享手续费优惠（比例以注册页面为准）';
+      ? `通过本站链接注册，手续费返还最高 ${formatPct(aff.inviteeRebate)}（以注册页为准）`
+      : '通过邀请链接注册可能有手续费返还或新人奖励（以注册页面为准）';
   return {
     ...data,
     goUrl: `/go/${id}/`,
@@ -272,6 +274,10 @@ export function getExchange(id: ExchangeId): Exchange {
     hasInvite,
     inviteeRebate: aff.inviteeRebate,
     rebateLabel,
+    ctaLabel:
+      aff.inviteeRebate != null
+        ? `注册 ${data.nameZh} · 返还 ${formatPct(aff.inviteeRebate)}`
+        : `注册 ${data.nameZh}`,
     rebateNote: aff.rebateNote,
   };
 }
