@@ -18,6 +18,8 @@ faq:
     a: "是同一条链。2024 年 9 月起 Polygon 的 gas 代币从 MATIC 换成了 POL，所以有的交易所把网络写成 POL、Polygon POS 或 Polygon。选它提 USDC 就是走 Polygon 网络。"
   - q: "在 Polymarket 交易需要持有 POL 付 gas 吗？"
     a: "不需要。Polymarket 的 relayer 会代付 Polygon 上的 gas，包括授权、拆分、合并和赎回等操作，用户不需要持有 POL。"
+  - q: "钱包里只有 USDC.e，能直接充值 Polymarket 吗？"
+    a: "据称网页入金时，Polygon 上的 USDC.e 也会 1:1 转成 pUSD，但没有找到覆盖所有入金流程的官方说法。请先看 Deposit 页显示的支持资产，再小额测试；更稳的做法是在交易所买原生 USDC，走 Polygon 网络充值。"
   - q: "pUSD 是 POLY 代币或空投吗？"
     a: "不是。pUSD 只是平台的抵押品代币，不是治理代币也不是空投。截至 2026 年 11 月，POLY 代币尚未发行，任何让你连接钱包“认领 POLY”的页面都应按诈骗处理。"
 publishDate: 2026-11-02
@@ -40,7 +42,7 @@ order: 6
 
 ## Polygon 网络是什么？为什么交易所显示 POL？
 
-Polygon 是建立在以太坊生态上的扩容网络，转账确认快、费用低，所以 Polymarket 把账户、订单结算和资金都放在 Polygon 上。
+Polygon 是建立在以太坊生态上的扩容网络，转账确认快、费用低。Polymarket 目前的账户、订单结算和资金都在 Polygon 上。
 
 你在交易所提币时，网络下拉框里可能看到下面几种名字，它们指的是同一条链：
 
@@ -60,12 +62,12 @@ Polygon 是建立在以太坊生态上的扩容网络，转账确认快、费用
 |---|---|---|
 | 来源 | Circle 在 Polygon 上直接发行 | 从以太坊通过跨链桥映射过来 |
 | 合约开头 | `0x3c49…` | `0x2791…` |
-| 交易所支持 | 主流交易所普遍支持 | 支持情况不一，币安不支持（已改名为 MATICUSDCE） |
+| 交易所支持 | 币安自 2023 年 10 月起支持；其他交易所以充值页显示的合约为准 | 支持情况不一；币安不支持充值（币安上已改名为 MATICUSDCE） |
 | 推荐程度 | 首选 | 只在明确知道对方支持时使用 |
 
-**怎么核对**：在交易所的 USDC 充值或提币页，选 Polygon 网络后，页面通常会显示合约地址或末尾几位。和上面的地址对一下就知道是哪一种。OKX、Bitget 等交易所的 Polygon USDC 是原生还是 USDC.e，研究资料里没有官方的明确说法，所以每次都要以 App 里显示的合约为准。
+**怎么核对**：在交易所的 USDC 充值或提币页，选 Polygon 网络后，页面通常会显示合约地址或末尾几位。和上面的地址对一下就知道是哪一种。OKX、Bitget 等交易所的 Polygon USDC 是原生还是 USDC.e，目前没有找到官方的明确说法，所以每次都要以 App 里显示的合约为准。
 
-<CTA text="选一家支持 Polygon 原生 USDC 充提的交易所，充值和提现都能少走弯路。邀请返佣以注册页面显示为准。" />
+<CTA text="注册后在 USDC 充值页选 Polygon 网络，核对合约地址再充提，第一次先小额测试。邀请返佣以注册页面显示为准。" />
 
 ## pUSD 是什么？Polymarket 为什么改用 pUSD？
 
@@ -92,7 +94,7 @@ Polymarket 的入金桥会把多种资产自动换成 Polygon 上的 pUSD。官�
 
 ## 提现时为什么要选 USDC（Polygon）？
 
-Polymarket 提现时，界面默认是 Polygon 上的 USDC，也可以选择直接提 pUSD 或提到其他链。**提回交易所，请选 USDC（Polygon）**，理由很简单：
+据官方文档，Polymarket 提现界面默认是 Polygon 上的 USDC，也可以选择直接提 pUSD 或提到其他链（界面可能调整，以页面为准）。**提回交易所，请选 USDC（Polygon）**，理由很简单：
 
 1. **交易所一般不认 pUSD。** pUSD 是 Polymarket 的内部抵押币，发到交易所很可能无法入账。
 2. **交易所不一定认 USDC.e。** 例如币安只支持 Polygon 上的原生 USDC。
@@ -121,7 +123,7 @@ Polymarket 提现时，界面默认是 Polygon 上的 USDC，也可以选择直�
 
 会，而且变化不小，值得留意：
 
-- **Protocol V2**：Polymarket 在 2026-10-05 宣布新协议，pUSD 将作为唯一抵押品，计划于 2026 年 11 月上线（具体日期说法不一，以官方公告为准）。旧仓位不迁移，部分用户可能需要重新授权。
-- **自有链**：据报道，Polymarket 曾在 2025 年 12 月宣布计划从 Polygon 迁到自建的以太坊 L2，但截至 2026 年 9 月尚未上线，也没有时间表。目前资金仍在 Polygon 上。
+- **Protocol V2**：Polymarket 在 2026 年 10 月宣布新协议，pUSD 将作为唯一抵押品，计划于 2026 年 11 月上线（具体日期说法不一，以官方公告为准）。据官方迁移说明，旧仓位不迁移，部分用户可能需要重新授权。
+- **自有链**：据报道，Polymarket 曾宣布计划从 Polygon 迁到自建的以太坊 L2，但截至 2026 年 9 月尚未上线，也没有公布时间表。目前资金仍在 Polygon 上。
 
 不管底层怎么变，新手只要记住“充值发 Polygon 原生 USDC，提现选 USDC（Polygon），每次先核对页面”，就能避开绝大多数坑。平台的资金安全问题可以再看 [Polymarket 安全吗](/polymarket/is-it-safe/)。

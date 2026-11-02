@@ -5,13 +5,13 @@ description: "不用钱包能玩 Polymarket 吗？对比 Gate App、Bybit Predic
 keywords: ["gate polymarket", "bybit prediction", "交易所 预测市场", "币安 预测市场", "okx 事件合约", "bitget wallet polymarket"]
 tldr:
   - "Gate App 已接入 Polymarket（公测），用现货 USDT 参与"
-  - "Bybit Prediction 用 Polymarket 流动性和账户 USDC"
+  - "Bybit Prediction 接 Polymarket 流动性，用 USDC"
   - "Bitget Wallet 也接入了 Polymarket，但它是自托管钱包"
   - "币安预测市场接的是 predict.fun，OKX 事件合约只做币价涨跌"
   - "各入口能否在你所在地区使用都未核实，以官方公告为准"
 faq:
   - q: "Gate 上的 Polymarket 和官网是同一个市场吗？"
-    a: "据媒体报道，Gate App 2026 年 3 月 24 日接入 Polymarket，订单进入 Polymarket 订单簿，价格和流动性与官网是同一套。区别是你用 Gate 现货 USDT 参与、资金由交易所托管，市场范围以 App 内为准。"
+    a: "据媒体报道，Gate App 2026 年 3 月 24 日接入 Polymarket，订单进入 Polymarket 的订单簿，交易的是同一批市场。区别是你用 Gate 现货 USDT 参与、资金由交易所托管，能交易哪些市场以 App 内为准。"
   - q: "Bybit Prediction 收手续费吗？"
     a: "收。据 Bybit 官方说明，Bybit Prediction 收取 Polymarket 的交易费用，另加 Bybit Alpha 的服务费。具体费率本站没能核实，下单前以确认页面显示的费用为准。"
   - q: "币安有 Polymarket 吗？"
@@ -25,9 +25,9 @@ featuredExchanges: ["gate", "bybit", "bitget"]
 order: 2
 ---
 
-可以。截至 2026 年 11 月，有两家交易所把 Polymarket 的市场搬进了自己的 App：**Gate App**（2026 年 3 月接入，公测中，用现货 USDT 参与）和 **Bybit Prediction**（约 2026 年 6 月上线，使用 Polymarket 流动性，用账户里的 USDC）。你不需要自己做链上转账或管理钱包。另外，自托管的 Bitget Wallet 也接入了 Polymarket；而币安的预测市场接的是 predict.fun，OKX 的事件合约只做币价涨跌，都不是 Polymarket。
+可以。截至 2026 年 11 月，**Gate App**（2026 年 3 月接入，公测，用现货 USDT）和 **Bybit Prediction**（约 2026 年 6 月上线，用账户里的 USDC）都能直接参与 Polymarket 的市场，不用自己做链上转账或管理钱包，前提是你所在地区开放了这些入口。币安的预测市场接的是 predict.fun，OKX 事件合约只做币价涨跌，都不是 Polymarket。
 
-下面先用一张表把这几个入口讲清楚，再分别说操作路径、费用和要注意的地方。
+另外，自托管的 Bitget Wallet 也接入了 Polymarket，但资金仍要自己转进钱包。下面先用一张表把这几个入口讲清楚，再分别说操作路径、费用和要注意的地方。
 
 ## 交易所里的“预测市场”有哪几种？
 
@@ -35,7 +35,7 @@ order: 2
 |---|---|---|---|---|
 | Gate App | 交易所用户用现货 USDT；Web3 用户用 Polygon 上的 USDC | 是，订单进入 Polymarket 订单簿 | 不用提币，余额直接下单 | 公测阶段，需较新版本 App |
 | Bybit Prediction（在 Bybit Alpha 内） | 账户里的 USDC | 是，使用 Polymarket 流动性 | 不用提币；从足球市场起步 | 订单为 FOK；另收服务费 |
-| Bitget Wallet | 钱包里的链上资产 | 据报道接入 Polymarket | 自托管，资产在自己手里 | 是钱包不是交易所账户，仍要转账 |
+| Bitget Wallet | 钱包里的链上资产（以钱包内显示为准） | 据报道接入 Polymarket | 自托管，资产在自己手里 | 是钱包不是交易所账户，仍要转账 |
 | Binance Wallet 预测市场 | USDT | **否**，接入的是 predict.fun | 币安生态内操作 | 需开独立的 MPC 预测账户 |
 | OKX 事件合约 | USDT | **否** | 规则简单、无杠杆 | 只做 BTC、ETH 等币价涨跌 |
 
@@ -45,13 +45,13 @@ order: 2
 
 据 Bitcoin.com、The Crypto Times 等媒体报道，Gate 于 2026 年 3 月 24 日在 App 内接入 Polymarket，处于公测阶段，需要 v8.12.5 及以上版本。Gate 自称是第一家这样做的中心化交易所。
 
-它的机制是：交易所用户直接用**现货账户里的 USDT** 下单，Web3 钱包用户则用 Polygon 上的 USDC，订单最终进入 Polymarket 的订单簿撮合。也就是说，你看到的价格和 polymarket.com 上同一个市场的价格是一致的，只是资金托管和下单入口换成了 Gate。
+它的机制是：交易所用户直接用**现货账户里的 USDT** 下单，Web3 钱包用户则用 Polygon 上的 USDC，订单最终进入 Polymarket 的订单簿撮合。也就是说，你交易的是 polymarket.com 上的同一批市场，价格应与官网基本一致，只是资金托管和下单入口换成了 Gate。
 
 **大致操作路径**（入口位置和按钮名称以 App 界面为准）：
 
 1. 从官方渠道下载或更新 Gate App 到较新版本，认准官方域名 gate.com（原 gate.io）。
 2. 注册并完成身份认证，注册步骤见 [Gate 注册教程](/exchange/gate-register/)。
-3. 确认现货账户里有 USDT，可以通过 P2P、银行卡或从其他交易所转入。
+3. 确认现货账户里有 USDT：可以在 Gate 用法币买入（可用方式以 App 为准），也可以从其他交易所或钱包转入。
 4. 在 App 里找到预测市场或 Polymarket 相关入口，如果找不到，可能是版本太旧，也可能是所在地区暂未开放。
 5. 选好市场后先读规则（结算条件、截止时间），再输入金额下单。
 6. 在持仓页查看仓位，结算后的处理方式以 App 说明为准。
@@ -89,24 +89,25 @@ order: 2
 
 | 对比项 | 交易所入口（Gate、Bybit） | 直接用 polymarket.com |
 |---|---|---|
-| 上手难度 | 低，用交易所余额，不碰钱包 | 需要从交易所提 USDC，选对网络 |
-| 资金托管 | 交易所托管 | 链上钱包，平台不托管 |
+| 上手难度 | 低，用交易所余额，不碰钱包 | 需要从交易所提 USDC，选对网络（Polygon） |
+| 资金托管 | 交易所托管 | 你自己的链上钱包（非托管） |
 | 结算币 | USDT（Gate）、USDC（Bybit） | pUSD（充值 USDC 自动转换） |
 | 市场范围 | 以 App 内上线的为准，可能较少 | 全部市场 |
 | 订单类型 | 以入口规则为准（Bybit 为 FOK） | 可挂限价单，挂单不收手续费 |
-| 费用 | Polymarket 费用，可能另加服务费 | 吃单按公式收费，挂单免费，地缘政治类免费 |
+| 费用 | Polymarket 费用，可能另加服务费 | 吃单按公式收费，挂单免费，地缘政治类免费；另有交易所提币费 |
 | 地区可用性 | 未核实，以交易所公告为准 | 部分地区无法开新仓 |
 
-费用上可以算一笔账。Polymarket 的吃单手续费公式是：**手续费 = 份数 × 费率 × 价格 ×（1 − 价格）**。假设一个体育市场的费率参数是 0.05（2026-10 参考，以下单预览为准），你以 0.40 美元的价格买 100 份“是”：
+费用上可以算一笔账。Polymarket 的吃单手续费公式是：**手续费 = 份数 × 费率 × 价格 ×（1 − 价格）**。假设一个体育市场的费率参数是 0.05（2026-10 参考，部分老体育市场为 0.03，以下单预览为准），你以 0.40 美元的价格吃单买入 100 份“是”：
 
 | 项目 | 计算 | 结果 |
 |---|---|---|
 | 买入成本 | 100 × 0.40 | 40 美元 |
 | 吃单手续费 | 100 × 0.05 × 0.40 × 0.60 | 1.20 美元 |
 | 手续费占成本 | 1.20 ÷ 40 | 3% |
-| 若猜对，结算兑付 | 100 × 1 | 100 美元 |
+| 若猜对，结算兑付 | 100 × 1 | 100 美元，扣掉成本和手续费净赚 58.80 美元 |
+| 若猜错 | 份额归零 | 亏掉 40 + 1.20 = 41.20 美元 |
 
-在官网可以挂限价单当 Maker，不交这笔费用；在交易所入口里，FOK 之类的即时成交订单属于吃单，还可能再加一层服务费。小额偶尔玩一玩，差别不大；经常交易的话，直接用官网更省。手续费细节见 [Polymarket 手续费是多少](/polymarket/fees/)，算收益可以用 [赔率计算器](/tools/odds-calculator/)。
+在官网可以挂限价单当 Maker，不交这笔费用；在交易所入口里，FOK 之类的即时成交订单属于吃单，还可能再加一层服务费。小额偶尔玩一玩，差别不大；经常交易的话，直接用官网通常更省。手续费细节见 [Polymarket 手续费是多少](/polymarket/fees/)，算收益可以用 [赔率计算器](/tools/odds-calculator/)。
 
 ## 谁适合用交易所里的 Polymarket 入口？
 
