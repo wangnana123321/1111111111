@@ -1,0 +1,38 @@
+---
+/**
+ * 入金流程图：<DepositFlow /> 或 <DepositFlow exchange="okx" />
+ */
+import { getExchange, isExchangeId } from '../data/exchanges';
+import { FEATURED_ORDER } from '../config/affiliates';
+import { POLYMARKET } from '../data/polymarket';
+
+export interface Props {
+  exchange?: string;
+  caption?: string;
+}
+const { exchange, caption } = Astro.props;
+const ex = getExchange(exchange && isExchangeId(exchange) ? exchange : FEATURED_ORDER[0]);
+---
+
+<figure class="flow" aria-label="Polymarket 入金流程">
+  <div class="flow-steps">
+    <div class="flow-node">
+      <div class="k">第 1 步 · 交易所</div>
+      <div class="v">在 {ex.nameZh} 买 USDC</div>
+      <div class="d">法币 / P2P 买 USDT，再换成 USDC</div>
+    </div>
+    <div class="flow-arrow" aria-hidden="true">{POLYMARKET.recommendedNetwork}</div>
+    <div class="flow-node">
+      <div class="k">第 2 步 · 提币</div>
+      <div class="v">提到 Polymarket 充值地址</div>
+      <div class="d">网络选 {POLYMARKET.recommendedNetwork}，先小额测试</div>
+    </div>
+    <div class="flow-arrow" aria-hidden="true">到账</div>
+    <div class="flow-node">
+      <div class="k">第 3 步 · Polymarket</div>
+      <div class="v">余额到账，开始下注</div>
+      <div class="d">买入“是 / 否”份额</div>
+    </div>
+  </div>
+  <figcaption class="flow-caption">{caption ?? '最常见的入金路线：交易所买币 → 链上提币 → Polymarket 到账'}</figcaption>
+</figure>

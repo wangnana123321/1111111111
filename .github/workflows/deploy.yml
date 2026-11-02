@@ -1,0 +1,55 @@
+# 构建并部署到 Cloudflare Pages
+# - push 到 main 时自动部署
+# - 每 6 小时重新构建一次，刷新“热门市场”数据
+# - 也可以在 Actions 页面手动运行
+#
+# 需要在仓库 Settings → Secrets and variables → Actions 里配置：
+#   Secrets：CLOUDFLARE_API_TOKEN（Cloudflare Pages 编辑权限）、CLOUDFLARE_ACCOUNT_ID
+#   Variables：SITE_URL（例如 https://www.example.com）、CF_PAGES_PROJECT（Cloudflare Pages 项目名）
+# 没有配置 Secrets 时只构建、不部署。
+
+name: Build & Deploy
+
+on:
+  push:
+    branches: [main]
+  schedule:
+    - cron: '17 */6 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: deploy-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      SITE_URL: ${{ vars.SITE_URL }}
+      HAS_CF: ${{ secrets.CLOUDFLARE_API_TOKEN != '' && secrets.CLOUDFLARE_ACCOUNT_ID != '' }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      - name: Validate content
+        run: node scripts/validate-content.mjs
+
+      - name: Build
+        run: npm run build
+
+      - name: Deploy to Cloudflare Pages
+        if: env.HAS_CF == 'true'
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages deploy dist --project-name=${{ vars.CF_PAGES_PROJECT }} --branch=main

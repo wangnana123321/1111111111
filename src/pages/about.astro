@@ -1,0 +1,33 @@
+---
+import PageLayout from '../layouts/PageLayout.astro';
+import { SITE } from '../config/site';
+---
+
+<PageLayout
+  title="关于本站"
+  description={`${SITE.name}是一个面向中文用户的预测市场入门站，专注讲清楚 Polymarket 的玩法、充值提现流程和交易所选择。`}
+  path="/about/"
+>
+  <p>
+    <strong>{SITE.name}</strong>是一个面向中文读者的预测市场入门网站。我们发现很多新手对 Polymarket 很感兴趣，却卡在“它到底是什么”“钱怎么充进去”“赢了怎么取出来”这些基础问题上，而中文资料要么零散，要么只是一串邀请码。
+  </p>
+  <h2>我们做什么</h2>
+  <ul>
+    <li><strong>新手教程</strong>：按学习顺序讲清楚 Polymarket 的规则、价格与概率、手续费和风险。</li>
+    <li><strong>充值与提现攻略</strong>：按交易所分别写清楚买 USDC、选择网络、提币到账和出金换汇的每一步。</li>
+    <li><strong>交易所对比</strong>：整理主流交易所的手续费、USDC 提币网络和法币入金方式，帮助你选择合适的平台。</li>
+    <li><strong>实用工具</strong>：赔率 / 收益计算器、返佣计算器、入金路线查询，以及 Polymarket 热门市场中文看板。</li>
+  </ul>
+  <h2>编辑原则</h2>
+  <ul>
+    <li>费率、规则等数据尽量引用官方页面，并标注核对时间（最近一次整体核对：{SITE.factsCheckedAt}）。</li>
+    <li>不确定的信息明确标注“以官方为准”，不夸大收益，不承诺回报。</li>
+    <li>不提供规避地区限制的方法。请先确认你所在地区的法律法规。</li>
+  </ul>
+  <h2>我们如何盈利</h2>
+  <p>
+    本站部分链接为交易所或平台的邀请（推广）链接。你通过这些链接注册，我们可能获得一定佣金；你通常也能获得手续费优惠，不会因此多付任何费用。佣金不会影响我们对产品的客观描述，详见<a href="/disclaimer/">免责声明</a>。
+  </p>
+  <h2>联系我们</h2>
+  <p>发现内容有误或过时？欢迎通过<a href="/contact/">联系页面</a>告诉我们，我们会尽快核实更新。</p>
+</PageLayout>

@@ -1,0 +1,12 @@
+---
+export interface Props {
+  rating: number;
+}
+const { rating } = Astro.props;
+const filled = Math.max(0, Math.min(5, Math.round(rating)));
+const stars = '★'.repeat(filled) + '☆'.repeat(5 - filled);
+---
+
+<span class="stars" title={`编辑评分 ${rating} / 5`}>
+  <span aria-hidden="true">{stars}</span><span class="num">{rating.toFixed(1)}</span>
+</span>

@@ -1,0 +1,248 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import CTA from '../../components/CTA.astro';
+import FAQ from '../../components/FAQ.astro';
+import RiskNote from '../../components/RiskNote.astro';
+import { SITE } from '../../config/site';
+import { breadcrumbLd, faqLd, webAppLd } from '../../lib/seo';
+import { POLYMARKET } from '../../data/polymarket';
+
+const path = '/tools/odds-calculator/';
+const name = 'Polymarket 赔率 / 收益计算器';
+const description =
+  '免费的 Polymarket 收益计算器：输入份额价格和投入金额，立即算出可买份额、猜对能拿多少、净利润、收益率、隐含概率和期望值，并支持提前卖出盈亏计算。';
+const crumbs = [{ name: '首页', href: '/' }, { name: '工具', href: '/tools/' }, { name: '赔率 / 收益计算器' }];
+const faq = [
+  {
+    q: 'Polymarket 的价格和概率是什么关系？',
+    a: '每份结果正确时兑付 1 美元，所以价格就是市场给出的隐含概率。价格 0.30 美元 ≈ 市场认为有 30% 的可能发生。注意这只是市场的集体判断，不是保证。',
+  },
+  {
+    q: '买“否”怎么算？',
+    a: '和买“是”一样：把“否”的价格填进价格栏即可。例如“是”为 0.70 美元时，“否”大约是 0.30 美元，买“否”猜对同样每份拿回 1 美元。',
+  },
+  {
+    q: '期望值（EV）是什么意思？',
+    a: '期望值 = 你认为的真实概率 × 猜对时拿回的金额 − 投入金额。期望值为正，说明按你的判断这笔交易长期来看是赚钱的；但单次结果仍可能亏损，而且你的判断本身也可能有偏差。',
+  },
+  {
+    q: '凯利公式建议的仓位可以直接用吗？',
+    a: '不建议直接满仓使用。凯利公式对概率判断非常敏感，概率估错会导致过度下注。多数人会用 1/4 或更低比例的凯利仓位，并设置单笔上限。',
+  },
+];
+const jsonLd = [breadcrumbLd(crumbs), webAppLd({ name, description, path }), faqLd(faq)];
+---
+
+<BaseLayout title={`${name}（价格=概率，算收益和期望值） | ${SITE.name}`} description={description} path={path} jsonLd={jsonLd} mobileCta="default">
+  <section class="page-head">
+    <div class="container">
+      <Breadcrumbs items={crumbs} />
+      <h1>🎲 {name}</h1>
+      <p>输入份额价格和投入金额，马上知道能买多少份、猜对赚多少、猜错亏多少。所有计算都在你的浏览器里完成。</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="tool-grid">
+        <form class="card card-pad form" id="odds-form" onsubmit="return false" aria-label="收益计算">
+          <div class="field">
+            <label for="price">份额买入价格（美元）</label>
+            <div class="input-group">
+              <input class="input" id="price" name="price" type="number" inputmode="decimal" min="0.01" max="0.99" step="0.01" value="0.65" />
+              <span class="addon" id="price-pct">≈ 65%</span>
+            </div>
+            <input class="range" id="price-range" type="range" min="1" max="99" step="1" value="65" aria-label="价格滑块" />
+            <span class="hint">即你要买入的那一边（“是”或“否”）的当前价格，范围 0.01–0.99。</span>
+          </div>
+          <div class="field">
+            <label for="stake">投入金额（USDC）</label>
+            <input class="input" id="stake" name="stake" type="number" inputmode="decimal" min="1" step="1" value="100" />
+          </div>
+          <div class="field">
+            <label for="feecat">市场类别（估算吃单手续费）</label>
+            <select class="select" id="feecat" name="feecat">
+              <option value="0">不计手续费（挂单成交 / 免手续费市场）</option>
+              {
+                POLYMARKET.takerFeeRates.map((r) => (
+                  <option value={r.rate} selected={r.key === 'politics'}>
+                    {r.label}（费率参数 {r.rate}）
+                  </option>
+                ))
+              }
+            </select>
+            <span class="hint">按官方公式估算：{POLYMARKET.feeFormula}。限价挂单成交不收手续费，实际以下单页面显示为准。</span>
+          </div>
+          <div class="field">
+            <label for="belief">你判断的真实概率（%，可选）</label>
+            <input class="input" id="belief" name="belief" type="number" inputmode="decimal" min="1" max="99" step="1" placeholder="例如 75" />
+            <span class="hint">填写后会计算期望值和凯利公式建议仓位。</span>
+          </div>
+          <div class="field">
+            <label for="sell">计划提前卖出的价格（美元，可选）</label>
+            <input class="input" id="sell" name="sell" type="number" inputmode="decimal" min="0" max="1" step="0.01" placeholder="例如 0.80" />
+            <span class="hint">事件结束前，你可以随时按市场价卖出份额。</span>
+          </div>
+        </form>
+
+        <div class="card result-panel" aria-live="polite">
+          <div class="kpis">
+            <div class="kpi"><div class="k">可买份额</div><div class="v" id="r-shares">—</div></div>
+            <div class="kpi kpi--hl"><div class="k">猜对可拿回</div><div class="v" id="r-payout">—</div></div>
+            <div class="kpi"><div class="k">猜对净赚</div><div class="v pos" id="r-profit">—</div></div>
+            <div class="kpi"><div class="k">收益率</div><div class="v" id="r-roi">—</div></div>
+            <div class="kpi"><div class="k">猜错亏损</div><div class="v neg" id="r-loss">—</div></div>
+            <div class="kpi"><div class="k">隐含概率</div><div class="v" id="r-implied">—</div></div>
+            <div class="kpi"><div class="k">十进制赔率</div><div class="v" id="r-decimal">—</div></div>
+            <div class="kpi"><div class="k">美式赔率</div><div class="v" id="r-american">—</div></div>
+            <div class="kpi"><div class="k">预计手续费</div><div class="v" id="r-fee">—</div></div>
+            <div class="kpi"><div class="k">平均成本 / 份</div><div class="v" id="r-avg">—</div></div>
+          </div>
+          <div class="kpis" id="ev-block" hidden>
+            <div class="kpi"><div class="k">期望收益（EV）</div><div class="v" id="r-ev">—</div></div>
+            <div class="kpi"><div class="k">凯利建议仓位</div><div class="v" id="r-kelly">—</div></div>
+          </div>
+          <div class="kpis" id="sell-block" hidden>
+            <div class="kpi"><div class="k">提前卖出可得</div><div class="v" id="r-sell">—</div></div>
+            <div class="kpi"><div class="k">提前卖出盈亏</div><div class="v" id="r-sellpl">—</div></div>
+          </div>
+          <div class="explain" id="r-explain">—</div>
+          <p class="note" style="margin:0">费率参数整理自 Polymarket 官方文档（{POLYMARKET.takerFeeRates.map((r) => `${r.label} ${r.rate}`).join('，')}），平台可能调整；未包含出入金等其他费用，结果仅供参考。</p>
+        </div>
+      </div>
+
+      <CTA
+        title="算好了？先准备 USDC"
+        text="Polymarket 用 USDC 结算。通过邀请链接注册交易所买 USDC，可享手续费优惠，再按教程提到 Polymarket。"
+      />
+
+      <div class="prose" style="max-width:860px">
+        <h2>计算公式说明</h2>
+        <ul>
+          <li><strong>吃单手续费</strong>（Polymarket 官方公式）= 份数 × 费率参数 × 价格 ×（1 − 价格）。价格越接近 0.5，手续费越高；限价挂单成交不收费</li>
+          <li><strong>可买份额</strong> = 投入金额 ÷ [价格 ×（1 + 费率参数 ×（1 − 价格））]</li>
+          <li><strong>猜对可拿回</strong> = 份额 × 1 美元</li>
+          <li><strong>净利润</strong> = 猜对可拿回 − 投入金额；<strong>收益率</strong> = 净利润 ÷ 投入金额</li>
+          <li><strong>隐含概率</strong> = 买入价格（0.65 美元 = 65%）</li>
+          <li><strong>十进制赔率</strong> = 1 ÷ 价格；<strong>美式赔率</strong>：价格低于 0.5 时为 +（1/价格 − 1）× 100，高于 0.5 时为 −100 ÷（1/价格 − 1）</li>
+          <li><strong>期望收益</strong> = 你的概率 × 猜对可拿回 − 投入金额</li>
+          <li><strong>凯利仓位</strong> =（你的概率 − 价格）÷（1 − 价格），仅在你的概率高于价格时为正</li>
+        </ul>
+        <h2>举个例子</h2>
+        <p>
+          某市场“是”的价格为 0.25 美元，你投入 50 USDC，可以买 200 份。如果事件发生，200 份兑付 200 美元，净赚 150 美元，收益率 300%；如果没发生，亏掉 50 美元。价格越低，赔率越高，但也说明市场认为它发生的可能性越小。
+        </p>
+        <p>
+          不熟悉规则？推荐先读 <a href="/polymarket/">Polymarket 新手教程</a>，再看看 <a href="/markets/">当前热门市场</a>。
+        </p>
+      </div>
+
+      <FAQ items={faq} />
+      <RiskNote />
+    </div>
+  </section>
+</BaseLayout>
+
+<script>
+  const $ = <T extends HTMLElement>(id: string) => document.getElementById(id) as T;
+  const price = $<HTMLInputElement>('price');
+  const range = $<HTMLInputElement>('price-range');
+  const stake = $<HTMLInputElement>('stake');
+  const feecat = $<HTMLSelectElement>('feecat');
+  const belief = $<HTMLInputElement>('belief');
+  const sell = $<HTMLInputElement>('sell');
+
+  const usd = (v: number) =>
+    `${v < 0 ? '−' : ''}$${Math.abs(v).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+  const pctText = (v: number, d = 1) => `${(v * 100).toFixed(d).replace(/\.0$/, '')}%`;
+  const num = (el: HTMLInputElement) => {
+    const v = parseFloat(el.value);
+    return Number.isFinite(v) ? v : NaN;
+  };
+  const setText = (id: string, text: string, cls?: 'pos' | 'neg' | '') => {
+    const el = $(id);
+    el.textContent = text;
+    if (cls !== undefined) {
+      el.classList.remove('pos', 'neg');
+      if (cls) el.classList.add(cls);
+    }
+  };
+
+  function calc() {
+    const p = num(price);
+    const s = num(stake);
+    const r = Math.max(0, parseFloat(feecat.value) || 0);
+    if (!(p > 0 && p < 1) || !(s > 0)) {
+      $('r-explain').textContent = '请输入 0.01–0.99 之间的价格和大于 0 的金额。';
+      return;
+    }
+    $('price-pct').textContent = `≈ ${Math.round(p * 100)}%`;
+    // 官方吃单手续费公式：fee = 份数 × 费率 × p × (1 − p)
+    // 总花费 S = 份数 × p + 手续费 → 份数 = S / (p × (1 + r × (1 − p)))
+    const shares = s / (p * (1 + r * (1 - p)));
+    const feeAmt = shares * r * p * (1 - p);
+    const payout = shares;
+    const profit = payout - s;
+    const decimal = 1 / p;
+    const american = p < 0.5 ? `+${Math.round((decimal - 1) * 100)}` : `−${Math.round(100 / (decimal - 1))}`;
+
+    setText('r-shares', shares.toLocaleString('en-US', { maximumFractionDigits: 2 }));
+    setText('r-payout', usd(payout));
+    setText('r-profit', usd(profit), profit >= 0 ? 'pos' : 'neg');
+    setText('r-roi', pctText(profit / s), profit >= 0 ? 'pos' : 'neg');
+    setText('r-loss', usd(-s));
+    setText('r-implied', pctText(p, 0));
+    setText('r-decimal', decimal.toFixed(2));
+    setText('r-american', american);
+    setText('r-fee', feeAmt > 0 ? usd(feeAmt) : '$0');
+    setText('r-avg', `$${(s / shares).toFixed(4)}`);
+
+    const b = num(belief) / 100;
+    const evBlock = $('ev-block');
+    let evText = '';
+    if (b > 0 && b < 1) {
+      evBlock.hidden = false;
+      const ev = b * payout - s;
+      setText('r-ev', usd(ev), ev >= 0 ? 'pos' : 'neg');
+      const kelly = (b - p) / (1 - p);
+      setText('r-kelly', kelly > 0 ? `${pctText(kelly)} 资金` : '不建议下注', kelly > 0 ? 'pos' : 'neg');
+      evText =
+        ev >= 0
+          ? ` 按你判断的 ${Math.round(b * 100)}% 概率，这笔交易期望收益为正（${usd(ev)}），但单次仍可能亏损。`
+          : ` 按你判断的 ${Math.round(b * 100)}% 概率，这笔交易期望收益为负（${usd(ev)}），价格偏贵。`;
+    } else {
+      evBlock.hidden = true;
+    }
+
+    const sp = num(sell);
+    const sellBlock = $('sell-block');
+    if (sp >= 0 && sp <= 1 && sell.value !== '') {
+      sellBlock.hidden = false;
+      const proceeds = shares * sp;
+      setText('r-sell', usd(proceeds));
+      setText('r-sellpl', usd(proceeds - s), proceeds - s >= 0 ? 'pos' : 'neg');
+    } else {
+      sellBlock.hidden = true;
+    }
+
+    $('r-explain').textContent =
+      `以 ${p.toFixed(2)} 美元/份买入，${s} USDC 可买约 ${shares.toFixed(2)} 份` +
+      (feeAmt > 0 ? `（其中约 ${usd(feeAmt)} 为吃单手续费）。` : '。') +
+      `结果正确时每份兑付 1 美元，共 ${usd(payout)}，净赚 ${usd(profit)}；结果错误时这部分份额归零，亏损 ${usd(s)}。` +
+      evText;
+  }
+
+  price.addEventListener('input', () => {
+    const p = num(price);
+    if (p > 0 && p < 1) range.value = String(Math.round(p * 100));
+    calc();
+  });
+  range.addEventListener('input', () => {
+    price.value = (Number(range.value) / 100).toFixed(2);
+    calc();
+  });
+  [stake, belief, sell].forEach((el) => el.addEventListener('input', calc));
+  feecat.addEventListener('change', calc);
+  calc();
+</script>

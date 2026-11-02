@@ -1,0 +1,21 @@
+---
+import type { Article } from '../lib/articles';
+import { articleCategory, articleDate, articleUrl, categoryName } from '../lib/articles';
+import { formatDate } from '../lib/format';
+
+export interface Props {
+  article: Article;
+  showCategory?: boolean;
+}
+const { article, showCategory = true } = Astro.props;
+const date = articleDate(article);
+---
+
+<a class="card a-card" href={articleUrl(article)}>
+  {showCategory && <span class="chip chip--primary" style="align-self:flex-start">{categoryName(articleCategory(article))}</span>}
+  <h3>{article.data.title}</h3>
+  <p>{article.data.description}</p>
+  <div class="meta">
+    <time datetime={date.toISOString()}>{formatDate(date)} 更新</time>
+  </div>
+</a>

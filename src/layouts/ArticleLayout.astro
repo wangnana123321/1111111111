@@ -1,0 +1,145 @@
+---
+import type { MarkdownHeading } from 'astro';
+import BaseLayout from './BaseLayout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import TOC from '../components/TOC.astro';
+import FAQ from '../components/FAQ.astro';
+import RiskNote from '../components/RiskNote.astro';
+import SidebarCTA from '../components/SidebarCTA.astro';
+import ArticleCard from '../components/ArticleCard.astro';
+import CTAGroup from '../components/CTAGroup.astro';
+import { SITE } from '../config/site';
+import { CATEGORY_MAP } from '../data/categories';
+import type { Article } from '../lib/articles';
+import {
+  articleCategory,
+  articleUrl,
+  getRelated,
+  readingMinutes,
+} from '../lib/articles';
+import { articleLd, breadcrumbLd, faqLd } from '../lib/seo';
+import { formatDate } from '../lib/format';
+
+export interface Props {
+  entry: Article;
+  headings: MarkdownHeading[];
+}
+
+const { entry, headings } = Astro.props;
+const { data } = entry;
+const cat = CATEGORY_MAP[articleCategory(entry)];
+const path = articleUrl(entry);
+const related = await getRelated(entry, 4);
+const minutes = readingMinutes(entry.body);
+const crumbs = [
+  { name: '首页', href: '/' },
+  { name: cat.name, href: `/${cat.id}/` },
+  { name: data.title },
+];
+const fullTitle = `${data.seoTitle ?? data.title} | ${SITE.name}`;
+const jsonLd = [
+  articleLd({
+    title: data.title,
+    description: data.description,
+    path,
+    published: data.publishDate,
+    modified: data.updatedDate,
+    keywords: data.keywords,
+    section: cat.name,
+  }),
+  breadcrumbLd(crumbs),
+  ...(data.faq.length ? [faqLd(data.faq)] : []),
+];
+const updated = data.updatedDate ?? data.publishDate;
+---
+
+<BaseLayout
+  title={fullTitle}
+  description={data.description}
+  path={path}
+  type="article"
+  jsonLd={jsonLd}
+  publishedTime={data.publishDate}
+  modifiedTime={updated}
+  mobileCta={data.featuredExchanges[0] ?? false}
+>
+  <div class="container">
+    <div class="article-layout">
+      <article>
+        <header class="article-header">
+          <Breadcrumbs items={crumbs} />
+          <h1>{data.title}</h1>
+          <div class="article-meta">
+            <span>
+              更新于 <time datetime={updated.toISOString()}>{formatDate(updated)}</time>
+            </span>
+            <span>阅读约 {minutes} 分钟</span>
+            <span>作者：{SITE.name}编辑部</span>
+          </div>
+        </header>
+
+        {
+          data.tldr.length > 0 && (
+            <section class="tldr" aria-label="要点速览">
+              <h2>要点速览</h2>
+              <ul>
+                {data.tldr.map((item) => (
+                  <li>{item}</li>
+                ))}
+              </ul>
+            </section>
+          )
+        }
+
+        {
+          headings.filter((h) => h.depth === 2).length > 2 && (
+            <details class="toc-mobile">
+              <summary>📑 文章目录</summary>
+              <TOC headings={headings} />
+            </details>
+          )
+        }
+
+        <div class="prose" style="margin-top:24px">
+          <slot />
+        </div>
+
+        <CTAGroup ids={data.featuredExchanges} title="推荐交易所（通过邀请链接注册享手续费优惠）" />
+
+        <FAQ items={data.faq} />
+
+        <RiskNote />
+
+        {
+          related.length > 0 && (
+            <section class="related" aria-labelledby="related-title">
+              <h2 id="related-title">相关阅读</h2>
+              <div class="grid grid-2">
+                {related.map((a) => (
+                  <ArticleCard article={a} />
+                ))}
+              </div>
+            </section>
+          )
+        }
+      </article>
+
+      <aside class="sidebar" aria-label="侧边栏">
+        <div class="sticky">
+          <div class="card side-box">
+            <TOC headings={headings} />
+          </div>
+          <SidebarCTA ids={data.featuredExchanges} />
+          <div class="card side-box">
+            <p class="side-title">🧮 实用工具</p>
+            <ul style="margin:0;padding-left:1.1em;font-size:0.9rem;line-height:1.9">
+              <li><a href="/tools/odds-calculator/">赔率 / 收益计算器</a></li>
+              <li><a href="/tools/rebate-calculator/">返佣计算器</a></li>
+              <li><a href="/tools/deposit-route/">入金路线查询</a></li>
+            </ul>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </div>
+</BaseLayout>

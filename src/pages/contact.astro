@@ -1,0 +1,18 @@
+---
+import PageLayout from '../layouts/PageLayout.astro';
+import { SITE } from '../config/site';
+const email = SITE.contactEmail;
+const { twitter, telegram } = SITE.social;
+---
+
+<PageLayout title="联系我们" description={`联系${SITE.name}：内容纠错、合作与建议。`} path="/contact/">
+  <p>发现文章内容有误、费率过时，或者有合作意向？欢迎联系我们。</p>
+  <ul>
+    {email ? <li>邮箱：<a href={`mailto:${email}`}>{email}</a></li> : <li>邮箱：暂未开放，敬请期待。</li>}
+    {twitter && <li>X（Twitter）：<a href={twitter} rel="noopener" target="_blank">{twitter}</a></li>}
+    {telegram && <li>Telegram：<a href={telegram} rel="noopener" target="_blank">{telegram}</a></li>}
+  </ul>
+  <p class="note">
+    安全提醒：我们不会主动私信你、不会索要你的助记词或私钥、也不提供“代充值”“代下注”服务。任何以本站名义的此类请求都是诈骗。
+  </p>
+</PageLayout>

@@ -1,0 +1,61 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import MobileCTA from '../components/MobileCTA.astro';
+import { SITE } from '../config/site';
+import type { ExchangeId } from '../data/exchanges';
+import { FEATURED_ORDER } from '../config/affiliates';
+
+export interface Props {
+  title: string;
+  description: string;
+  path?: string;
+  image?: string;
+  type?: 'website' | 'article';
+  noindex?: boolean;
+  jsonLd?: Record<string, unknown>[];
+  publishedTime?: Date;
+  modifiedTime?: Date;
+  /** 移动端底部悬浮推广条：传交易所 id，或 'default'（使用主推交易所），false 关闭 */
+  mobileCta?: ExchangeId | 'default' | false;
+}
+
+const { mobileCta = false, ...head } = Astro.props;
+const mobileExchange: ExchangeId | false = mobileCta === 'default' ? FEATURED_ORDER[0] : mobileCta;
+---
+
+<!doctype html>
+<html lang={SITE.lang}>
+  <head>
+    <BaseHead {...head} />
+    <slot name="head" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">跳到正文</a>
+    <Header />
+    <main id="main">
+      <slot />
+    </main>
+    <Footer />
+    {mobileExchange && <MobileCTA exchange={mobileExchange} />}
+
+    <script>
+      // 推广链接点击统计（配置了 GA4 时生效）
+      document.addEventListener('click', (event) => {
+        const target = event.target as HTMLElement | null;
+        const link = target?.closest?.('a[href^="/go/"]') as HTMLAnchorElement | null;
+        if (!link) return;
+        const id = link.getAttribute('href')?.split('/')[2] ?? 'unknown';
+        const gtag = (window as unknown as { gtag?: (...args: unknown[]) => void }).gtag;
+        if (typeof gtag === 'function') {
+          gtag('event', 'affiliate_click', {
+            partner: id,
+            placement: link.dataset.cta ?? 'link',
+            page_path: location.pathname,
+          });
+        }
+      });
+    </script>
+  </body>
+</html>

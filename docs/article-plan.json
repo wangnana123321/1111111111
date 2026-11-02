@@ -1,0 +1,691 @@
+{
+  "generatedAt": "2026-11-02",
+  "articles": [
+    {
+      "path": "/polymarket/what-is-polymarket/",
+      "file": "src/content/articles/polymarket/what-is-polymarket.mdx",
+      "category": "polymarket",
+      "slug": "what-is-polymarket",
+      "title": "Polymarket 是什么？2026 新手完全指南",
+      "keywords": [
+        "polymarket 是什么",
+        "polymarket 介绍",
+        "预测市场是什么",
+        "polymarket 怎么运作",
+        "polymarket 教程"
+      ],
+      "intent": "信息型（支柱页）",
+      "featuredExchanges": [
+        "okx",
+        "binance",
+        "bitget"
+      ],
+      "order": 1,
+      "brief": "支柱入门页。讲清：预测市场定义；“是/否”份额 0–1 美元、猜对兑付 1 美元；价格≈市场隐含概率；与其他用户交易而非与庄家对赌（订单簿）；平台怎么赚钱（2026 年起多数类别收吃单手续费，挂单不收费并有返利）；结算靠 UMA 乐观预言机，可能有争议；常见市场类别；账户余额是 pUSD（2026-04-28 起，1:1 USDC 支持）；国际站与美国版是两个产品；规模数据只用事实库中有来源的并注明“据…报道”。必须有“谁能用/哪些地区受限”一节（简述并链到 /polymarket/availability/）。最后给出新手路线：注册 → 买 USDC → 充值 → 下单 → 提现，分别链到对应文章。",
+      "cta": "在“开始之前要准备什么”一节放 <CTA />；可放 <DepositFlow />；文末附近放 <PolymarketCTA />。"
+    },
+    {
+      "path": "/polymarket/how-to-play/",
+      "file": "src/content/articles/polymarket/how-to-play.mdx",
+      "category": "polymarket",
+      "slug": "how-to-play",
+      "title": "Polymarket 怎么玩？从注册到第一笔下注完整教程",
+      "keywords": [
+        "polymarket 怎么玩",
+        "polymarket 新手教程",
+        "polymarket 注册",
+        "polymarket 怎么下注",
+        "polymarket 怎么下单"
+      ],
+      "intent": "信息型/交易型（核心教程）",
+      "featuredExchanges": [
+        "okx",
+        "binance",
+        "bitget"
+      ],
+      "order": 2,
+      "brief": "一步一步的完整流程。0) 先确认所在地区能否使用（链 /polymarket/availability/）和年龄要求（写“需成年，以用户协议为准”）。1) 注册：Google / 邮箱验证码 / 钱包（MetaMask、Rabby、Phantom）；截至 2026-05 公司表示主站没有强制 KYC（写成公司声明）；国际用户用浏览器访问，谨防假 App（链 /polymarket/app-download/）。2) 准备资金：在交易所买 USDC，选 Polygon 网络提到 Polymarket 充值地址（链 /deposit/how-to-deposit/ 和 /tools/deposit-route/），到账后自动换成 pUSD；最低额以充值页为准。3) 选市场：看规则（Rules/Resolution）、截止时间、成交量与流动性。4) 下单：Buy Yes/No，市价单本质是可立即成交的限价单，吃单可能收手续费，挂单不收；用 /tools/odds-calculator/ 先算。5) 持仓管理：可以随时卖出（链 /strategy/limit-orders-and-selling/），结算后领取（Redeem/Claim，以界面为准）。6) 提现（链 /deposit/withdraw/）。最后列新手常见错误（链 /strategy/beginner-mistakes/）。",
+      "cta": "在第 2 步放 <DepositFlow /> 和 <CTA />；文末放 <PolymarketCTA />。"
+    },
+    {
+      "path": "/polymarket/price-and-odds/",
+      "file": "src/content/articles/polymarket/price-and-odds.mdx",
+      "category": "polymarket",
+      "slug": "price-and-odds",
+      "title": "Polymarket 价格和赔率怎么看？概率与收益计算",
+      "keywords": [
+        "polymarket 赔率",
+        "polymarket 概率怎么看",
+        "polymarket 价格含义",
+        "polymarket 收益怎么算",
+        "polymarket 期望值"
+      ],
+      "intent": "信息型",
+      "featuredExchanges": [
+        "okx",
+        "binance",
+        "bitget"
+      ],
+      "order": 3,
+      "brief": "讲透价格=概率：买价、卖价、价差，页面显示的百分比；“是”+“否”价格约等于 1 美元；收益计算公式与 3 个数值例子（用表格）；多结果市场（neg-risk：任一结果的 1 份“否”可转换为其余每个结果各 1 份“是”）怎么看；换算成十进制赔率/美式赔率；期望值与“你认为的概率”；吃单手续费公式（份数×费率×价格×(1−价格)，价格越接近 0.5 越高，以下单预览为准）；常见误区（低价≠便宜、高价≠稳赢）。多次引导使用 /tools/odds-calculator/。",
+      "cta": "中段放 1 个 <CTA />（例如“准备好 USDC 再实战”）。"
+    },
+    {
+      "path": "/polymarket/fees/",
+      "file": "src/content/articles/polymarket/fees.mdx",
+      "category": "polymarket",
+      "slug": "fees",
+      "title": "Polymarket 手续费是多少？2026 费率与计算公式",
+      "keywords": [
+        "polymarket 手续费",
+        "polymarket 交易费",
+        "polymarket gas费",
+        "polymarket 提现手续费",
+        "polymarket maker rebate"
+      ],
+      "intent": "信息型",
+      "featuredExchanges": [
+        "okx",
+        "binance",
+        "bitget"
+      ],
+      "order": 4,
+      "brief": "2026 年收费变化时间线（事实库：2026-01 起加密 15 分钟市场，2026-02-18 体育，2026-03-30 扩展到几乎所有类别；体育费率 2026-07 上调）；官方公式与各类别费率参数表（注明“2026-10 参考，以下单预览为准”）；每 100 份在 0.5 价位的最高手续费举例；挂单（Maker）不收手续费并可获返利；地缘政治类免手续费；交易 Gas 由平台代付；Polymarket 充值、提现本身不收费，但交易所提币费、MoonPay 买币费另算；第三方前端可能额外加 builder 费；省钱技巧（挂单、选 Polygon 等低费网络、交易所邀请返佣省手续费，链 /tools/rebate-calculator/ 和 /exchange/what-is-rebate/）。不要混入 Polymarket US 费率。",
+      "cta": "在“交易所提币费/省钱技巧”处放 <CTA />。"
+    },
+    {
+      "path": "/polymarket/availability/",
+      "file": "src/content/articles/polymarket/availability.mdx",
+      "category": "polymarket",
+      "slug": "availability",
+      "title": "Polymarket 哪些地区能用？中国大陆、港台新马用户须知",
+      "keywords": [
+        "polymarket 中国能用吗",
+        "polymarket 台湾",
+        "polymarket 香港",
+        "polymarket 新加坡",
+        "polymarket 限制地区",
+        "polymarket 需要vpn吗",
+        "polymarket 合法吗"
+      ],
+      "intent": "信息型（合规敏感）",
+      "featuredExchanges": [
+        "okx",
+        "bitget",
+        "binance"
+      ],
+      "order": 5,
+      "brief": "严格按事实库与红线写。官方限制分级（完全封锁/只能平仓等，统一表述为“无法开新仓”）；受制裁地区完全封锁；美国（用独立的 Polymarket US）、英国、法国、德国、意大利、比利时、波兰、澳大利亚、新加坡、泰国、台湾、加拿大部分省份等受限；日本、韩国情况（注明来源与日期，韩国 2026-08 被要求屏蔽）；中国大陆：禁止虚拟货币交易相关活动，本站不面向大陆用户；香港、马来西亚、澳门：第三方资料称不在 Polymarket 限制名单，但当地法律对博彩/预测市场有风险（香港相关监管提醒写成“据报道”），必须建议读者自行确认当地法律；VPN：用户协议禁止，可能导致账户受限；如何确认：看官方帮助中心“Geographic Restrictions”页面。另外一节说明：各交易所也有服务地区限制（OKX 不服务香港、币安不服务马来西亚等，按事实库），链接 /exchange/best-exchanges/。语气客观，不制造焦虑，不暗示规避方法。",
+      "cta": "正文最多 1 个 <CTA />，放在“交易所也有地区限制”一节附近；不要放 <PolymarketCTA />。"
+    },
+    {
+      "path": "/polymarket/is-it-safe/",
+      "file": "src/content/articles/polymarket/is-it-safe.mdx",
+      "category": "polymarket",
+      "slug": "is-it-safe",
+      "title": "Polymarket 安全吗？资金托管、结算争议与防骗指南",
+      "keywords": [
+        "polymarket 安全吗",
+        "polymarket 靠谱吗",
+        "polymarket 正规吗",
+        "polymarket 骗局",
+        "polymarket 被盗"
+      ],
+      "intent": "信息型",
+      "featuredExchanges": [
+        "okx",
+        "binance",
+        "bitget"
+      ],
+      "order": 6,
+      "brief": "从 5 个角度：1) 资金在哪：链上钱包、pUSD（1:1 USDC 支持），邮箱/Google 账户的代理钱包（事实库标低，表述谨慎）；2) 结算风险：UMA 预言机、争议可能拖数天，WSJ 关于投票集中的报道（据报道）；3) 平台与前端安全事件：2026-06 与 2026-10-29 两次第三方前端供应链攻击（金额写区间、注明据报道、平台表示赔付），说明“即使平台正规也要防签名钓鱼”；4) 市场操纵与内幕交易：刷量研究、涉嫌内幕交易案件（用“被起诉/涉嫌”）；5) 监管与地区风险（链 /polymarket/availability/）。之后给出防骗清单：只用官网书签、不签看不懂的交易、警惕空投领取页（链 /polymarket/airdrop-poly-token/）、假 App（链 /polymarket/app-download/）、假客服、交易所账户开 2FA 和防钓鱼码。",
+      "cta": "在“交易所账户安全”相关段落放 1 个 <CTA />。"
+    },
+    {
+      "path": "/polymarket/airdrop-poly-token/",
+      "file": "src/content/articles/polymarket/airdrop-poly-token.mdx",
+      "category": "polymarket",
+      "slug": "airdrop-poly-token",
+      "title": "Polymarket 空投与 POLY 代币：2026 最新进展与防骗",
+      "keywords": [
+        "polymarket 空投",
+        "poly 代币",
+        "polymarket 发币",
+        "polymarket 撸毛",
+        "polymarket token"
+      ],
+      "intent": "信息型（热点）",
+      "featuredExchanges": [
+        "okx",
+        "binance",
+        "bitget"
+      ],
+      "order": 7,
+      "brief": "事实：截至 2026-11 没有发行代币，没有快照、规则、合约地址；CMO 2025-10 表示“会有代币和空投”；2026 年有关于自建链、IPO 与代币之间权衡的报道（据报道，注明日期）；pUSD 不是 POLY；官方渠道才是唯一可信来源。“怎么撸”只能写：正常使用、不刷量（平台有女巫检测、刷量可能被排除），不保证任何奖励；重点写防骗：假领取页、假邮件、假 App、要求连接钱包签名的网站一律不要碰。可以写“如果你仍想参与，先学会安全地正常使用”的路线（链注册、充值教程）。",
+      "cta": "1 个 <CTA />（准备 USDC 正常使用）；文末 <PolymarketCTA /> 可选。"
+    },
+    {
+      "path": "/polymarket/us-vs-international/",
+      "file": "src/content/articles/polymarket/us-vs-international.mdx",
+      "category": "polymarket",
+      "slug": "us-vs-international",
+      "title": "Polymarket 美国版和国际版有什么区别？",
+      "keywords": [
+        "polymarket 美国版",
+        "polymarket us",
+        "polymarket 国际版",
+        "polymarket 美国能用吗"
+      ],
+      "intent": "信息型",
+      "featuredExchanges": [
+        "okx",
+        "bitget",
+        "binance"
+      ],
+      "order": 8,
+      "brief": "Polymarket US：2025-07 收购 CFTC 持牌的 QCEX，2025-11 获批，2025-12 推出 iOS App，仅美国居民、完整 KYC、法币入金、市场范围较窄、州可用性有争议、独立的费率和邀请计划。国际版：polymarket.com，面向美国以外用户（受限地区除外），加密货币入金，主站无强制 KYC（公司声明），市场更全，不对美国用户开放。用对比表。讲清两边账户不互通。中文读者在美国：只能用美国版；在其他地区：看是否受限（链 /polymarket/availability/）。不要把美国版的费率/州列表写进国际版教程。",
+      "cta": "1 个 <CTA />（国际版用户买 USDC）。"
+    },
+    {
+      "path": "/polymarket/alternatives/",
+      "file": "src/content/articles/polymarket/alternatives.mdx",
+      "category": "polymarket",
+      "slug": "alternatives",
+      "title": "Polymarket 替代品：2026 主流预测市场平台对比",
+      "keywords": [
+        "预测市场平台",
+        "polymarket 替代",
+        "kalshi",
+        "预测市场有哪些",
+        "polymarket kalshi 区别"
+      ],
+      "intent": "商业型",
+      "featuredExchanges": [
+        "gate",
+        "bybit",
+        "okx"
+      ],
+      "order": 9,
+      "brief": "按事实库第 9 节写：Kalshi（CFTC 监管、需 KYC、成交量份额据报道）、交易所内的预测入口（Gate App 接入 Polymarket、Bybit Prediction 用 Polymarket 流动性、Bitget Wallet 接入 Polymarket、Binance Wallet 接入 predict.fun（不是 Polymarket）、OKX 事件合约只做 BTC/ETH 等涨跌）、Opinion、predict.fun、Limitless、Myriad、Manifold（游戏币）。做一张对比表：平台 | 结算币 | 链/形态 | 是否需 KYC | 特点 | 注意事项（低置信度的写“以官方为准”）。重点导向：想少折腾链上转账的人可以看交易所内入口（链 /exchange/polymarket-in-exchange-apps/）。各地区能否使用均需自行确认。",
+      "cta": "放 <CTA exchange=\"gate\" /> 与 <CTA exchange=\"bybit\" />（各 1 个）。"
+    },
+    {
+      "path": "/polymarket/app-download/",
+      "file": "src/content/articles/polymarket/app-download.mdx",
+      "category": "polymarket",
+      "slug": "app-download",
+      "title": "Polymarket App 怎么下载？官方入口与防假冒指南",
+      "keywords": [
+        "polymarket app",
+        "polymarket app 下载",
+        "polymarket 手机版",
+        "polymarket ios",
+        "polymarket 安卓"
+      ],
+      "intent": "导航型",
+      "featuredExchanges": [
+        "okx",
+        "binance",
+        "bitget"
+      ],
+      "order": 10,
+      "brief": "事实库：官方帮助中心说明 polymarket.com 面向美国以外用户、用浏览器访问；App Store 的 App 是美国版，Android 显示 Coming soon；也有第三方称 iOS 已对更多人开放，二者冲突 → 写“以官网指引为准”。教读者：用手机浏览器打开官网并“添加到主屏幕”；只从官网链接进入；识别假 App/假网站的方法（域名、开发者名称、要求助记词/私钥/签名的一律是骗局）。也可以介绍在交易所 App 内参与 Polymarket 市场的替代方式（链 /exchange/polymarket-in-exchange-apps/）。",
+      "cta": "1 个 <CTA exchange=\"gate\" title=\"想在 App 里直接参与？\" text=\"……\" /> 或 <CTA />。"
+    },
+    {
+      "path": "/deposit/how-to-deposit/",
+      "file": "src/content/articles/deposit/how-to-deposit.mdx",
+      "category": "deposit",
+      "slug": "how-to-deposit",
+      "title": "Polymarket 怎么充值？2026 入金方法全对比",
+      "keywords": [
+        "polymarket 充值",
+        "polymarket 入金",
+        "polymarket 怎么充值",
+        "polymarket 充值 usdt",
+        "polymarket 最低充值"
+      ],
+      "intent": "交易型（核心导流支柱页）",
+      "featuredExchanges": [
+        "okx",
+        "binance",
+        "bitget"
+      ],
+      "order": 1,
+      "brief": "入金支柱页。先讲账户余额是 pUSD（2026-04-28 起，1:1 USDC），充值后自动转换。方式对比表：①交易所提 USDC（Polygon 网络，最推荐）②其他网络（Arbitrum/Base/Optimism/Solana/以太坊/BNB Chain 等，经充值桥自动转换）③USDT 也可经充值桥转换（以充值页显示为准）④银行卡（MoonPay，费用约 1–4.5%，据第三方）⑤从自己的钱包转入。最低额：写事实库中的官方文档参考值并强调“以充值页显示为准”。主流程步骤（通用版），并链到各交易所专门教程（/deposit/binance-to-polymarket/、/deposit/okx-to-polymarket/、/deposit/bitget-to-polymarket/）、/tools/deposit-route/、/deposit/buy-usdc/、/deposit/polygon-usdc-pusd/、/deposit/deposit-troubleshooting/。安全提示：每次从充值页复制地址、网络一致、先小额测试。",
+      "cta": "放 <DepositFlow />、1 个 <CTA />、1 个 <ExchangeTable compact />。"
+    },
+    {
+      "path": "/deposit/binance-to-polymarket/",
+      "file": "src/content/articles/deposit/binance-to-polymarket.mdx",
+      "category": "deposit",
+      "slug": "binance-to-polymarket",
+      "title": "币安充值 Polymarket 教程：买 USDC 提到 Polygon",
+      "keywords": [
+        "币安 充值 polymarket",
+        "币安 提币 polymarket",
+        "币安 usdc polygon",
+        "polymarket 币安"
+      ],
+      "intent": "交易型",
+      "featuredExchanges": [
+        "binance",
+        "okx",
+        "bitget"
+      ],
+      "order": 2,
+      "brief": "开头必须有 <Callout type=\"warning\">：据报道币安 2026-10-29 发生热钱包被盗事件，官方称用户不承担损失，2026-11-01 起分阶段恢复提币（首批含 Polygon），写“截至 2026 年 11 月初”，请先查看币安官方公告确认通道状态。地区：币安不服务美国（Binance.US 独立）、英国新用户、加拿大、马来西亚、新加坡、中国大陆，欧盟新业务已暂停（按事实库）。步骤：注册（链 /exchange/binance-register/）→ KYC → 买 USDT/USDC（P2P、银行卡）→ 兑换成 USDC → 在 Polymarket 复制 Polygon 网络充值地址 → 币安提币：选 USDC、网络选 Polygon（界面可能显示 Polygon POS/POL）、币安支持原生 USDC（不支持 USDC.e）、手续费和最低额以提币页为准 → 先小额测试 → 到账确认。常见问题：新账户/新地址提币锁定、Travel Rule 申报、网络维护暂停。",
+      "cta": "开头警示后放 <CTA exchange=\"binance\" />；可放 <DepositFlow exchange=\"binance\" />；文末不重复。"
+    },
+    {
+      "path": "/deposit/okx-to-polymarket/",
+      "file": "src/content/articles/deposit/okx-to-polymarket.mdx",
+      "category": "deposit",
+      "slug": "okx-to-polymarket",
+      "title": "OKX 充值 Polymarket 教程：欧易提 USDC 详细步骤",
+      "keywords": [
+        "okx 充值 polymarket",
+        "欧易 提币 polymarket",
+        "okx usdc polygon",
+        "polymarket okx"
+      ],
+      "intent": "交易型",
+      "featuredExchanges": [
+        "okx",
+        "binance",
+        "bitget"
+      ],
+      "order": 3,
+      "brief": "地区：OKX 不服务香港（2024-05-31 起）、加拿大、马来西亚、中国大陆，美国用户使用独立的 OKX US，新加坡由 OKX SG 服务（按事实库）。步骤：注册（链 /exchange/okx-register/）→ KYC → 买 USDT/USDC（P2P/银行卡）→ 换成 USDC → Polymarket 复制 Polygon 充值地址 → OKX 提币选 USDC、网络 Polygon，也可选 Base/Arbitrum 等 Polymarket 支持的网络（注意最低额）→ 小额测试 → 到账。说明 OKX 邀请返佣的机制（被邀请人返佣 0–20% 由邀请人设置，交易后另行返还，以注册页为准）。",
+      "cta": "开头附近 <CTA exchange=\"okx\" />；可放 <DepositFlow exchange=\"okx\" />。"
+    },
+    {
+      "path": "/deposit/bitget-to-polymarket/",
+      "file": "src/content/articles/deposit/bitget-to-polymarket.mdx",
+      "category": "deposit",
+      "slug": "bitget-to-polymarket",
+      "title": "Bitget 充值 Polymarket 教程：提 USDC 步骤与注意事项",
+      "keywords": [
+        "bitget 充值 polymarket",
+        "bitget 提币 polymarket",
+        "bitget usdc",
+        "polymarket bitget"
+      ],
+      "intent": "交易型",
+      "featuredExchanges": [
+        "bitget",
+        "okx",
+        "binance"
+      ],
+      "order": 4,
+      "brief": "Bitget 的具体网络支持和费用在事实库中置信度低：步骤写通用版，并明确“在提币页确认 USDC 是否提供 Polygon 网络；若没有，可选 Polymarket 充值桥支持的其他网络（Arbitrum、Base、Solana 等），务必与 Polymarket 充值页选择的网络一致”。也可以介绍 Bitget Wallet 接入 Polymarket（2026-04，据报道，自托管钱包）作为另一条路径，但写清“钱包与交易所是两个产品”。地区限制按事实库（低置信度写“以官网为准”）。",
+      "cta": "开头附近 <CTA exchange=\"bitget\" />。"
+    },
+    {
+      "path": "/deposit/buy-usdc/",
+      "file": "src/content/articles/deposit/buy-usdc.mdx",
+      "category": "deposit",
+      "slug": "buy-usdc",
+      "title": "USDC 怎么买？新手购买 USDC 教程（2026）",
+      "keywords": [
+        "usdc 怎么买",
+        "usdc 是什么",
+        "usdc 和 usdt 区别",
+        "购买 usdc",
+        "usdc 在哪买"
+      ],
+      "intent": "交易型",
+      "featuredExchanges": [
+        "okx",
+        "binance",
+        "bitget"
+      ],
+      "order": 5,
+      "brief": "USDC 是什么（Circle 发行、与美元 1:1、储备资产），与 USDT 的区别（发行方、透明度、监管，用表格；不做绝对化结论）；历史上也短暂脱锚过（2023 年 3 月硅谷银行事件，属于常识）；购买途径：交易所 P2P（新台币、港币、马币、新币、美元等，以交易所支持为准）、银行卡、先买 USDT 再兑换；步骤；手续费构成；买完之后去哪：给 Polymarket 充值（链 /deposit/how-to-deposit/）。说明原生 USDC 与 USDC.e 的区别并链 /deposit/polygon-usdc-pusd/。",
+      "cta": "放 1 个 <CTAGroup /> 或 <CTA />（只选一种）。"
+    },
+    {
+      "path": "/deposit/polygon-usdc-pusd/",
+      "file": "src/content/articles/deposit/polygon-usdc-pusd.mdx",
+      "category": "deposit",
+      "slug": "polygon-usdc-pusd",
+      "title": "Polygon、USDC、USDC.e 与 pUSD 有什么区别？一次讲清",
+      "keywords": [
+        "usdc polygon",
+        "usdc.e 和 usdc 区别",
+        "pusd 是什么",
+        "polymarket pusd",
+        "polygon 网络"
+      ],
+      "intent": "信息型",
+      "featuredExchanges": [
+        "okx",
+        "binance",
+        "bitget"
+      ],
+      "order": 6,
+      "brief": "解释：Polygon 是什么（以太坊侧链/扩容网络，费用低；2024-09 起 gas 代币从 MATIC 改为 POL，交易所可能显示 Polygon POS/POL）；原生 USDC（合约 0x3c499c542cEF5E3811e1192ce70d8cC03d5c3359）与桥接 USDC.e（0x2791Bca1f2de4661ED88A30C99A7a9449Aa84174）的区别；pUSD 是 Polymarket 自 2026-04-28 起使用的交易抵押币（1:1 USDC 支持，网页端一次签名免费转换）；充值时各种稳定币如何被转换；提现时为什么要选 USDC（Polygon）提回交易所，不要把 pUSD 或 USDC.e 直接发到交易所，并在交易所充值页核对合约地址；币安不支持 USDC.e。用对比表。",
+      "cta": "1 个 <CTA />。"
+    },
+    {
+      "path": "/deposit/withdraw/",
+      "file": "src/content/articles/deposit/withdraw.mdx",
+      "category": "deposit",
+      "slug": "withdraw",
+      "title": "Polymarket 怎么提现？出金到交易所换成法币教程",
+      "keywords": [
+        "polymarket 提现",
+        "polymarket 出金",
+        "polymarket 提现到交易所",
+        "polymarket 提现手续费",
+        "polymarket 怎么取钱"
+      ],
+      "intent": "交易型（核心导流）",
+      "featuredExchanges": [
+        "okx",
+        "binance",
+        "bitget"
+      ],
+      "order": 7,
+      "brief": "流程：结算后领取收益（Redeem/Claim，以界面为准）→ Polymarket 点 Withdraw → 选择网络和币种（默认 USDC on Polygon，也支持其他链）→ 在交易所充值页复制 USDC（Polygon）地址并核对是否支持原生 USDC → 粘贴、核对、先小额测试 → 一般几分钟到账；Polymarket 不收提现费，但有网络费用。到交易所后：USDC 换 USDT/法币（P2P 卖出或法币出金，因地区而异），注意银行风控与当地税务（只做一般提醒）。安全提醒：不要发 pUSD/USDC.e 到交易所；地址白名单；警惕“代提现”骗局。",
+      "cta": "在“到交易所换成法币”一节放 <CTA />。"
+    },
+    {
+      "path": "/deposit/deposit-troubleshooting/",
+      "file": "src/content/articles/deposit/deposit-troubleshooting.mdx",
+      "category": "deposit",
+      "slug": "deposit-troubleshooting",
+      "title": "Polymarket 充值没到账？选错网络、充错币的解决办法",
+      "keywords": [
+        "polymarket 充值没到账",
+        "polymarket 选错网络",
+        "polymarket 充错币",
+        "提币选错网络怎么办",
+        "polymarket 充值 pending"
+      ],
+      "intent": "信息型（问题排查）",
+      "featuredExchanges": [
+        "okx",
+        "binance",
+        "bitget"
+      ],
+      "order": 8,
+      "brief": "排查清单（有序）：1) 金额低于最低额 → 不处理/挂起；2) 交易所端还在审核/新账户锁定/网络维护 → 看提币记录状态；3) 用 TxID 在 Polygonscan 等区块浏览器查询；4) 选错网络或币种：事实库给出的官方恢复途径（以太坊和 Polygon 有自助恢复工具，Base/Arbitrum/Optimism/BSC 需联系客服，其他网络目前可能无法找回；发到交易合约地址的资金无法找回）——写“以帮助中心‘Recover Missing Deposit’说明为准”；5) 联系官方客服的正确方式（help.polymarket.com），警惕冒充客服。预防：每次从充值页复制地址、网络一致、小额测试、用支持 Polygon 原生 USDC 的交易所（链 /tools/deposit-route/）。",
+      "cta": "在“预防”一节放 1 个 <CTA />。"
+    },
+    {
+      "path": "/exchange/best-exchanges/",
+      "file": "src/content/articles/exchange/best-exchanges.mdx",
+      "category": "exchange",
+      "slug": "best-exchanges",
+      "title": "2026 交易所怎么选？币安、OKX、Bitget、Gate、Bybit 对比",
+      "keywords": [
+        "交易所 哪个好",
+        "加密货币交易所 推荐",
+        "交易所 对比",
+        "币安 okx 哪个好",
+        "polymarket 用哪个交易所"
+      ],
+      "intent": "商业型（核心转化）",
+      "featuredExchanges": [
+        "okx",
+        "binance",
+        "bitget"
+      ],
+      "order": 1,
+      "brief": "选择标准：安全记录、你所在地区是否可用、手续费、是否支持 Polygon 提 USDC、法币入金方式、邀请返佣、是否有站内 Polymarket 入口。放 <ExchangeTable />。逐家点评（优点/缺点/适合谁），必须写：币安 2026-10-29 安全事件与分阶段恢复提币（据报道）；OKX 2025 年美国认罪及不服务香港；Bybit 2025-02 被盗约 14 亿美元（平台已兑付）；Gate、Bybit 有站内 Polymarket 入口（链 /exchange/polymarket-in-exchange-apps/）；Bitget、Gate、Bybit 的细节在事实库置信度低 → 写“以官网为准”。按场景推荐：只想给 Polymarket 入金、想在 App 内直接参与、想低费率交易。地区可用性必须提醒读者核对各交易所用户协议。",
+      "cta": "<ExchangeTable /> 1 个 + <CTAGroup /> 1 个 + 最多 1 个 <CTA />。"
+    },
+    {
+      "path": "/exchange/polymarket-in-exchange-apps/",
+      "file": "src/content/articles/exchange/polymarket-in-exchange-apps.mdx",
+      "category": "exchange",
+      "slug": "polymarket-in-exchange-apps",
+      "title": "不用钱包也能玩 Polymarket？Gate、Bybit 站内入口教程",
+      "keywords": [
+        "gate polymarket",
+        "bybit prediction",
+        "交易所 预测市场",
+        "币安 预测市场",
+        "okx 事件合约",
+        "bitget wallet polymarket"
+      ],
+      "intent": "交易型（高转化）",
+      "featuredExchanges": [
+        "gate",
+        "bybit",
+        "bitget"
+      ],
+      "order": 2,
+      "brief": "核心卖点：不用自己做链上转账也能参与 Polymarket 市场。按事实库第 9 节：Gate App 2026-03-24 接入 Polymarket（公测、需较新版本，交易所用户用现货 USDT，订单进入 Polymarket 订单簿）；Bybit Prediction 约 2026-06 在 Bybit Alpha 上线（先上足球，用 Polymarket 流动性，用账户内 USDC，FOK 订单，收 Polymarket 费用加 Bybit 服务费；具体费率不写）；Bitget Wallet 2026-04 接入 Polymarket（自托管钱包，不是交易所账户）；Binance Wallet 的预测功能接的是 predict.fun（不是 Polymarket，需独立 MPC 预测账户、USDT）；OKX 事件合约只是 BTC/ETH 等涨跌合约（不是综合预测市场）。对比表：入口 | 用什么币 | 是否 Polymarket 流动性 | 优点 | 注意。优缺点 vs 直接用 polymarket.com（便利 vs 市场范围、费用、各地区可用性未核实）。每家给“大致操作路径”（写成以 App 界面为准的描述，不编造按钮名）。强调：这些入口在各地区能否使用以交易所公告为准，受限地区不要尝试规避。",
+      "cta": "<CTA exchange=\"gate\" /> 与 <CTA exchange=\"bybit\" /> 各 1 个，可再加 <CTA exchange=\"bitget\" />（合计不超过 3 个）。"
+    },
+    {
+      "path": "/exchange/what-is-rebate/",
+      "file": "src/content/articles/exchange/what-is-rebate.mdx",
+      "category": "exchange",
+      "slug": "what-is-rebate",
+      "title": "交易所返佣是什么？手续费返佣怎么算、怎么领",
+      "keywords": [
+        "交易所返佣",
+        "手续费返佣",
+        "返佣是什么",
+        "邀请码返佣",
+        "币安返佣怎么领"
+      ],
+      "intent": "信息型/商业型",
+      "featuredExchanges": [
+        "okx",
+        "binance",
+        "bitget"
+      ],
+      "order": 3,
+      "brief": "机制：邀请人佣金 vs 被邀请人返还（kickback）；币安普通推荐计划（现货：邀请人 20% 基础佣金，可分给被邀请人 0/5/10%，持 500 BNB 以上可达 40% 并分最多 20%；合约返还最多约 10%，12 个月；被邀请人到 VIP3 后停止）——写“据币安推荐计划说明（2026-11 整理），以官方页面为准”；OKX：被邀请人返佣 0–20% 由邀请人设置，交易后另行返还；联盟（Affiliate）计划比例更高但面向推广者。规则共性：一般只能注册时填写，注册后通常不能补填；有效期与等级上限；返还币种。计算举例（表格）并链 /tools/rebate-calculator/。避坑：宣称远超官方上限的“返佣码”、要求交出账户的第三方返佣平台。说明本站链接的返佣比例以注册页显示为准。",
+      "cta": "<CTAGroup /> 1 个 + 最多 1 个 <CTA />。"
+    },
+    {
+      "path": "/exchange/binance-register/",
+      "file": "src/content/articles/exchange/binance-register.mdx",
+      "category": "exchange",
+      "slug": "binance-register",
+      "title": "币安注册教程：邀请码返佣与 KYC 认证（2026）",
+      "keywords": [
+        "币安注册",
+        "币安邀请码",
+        "币安返佣",
+        "binance 注册教程",
+        "币安推荐码"
+      ],
+      "intent": "交易型",
+      "featuredExchanges": [
+        "binance",
+        "okx",
+        "bitget"
+      ],
+      "order": 4,
+      "brief": "开头简述币安是什么 + 必须的 <Callout type=\"warning\">（2026-10-29 安全事件与提币分阶段恢复，据报道，截至 2026-11 初，查看官方公告）。地区可用性（按事实库）。注册步骤：通过邀请链接打开官网（binance.com）→ 邮箱/手机号 → 设置密码 → 确认推荐 ID 已自动填入（注册后一般不能补填）→ 完成 KYC → 安全设置（2FA、防钓鱼码）。返佣机制（按事实库，写“以注册页显示为准”）；BNB 抵扣 25%；App 只从官方商店或官网下载。下一步：买 USDC 并充值 Polymarket（链 /deposit/binance-to-polymarket/）。",
+      "cta": "<CTA exchange=\"binance\" /> 2 个（开头警示后 1 个、注册步骤处 1 个）。"
+    },
+    {
+      "path": "/exchange/okx-register/",
+      "file": "src/content/articles/exchange/okx-register.mdx",
+      "category": "exchange",
+      "slug": "okx-register",
+      "title": "OKX 欧易注册教程：邀请码返佣与认证步骤（2026）",
+      "keywords": [
+        "okx 注册",
+        "欧易注册",
+        "okx 邀请码",
+        "okx 返佣",
+        "欧易邀请码"
+      ],
+      "intent": "交易型",
+      "featuredExchanges": [
+        "okx",
+        "binance",
+        "bitget"
+      ],
+      "order": 5,
+      "brief": "OKX 简介（okx.com，2022 年由 OKEx 更名）；地区可用性（不服务香港、加拿大、马来西亚、中国大陆；美国用 OKX US；新加坡由 OKX SG 服务）；合规记录（2025-02 美国认罪约 5.04 亿美元，属事实库中等置信度）；注册步骤（通过邀请链接 → 邮箱/手机 → 确认邀请码 → KYC → 安全设置）；费率（现货挂单 0.08%/吃单 0.10%，合约 0.02%/0.05%，按用户等级，以官网为准）；返佣机制（被邀请人 0–20%，邀请人设置，交易后返还）；假 App 警示（只从官方渠道下载）；下一步链 /deposit/okx-to-polymarket/。",
+      "cta": "<CTA exchange=\"okx\" /> 2 个。"
+    },
+    {
+      "path": "/exchange/bitget-register/",
+      "file": "src/content/articles/exchange/bitget-register.mdx",
+      "category": "exchange",
+      "slug": "bitget-register",
+      "title": "Bitget 注册教程：邀请码返佣与新手指南",
+      "keywords": [
+        "bitget 注册",
+        "bitget 邀请码",
+        "bitget 返佣",
+        "bitget 安全吗"
+      ],
+      "intent": "交易型",
+      "featuredExchanges": [
+        "bitget",
+        "okx",
+        "binance"
+      ],
+      "order": 6,
+      "brief": "Bitget 相关事实在事实库多为低置信度：费率写“现货标准费率约 0.1%，合约挂单 0.02%/吃单 0.06%，以官网费率页为准”，BGB 抵扣有折扣；地区限制写“据资料包括美国、加拿大、新加坡、香港、中国大陆等，以官网用户协议为准”；跟单交易特色；Bitget Wallet 是独立的自托管钱包产品，并已接入 Polymarket（据报道）。注册步骤通用版 + 安全设置 + 返佣机制（以注册页为准）。下一步链 /deposit/bitget-to-polymarket/ 与 /exchange/polymarket-in-exchange-apps/。",
+      "cta": "<CTA exchange=\"bitget\" /> 2 个。"
+    },
+    {
+      "path": "/exchange/gate-register/",
+      "file": "src/content/articles/exchange/gate-register.mdx",
+      "category": "exchange",
+      "slug": "gate-register",
+      "title": "Gate 注册教程：邀请码返佣与站内玩 Polymarket",
+      "keywords": [
+        "gate 注册",
+        "gate.io 注册",
+        "gate 邀请码",
+        "gate 返佣",
+        "gate polymarket"
+      ],
+      "intent": "交易型",
+      "featuredExchanges": [
+        "gate",
+        "okx",
+        "bybit"
+      ],
+      "order": 7,
+      "brief": "Gate 简介（2025 年起主域名为 gate.com，原 gate.io，提醒认准官方域名）；亮点：2026-03 Gate App 接入 Polymarket（公测，用现货 USDT 参与，据报道，以 App 为准）→ 链 /exchange/polymarket-in-exchange-apps/；费率（低置信度，写约 0.1% 与 GT 抵扣，以官网为准）；香港用户由独立实体服务（低置信度，写以官网为准）；注册步骤通用版、KYC、安全设置；返佣机制以注册页为准。",
+      "cta": "<CTA exchange=\"gate\" /> 2 个。"
+    },
+    {
+      "path": "/exchange/bybit-register/",
+      "file": "src/content/articles/exchange/bybit-register.mdx",
+      "category": "exchange",
+      "slug": "bybit-register",
+      "title": "Bybit 注册教程：邀请码返佣与安全性分析",
+      "keywords": [
+        "bybit 注册",
+        "bybit 邀请码",
+        "bybit 返佣",
+        "bybit 安全吗",
+        "bybit prediction"
+      ],
+      "intent": "交易型",
+      "featuredExchanges": [
+        "bybit",
+        "okx",
+        "binance"
+      ],
+      "order": 8,
+      "brief": "Bybit 简介；安全性：2025-02-21 冷钱包被盗约 14–15 亿美元等值 ETH，FBI 归因朝鲜 Lazarus，平台保持偿付并补足（事实库中等置信度）；亮点：Bybit Prediction（约 2026-06 上线，用 Polymarket 流动性，用账户内 USDC，据报道）→ 链 /exchange/polymarket-in-exchange-apps/；费率（现货约 0.1%，合约挂单 0.02%/吃单 0.055%，以官网为准）；地区限制（低置信度，以官网为准）；注册步骤、KYC、安全设置；返佣以注册页为准。",
+      "cta": "<CTA exchange=\"bybit\" /> 2 个。"
+    },
+    {
+      "path": "/strategy/how-to-make-money/",
+      "file": "src/content/articles/strategy/how-to-make-money.mdx",
+      "category": "strategy",
+      "slug": "how-to-make-money",
+      "title": "Polymarket 怎么赚钱？常见策略与真实风险",
+      "keywords": [
+        "polymarket 赚钱",
+        "polymarket 策略",
+        "polymarket 盈利",
+        "预测市场 赚钱",
+        "polymarket 技巧"
+      ],
+      "intent": "信息型",
+      "featuredExchanges": [
+        "okx",
+        "binance",
+        "bitget"
+      ],
+      "order": 1,
+      "brief": "先说实话：多数参与者亏钱、成交量高度集中（如有事实库来源则注明，否则定性描述）。可行思路（每条都写原理+风险）：信息与专业优势（只在熟悉领域下注）、价格偏离你判断时才交易（期望值，链 /tools/odds-calculator/）、用限价单挂单省手续费并获挂单返利/流动性奖励（链 /strategy/limit-orders-and-selling/）、提前卖出锁定利润、持仓奖励（事实库低置信度 → 只写“部分市场曾推出持仓奖励，以官方为准”）、套利（链 /strategy/arbitrage/）。风险管理：仓位、凯利公式要打折、避免长尾彩票心态、读懂结算规则。明确：利用内幕信息交易违法，已有涉嫌内幕交易被起诉的案例（据报道）。",
+      "cta": "1 个 <CTA />（交易成本/返佣）。"
+    },
+    {
+      "path": "/strategy/beginner-mistakes/",
+      "file": "src/content/articles/strategy/beginner-mistakes.mdx",
+      "category": "strategy",
+      "slug": "beginner-mistakes",
+      "title": "为什么多数人在 Polymarket 亏钱？新手 10 个常见错误",
+      "keywords": [
+        "polymarket 亏钱",
+        "polymarket 新手",
+        "预测市场 风险",
+        "polymarket 注意事项"
+      ],
+      "intent": "信息型",
+      "featuredExchanges": [
+        "okx",
+        "binance",
+        "bitget"
+      ],
+      "order": 2,
+      "brief": "10 个错误（每个：表现 + 后果 + 怎么避免）：不读结算规则；以为 95 美分买入是“白捡”（尾部风险）；迷信低价彩票；忽视手续费和价差；在冷清市场用市价单（滑点）；情绪化押注支持的球队/候选人；频繁交易；充值选错网络/币种（链 /deposit/deposit-troubleshooting/）；点击空投/假客服链接（链 /polymarket/is-it-safe/）；在受限地区用 VPN 导致账户受限（只陈述后果，不教方法，链 /polymarket/availability/）；不做仓位管理。结尾给新手检查清单。",
+      "cta": "1 个 <CTA />，放在“充值选错网络”相关处。"
+    },
+    {
+      "path": "/strategy/limit-orders-and-selling/",
+      "file": "src/content/articles/strategy/limit-orders-and-selling.mdx",
+      "category": "strategy",
+      "slug": "limit-orders-and-selling",
+      "title": "Polymarket 限价单与提前卖出：锁定利润、控制亏损",
+      "keywords": [
+        "polymarket 限价单",
+        "polymarket 卖出",
+        "polymarket 提前卖出",
+        "polymarket 挂单",
+        "polymarket 市价单"
+      ],
+      "intent": "信息型",
+      "featuredExchanges": [
+        "okx",
+        "binance",
+        "bitget"
+      ],
+      "order": 3,
+      "brief": "所有订单本质是限价单，市价单=可立即成交的限价单；最小价格单位（tick）与最小下单份数因市场而异；挂单 vs 吃单（挂单不收手续费并可获返利，吃单按公式收费）；怎么挂限价单、部分成交、撤单；提前卖出：盈亏计算举例（表格）；“是”+“否”合并、拆分的概念（1 份“是”+1 份“否”=1 美元，按官方机制描述，避免写具体按钮）；结算后领取；没有把握的功能（如止损单）不要写成存在。链 /tools/odds-calculator/（有提前卖出计算）。",
+      "cta": "1 个 <CTA />。"
+    },
+    {
+      "path": "/strategy/arbitrage/",
+      "file": "src/content/articles/strategy/arbitrage.mdx",
+      "category": "strategy",
+      "slug": "arbitrage",
+      "title": "Polymarket 套利是什么？原理、类型与风险",
+      "keywords": [
+        "polymarket 套利",
+        "预测市场 套利",
+        "polymarket 对冲",
+        "polymarket kalshi 套利"
+      ],
+      "intent": "信息型",
+      "featuredExchanges": [
+        "okx",
+        "binance",
+        "bitget"
+      ],
+      "order": 4,
+      "brief": "原理：同一结果的价格之和偏离 1 美元时的无风险/低风险组合；类型：同一市场“是+否”小于 1、多结果市场“是”价格之和小于 1（neg-risk 转换）、跨平台（Polymarket vs Kalshi 等；注意两边规则措辞不同、地区限制、KYC）、时间价值；成本：吃单手续费公式（价格接近 0.5 时最高）、价差、滑点、资金占用、提现费用；风险：结算规则差异、结算争议、执行风险（一边成交一边没成交）、机器人竞争。给一个带手续费的数值例子（表格）。结论：机会少、门槛高，新手先学基础。",
+      "cta": "1 个 <CTA />。"
+    }
+  ]
+}

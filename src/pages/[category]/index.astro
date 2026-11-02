@@ -1,0 +1,112 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import ArticleCard from '../../components/ArticleCard.astro';
+import ExchangeTable from '../../components/ExchangeTable.astro';
+import CTAGroup from '../../components/CTAGroup.astro';
+import DepositFlow from '../../components/DepositFlow.astro';
+import RiskNote from '../../components/RiskNote.astro';
+import { CATEGORIES, type Category } from '../../data/categories';
+import { SITE } from '../../config/site';
+import { articleUrl, getArticlesByCategory } from '../../lib/articles';
+import { breadcrumbLd, collectionLd } from '../../lib/seo';
+
+export function getStaticPaths() {
+  return CATEGORIES.map((cat) => ({ params: { category: cat.id }, props: { cat } }));
+}
+
+const { cat } = Astro.props as { cat: Category };
+const articles = await getArticlesByCategory(cat.id);
+const path = `/${cat.id}/`;
+const crumbs = [{ name: '首页', href: '/' }, { name: cat.name }];
+const jsonLd = [
+  breadcrumbLd(crumbs),
+  collectionLd({
+    name: cat.title,
+    description: cat.description,
+    path,
+    items: articles.map((a) => ({ name: a.data.title, path: articleUrl(a) })),
+  }),
+];
+---
+
+<BaseLayout title={`${cat.seoTitle} | ${SITE.name}`} description={cat.description} path={path} jsonLd={jsonLd} mobileCta="default">
+  <section class="page-head">
+    <div class="container">
+      <Breadcrumbs items={crumbs} />
+      <h1>{cat.icon} {cat.title}</h1>
+      {cat.intro.map((p) => <p>{p}</p>)}
+    </div>
+  </section>
+
+  {
+    cat.id === 'exchange' && (
+      <section class="section">
+        <div class="container">
+          <div class="section-head">
+            <div>
+              <h2>主流交易所对比（2026）</h2>
+              <p>手续费、Polygon 网络提 USDC、法币入金方式一表看清</p>
+            </div>
+            <a class="more" href="/tools/rebate-calculator/">算算返佣能省多少 →</a>
+          </div>
+          <ExchangeTable />
+          <CTAGroup />
+        </div>
+      </section>
+    )
+  }
+
+  {
+    cat.id === 'deposit' && (
+      <section class="section">
+        <div class="container">
+          <DepositFlow />
+          <p class="center">
+            <a class="btn btn--primary" href="/tools/deposit-route/">查询你所用交易所的入金路线 →</a>
+          </p>
+        </div>
+      </section>
+    )
+  }
+
+  <section class:list={['section', { 'section--soft': cat.id === 'exchange' || cat.id === 'deposit' }]}>
+    <div class="container">
+      <div class="section-head">
+        <h2>{cat.name}文章（{articles.length}）</h2>
+      </div>
+      {
+        articles.length > 0 ? (
+          <div class="grid grid-3">
+            {articles.map((a) => (
+              <ArticleCard article={a} showCategory={false} />
+            ))}
+          </div>
+        ) : (
+          <p class="muted">文章整理中，敬请期待。</p>
+        )
+      }
+    </div>
+  </section>
+
+  {
+    cat.id !== 'exchange' && (
+      <section class="section">
+        <div class="container">
+          <div class="section-head">
+            <div>
+              <h2>先准备一个交易所账户</h2>
+              <p>买 USDC、给 Polymarket 充值、提现换回法币都要用到</p>
+            </div>
+            <a class="more" href="/exchange/">交易所对比 →</a>
+          </div>
+          <CTAGroup />
+        </div>
+      </section>
+    )
+  }
+
+  <div class="container">
+    <RiskNote />
+  </div>
+</BaseLayout>

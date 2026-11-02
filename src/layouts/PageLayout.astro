@@ -1,0 +1,30 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import { SITE } from '../config/site';
+import { breadcrumbLd } from '../lib/seo';
+
+export interface Props {
+  title: string;
+  description: string;
+  path: string;
+  heading?: string;
+  noindex?: boolean;
+}
+const { title, description, path, heading = title, noindex = false } = Astro.props;
+const crumbs = [{ name: '首页', href: '/' }, { name: heading }];
+---
+
+<BaseLayout title={`${title} | ${SITE.name}`} description={description} path={path} noindex={noindex} jsonLd={[breadcrumbLd(crumbs)]}>
+  <section class="page-head">
+    <div class="container">
+      <Breadcrumbs items={crumbs} />
+      <h1>{heading}</h1>
+    </div>
+  </section>
+  <div class="container">
+    <div class="prose" style="padding:32px 0 48px">
+      <slot />
+    </div>
+  </div>
+</BaseLayout>

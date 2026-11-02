@@ -1,0 +1,254 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import CTAGroup from '../../components/CTAGroup.astro';
+import FAQ from '../../components/FAQ.astro';
+import RiskNote from '../../components/RiskNote.astro';
+import ExchangeBadge from '../../components/ExchangeBadge.astro';
+import { SITE } from '../../config/site';
+import { FEATURED_ORDER } from '../../config/affiliates';
+import { getExchanges } from '../../data/exchanges';
+import { breadcrumbLd, faqLd, webAppLd } from '../../lib/seo';
+
+const path = '/tools/rebate-calculator/';
+const name = '交易所返佣计算器';
+const description =
+  '交易所手续费返佣计算器：输入月交易额、吃单比例和返佣比例，估算币安、OKX、Bitget、Gate、Bybit 每月手续费和通过邀请链接注册每年能省多少。';
+const crumbs = [{ name: '首页', href: '/' }, { name: '工具', href: '/tools/' }, { name: name }];
+const exchanges = getExchanges(FEATURED_ORDER);
+const payload = exchanges.map((e) => ({
+  id: e.id,
+  name: e.name,
+  nameZh: e.nameZh,
+  goUrl: e.goUrl,
+  fees: e.fees,
+  rebate: e.inviteeRebate,
+}));
+const faq = [
+  {
+    q: '交易所返佣是什么？',
+    a: '返佣是交易所邀请计划的一部分：通过邀请链接或邀请码注册的用户，每笔交易手续费中会有一部分按比例返还（或直接打折）。返还比例由交易所规则和邀请人的设置决定，以注册页面显示为准。',
+  },
+  {
+    q: '已经注册过的账户还能补填邀请码吗？',
+    a: '大多数交易所只允许在注册时填写邀请码，注册后无法补填。如果你想享受返佣，需要在注册前通过邀请链接打开，或在注册页填写邀请码。各家规则不同，请以官方说明为准。',
+  },
+  {
+    q: '挂单和吃单有什么区别？',
+    a: '挂单（Maker）是挂在订单簿上等待成交的限价单，为市场提供流动性，费率通常更低；吃单（Taker）是立即与已有订单成交的市价单或可立即成交的限价单，费率通常更高。',
+  },
+  {
+    q: '这个计算器的结果准确吗？',
+    a: '计算器按普通用户（VIP0）的标准费率估算，未考虑平台币抵扣、VIP 等级、活动费率等因素，结果仅供参考。实际费率以交易所官网为准。',
+  },
+];
+const jsonLd = [breadcrumbLd(crumbs), webAppLd({ name, description, path }), faqLd(faq)];
+---
+
+<BaseLayout title={`${name}：手续费返佣一年能省多少？ | ${SITE.name}`} description={description} path={path} jsonLd={jsonLd} mobileCta="default">
+  <section class="page-head">
+    <div class="container">
+      <Breadcrumbs items={crumbs} />
+      <h1>💰 {name}</h1>
+      <p>交易越频繁，手续费越是一笔大开销。输入你的交易习惯，看看通过邀请链接注册、享受手续费返还后，每年大约能省多少。</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="tool-grid">
+        <form class="card card-pad form" id="rebate-form" onsubmit="return false" aria-label="返佣计算">
+          <div class="field">
+            <label for="ex">交易所</label>
+            <select class="select" id="ex">
+              {exchanges.map((e) => <option value={e.id}>{e.name}{e.nameZh !== e.name ? `（${e.nameZh}）` : ''}</option>)}
+            </select>
+          </div>
+          <div class="field">
+            <span class="label" id="mkt-label">交易类型</span>
+            <div class="seg" role="group" aria-labelledby="mkt-label">
+              <button type="button" data-mkt="spot" aria-pressed="true">现货</button>
+              <button type="button" data-mkt="futures" aria-pressed="false">合约</button>
+            </div>
+          </div>
+          <div class="field">
+            <label for="vol">每月交易额（USDT）</label>
+            <input class="input" id="vol" type="number" inputmode="decimal" min="0" step="100" value="50000" />
+            <div class="row" style="gap:6px">
+              <button type="button" class="btn btn--ghost btn--sm" data-vol="10000">1 万</button>
+              <button type="button" class="btn btn--ghost btn--sm" data-vol="100000">10 万</button>
+              <button type="button" class="btn btn--ghost btn--sm" data-vol="1000000">100 万</button>
+              <button type="button" class="btn btn--ghost btn--sm" data-vol="10000000">1000 万</button>
+            </div>
+            <span class="hint">交易额 = 每笔成交金额之和（买和卖都算）。合约按名义价值（含杠杆）计算。</span>
+          </div>
+          <div class="field">
+            <label for="taker">吃单比例：<span id="taker-val">70%</span></label>
+            <input class="range" id="taker" type="range" min="0" max="100" step="5" value="70" />
+            <span class="hint">市价单基本都是吃单。新手大多数是吃单。</span>
+          </div>
+          <div class="field">
+            <label for="rebate">返佣比例（%）</label>
+            <input class="input" id="rebate" type="number" inputmode="decimal" min="0" max="100" step="1" value="20" />
+            <span class="hint" id="rebate-hint">填入通过邀请链接注册后实际获得的手续费返还比例，以注册页面显示为准。</span>
+          </div>
+        </form>
+
+        <div class="card result-panel" aria-live="polite">
+          <div class="kpis">
+            <div class="kpi"><div class="k">每月手续费</div><div class="v" id="r-fee">—</div></div>
+            <div class="kpi kpi--hl"><div class="k">每月返佣</div><div class="v" id="r-month">—</div></div>
+            <div class="kpi kpi--hl"><div class="k">每年返佣</div><div class="v pos" id="r-year">—</div></div>
+            <div class="kpi"><div class="k">三年累计</div><div class="v pos" id="r-3y">—</div></div>
+          </div>
+          <div class="explain" id="r-explain">—</div>
+          <a class="btn btn--accent btn--lg btn--block" id="r-cta" href={exchanges[0].goUrl} rel="sponsored nofollow" data-cta="rebate-tool">
+            通过邀请链接注册 {exchanges[0].name}
+          </a>
+          <p class="note" style="margin:0">按 VIP0 标准费率估算，未计平台币抵扣和 VIP 折扣，仅供参考。</p>
+        </div>
+      </div>
+
+      <h2 style="margin-top:40px">同样的交易量，各家能省多少？</h2>
+      <div class="table-wrap">
+        <table class="table-compare">
+          <thead>
+            <tr>
+              <th scope="col">交易所</th>
+              <th scope="col">挂单 / 吃单费率</th>
+              <th scope="col">每月手续费</th>
+              <th scope="col">每年返佣</th>
+              <th scope="col"><span class="sr-only">注册</span></th>
+            </tr>
+          </thead>
+          <tbody id="cmp-body">
+            {
+              exchanges.map((e) => (
+                <tr data-row={e.id}>
+                  <th scope="row">
+                    <span class="ex-cell">
+                      <ExchangeBadge ex={e} size="sm" />
+                      {e.name}
+                    </span>
+                  </th>
+                  <td class="nowrap" data-cell="rate">
+                    {e.fees.spotMaker}% / {e.fees.spotTaker}%
+                  </td>
+                  <td class="nowrap" data-cell="fee">—</td>
+                  <td class="nowrap pos" data-cell="year">—</td>
+                  <td>
+                    <a class="btn btn--accent btn--sm" href={e.goUrl} rel="sponsored nofollow" data-cta="rebate-table" data-ex={e.id}>
+                      注册
+                    </a>
+                  </td>
+                </tr>
+              ))
+            }
+          </tbody>
+        </table>
+      </div>
+      <p class="note">对比表统一使用上方填写的返佣比例；各家实际返佣比例以注册页面为准。</p>
+
+      <div class="prose" style="max-width:860px">
+        <h2>返佣是怎么算出来的？</h2>
+        <p>
+          每月手续费 = 月交易额 ×（吃单比例 × 吃单费率 +（1 − 吃单比例）× 挂单费率）。返佣 = 手续费 × 返佣比例。例如每月现货交易 5 万 USDT、全部吃单、费率 0.1%，手续费是 50 USDT；如果返还 20%，每月可省 10 USDT，一年 120 USDT。
+        </p>
+        <p>
+          对只是偶尔买点 USDC 去 Polymarket 的用户来说，返佣金额不大；但如果你同时做现货或合约交易，返佣会随交易量线性增长，是实打实的成本节省。关于各家费率和优缺点，可以看 <a href="/exchange/">交易所对比</a>。
+        </p>
+      </div>
+
+      <CTAGroup title="推荐交易所" />
+      <FAQ items={faq} />
+      <RiskNote />
+    </div>
+  </section>
+  <script type="application/json" id="ex-data" set:html={JSON.stringify(payload)} />
+</BaseLayout>
+
+<script>
+  type Ex = {
+    id: string;
+    name: string;
+    nameZh: string;
+    goUrl: string;
+    rebate: number | null;
+    fees: { spotMaker: number; spotTaker: number; futuresMaker: number; futuresTaker: number };
+  };
+  const data: Ex[] = JSON.parse(document.getElementById('ex-data')!.textContent || '[]');
+  const $ = <T extends HTMLElement>(id: string) => document.getElementById(id) as T;
+  const exSel = $<HTMLSelectElement>('ex');
+  const vol = $<HTMLInputElement>('vol');
+  const taker = $<HTMLInputElement>('taker');
+  const rebate = $<HTMLInputElement>('rebate');
+  let market: 'spot' | 'futures' = 'spot';
+
+  const usd = (v: number) =>
+    `$${v.toLocaleString('en-US', { minimumFractionDigits: v < 100 ? 2 : 0, maximumFractionDigits: v < 100 ? 2 : 0 })}`;
+
+  function feeFor(ex: Ex, volume: number, takerShare: number) {
+    const maker = market === 'spot' ? ex.fees.spotMaker : ex.fees.futuresMaker;
+    const tk = market === 'spot' ? ex.fees.spotTaker : ex.fees.futuresTaker;
+    return volume * ((takerShare * tk + (1 - takerShare) * maker) / 100);
+  }
+
+  function calc() {
+    const ex = data.find((d) => d.id === exSel.value) ?? data[0];
+    const v = Math.max(0, parseFloat(vol.value) || 0);
+    const t = Number(taker.value) / 100;
+    const r = Math.min(100, Math.max(0, parseFloat(rebate.value) || 0)) / 100;
+    $('taker-val').textContent = `${Math.round(t * 100)}%`;
+
+    const fee = feeFor(ex, v, t);
+    const month = fee * r;
+    $('r-fee').textContent = usd(fee);
+    $('r-month').textContent = usd(month);
+    $('r-year').textContent = usd(month * 12);
+    $('r-3y').textContent = usd(month * 36);
+    $('r-explain').textContent =
+      `在 ${ex.name} 每月${market === 'spot' ? '现货' : '合约'}交易 ${v.toLocaleString('en-US')} USDT（吃单 ${Math.round(t * 100)}%），` +
+      `按标准费率每月手续费约 ${usd(fee)}。如果手续费返还 ${Math.round(r * 100)}%，每月可省 ${usd(month)}，一年约 ${usd(month * 12)}。`;
+    const cta = $<HTMLAnchorElement>('r-cta');
+    cta.href = ex.goUrl;
+    cta.dataset.ex = ex.id;
+    cta.textContent = `通过邀请链接注册 ${ex.name}`;
+
+    for (const d of data) {
+      const row = document.querySelector(`[data-row="${d.id}"]`);
+      if (!row) continue;
+      const f = feeFor(d, v, t);
+      const maker = market === 'spot' ? d.fees.spotMaker : d.fees.futuresMaker;
+      const tk = market === 'spot' ? d.fees.spotTaker : d.fees.futuresTaker;
+      row.querySelector('[data-cell="rate"]')!.textContent = `${maker}% / ${tk}%`;
+      row.querySelector('[data-cell="fee"]')!.textContent = usd(f);
+      row.querySelector('[data-cell="year"]')!.textContent = usd(f * r * 12);
+    }
+  }
+
+  exSel.addEventListener('change', () => {
+    const ex = data.find((d) => d.id === exSel.value);
+    if (ex && ex.rebate != null) {
+      rebate.value = String(Math.round(ex.rebate * 100));
+      $('rebate-hint').textContent = `通过本站链接注册 ${ex.name} 可获得 ${Math.round(ex.rebate * 100)}% 手续费返还（以注册页面为准）。`;
+    }
+    calc();
+  });
+  document.querySelectorAll<HTMLButtonElement>('[data-mkt]').forEach((b) =>
+    b.addEventListener('click', () => {
+      market = b.dataset.mkt === 'futures' ? 'futures' : 'spot';
+      document.querySelectorAll('[data-mkt]').forEach((x) => x.setAttribute('aria-pressed', String(x === b)));
+      calc();
+    }),
+  );
+  document.querySelectorAll<HTMLButtonElement>('[data-vol]').forEach((b) =>
+    b.addEventListener('click', () => {
+      vol.value = b.dataset.vol!;
+      calc();
+    }),
+  );
+  [vol, taker, rebate].forEach((el) => el.addEventListener('input', calc));
+  const first = data.find((d) => d.id === exSel.value);
+  if (first && first.rebate != null) rebate.value = String(Math.round(first.rebate * 100));
+  calc();
+</script>

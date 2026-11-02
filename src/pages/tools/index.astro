@@ -1,0 +1,70 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import CTAGroup from '../../components/CTAGroup.astro';
+import { SITE } from '../../config/site';
+import { breadcrumbLd, collectionLd } from '../../lib/seo';
+
+const crumbs = [{ name: '首页', href: '/' }, { name: '工具' }];
+const tools = [
+  {
+    icon: '🎲',
+    name: '赔率 / 收益计算器',
+    path: '/tools/odds-calculator/',
+    desc: '输入份额价格和金额，算出可买份额、猜对收益、隐含概率、期望值和凯利仓位。',
+  },
+  {
+    icon: '💰',
+    name: '交易所返佣计算器',
+    path: '/tools/rebate-calculator/',
+    desc: '按月交易额和吃单比例，估算各交易所手续费以及邀请返佣一年能省多少。',
+  },
+  {
+    icon: '🧭',
+    name: '入金路线查询',
+    path: '/tools/deposit-route/',
+    desc: '选择交易所，查看提 USDC 到 Polymarket 的网络、费用、步骤和避坑提醒。',
+  },
+  {
+    icon: '📈',
+    name: 'Polymarket 热门市场',
+    path: '/markets/',
+    desc: '按 24 小时成交额排序的热门预测市场，实时概率一目了然。',
+  },
+];
+const description = 'Polymarket 与交易所实用工具：赔率收益计算器、返佣计算器、入金路线查询、热门市场看板，全部免费。';
+---
+
+<BaseLayout
+  title={`Polymarket 实用工具：赔率计算器、返佣计算器、入金路线 | ${SITE.name}`}
+  description={description}
+  path="/tools/"
+  jsonLd={[
+    breadcrumbLd(crumbs),
+    collectionLd({ name: '实用工具', description, path: '/tools/', items: tools.map((t) => ({ name: t.name, path: t.path })) }),
+  ]}
+>
+  <section class="page-head">
+    <div class="container">
+      <Breadcrumbs items={crumbs} />
+      <h1>🧮 实用工具</h1>
+      <p>下注前算清楚收益和风险，注册前比清楚手续费。所有工具免费，计算在浏览器本地完成。</p>
+    </div>
+  </section>
+  <section class="section">
+    <div class="container">
+      <div class="grid grid-2">
+        {
+          tools.map((t) => (
+            <a class="card a-card" href={t.path}>
+              <span style="font-size:1.8rem">{t.icon}</span>
+              <h3>{t.name}</h3>
+              <p>{t.desc}</p>
+            </a>
+          ))
+        }
+      </div>
+      <CTAGroup title="推荐交易所" />
+    </div>
+  </section>
+</BaseLayout>

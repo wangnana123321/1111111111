@@ -1,0 +1,14 @@
+---
+import type { ExchangeData } from '../data/exchanges';
+export interface Props {
+  ex: Pick<ExchangeData, 'initials' | 'color' | 'textColor' | 'name'>;
+  size?: 'sm' | 'md';
+}
+const { ex, size = 'md' } = Astro.props;
+---
+
+<span
+  class:list={['ex-badge', { 'ex-badge--sm': size === 'sm' }]}
+  style={`background:${ex.color};color:${ex.textColor}`}
+  aria-hidden="true">{ex.initials}</span
+>

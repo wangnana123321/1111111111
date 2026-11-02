@@ -1,0 +1,27 @@
+---
+import { render } from 'astro:content';
+import ArticleLayout from '../../layouts/ArticleLayout.astro';
+import { articleCategory, articleSlug, getArticles, type Article } from '../../lib/articles';
+import CTA from '../../components/CTA.astro';
+import CTAGroup from '../../components/CTAGroup.astro';
+import ExchangeTable from '../../components/ExchangeTable.astro';
+import Callout from '../../components/Callout.astro';
+import DepositFlow from '../../components/DepositFlow.astro';
+import PolymarketCTA from '../../components/PolymarketCTA.astro';
+
+export async function getStaticPaths() {
+  const articles = await getArticles();
+  return articles.map((entry) => ({
+    params: { category: articleCategory(entry), slug: articleSlug(entry) },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props as { entry: Article };
+const { Content, headings } = await render(entry);
+const components = { CTA, CTAGroup, ExchangeTable, Callout, DepositFlow, PolymarketCTA };
+---
+
+<ArticleLayout entry={entry} headings={headings}>
+  <Content components={components} />
+</ArticleLayout>

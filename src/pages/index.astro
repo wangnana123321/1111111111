@@ -1,0 +1,259 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ExchangeCard from '../components/ExchangeCard.astro';
+import ExchangeTable from '../components/ExchangeTable.astro';
+import ArticleCard from '../components/ArticleCard.astro';
+import MarketCard from '../components/MarketCard.astro';
+import DepositFlow from '../components/DepositFlow.astro';
+import FAQ from '../components/FAQ.astro';
+import RiskNote from '../components/RiskNote.astro';
+import { SITE } from '../config/site';
+import { FEATURED_ORDER } from '../config/affiliates';
+import { getExchange, getExchanges, ALL_EXCHANGE_IDS } from '../data/exchanges';
+import ExchangeBadge from '../components/ExchangeBadge.astro';
+import { CATEGORIES } from '../data/categories';
+import { getArticlesByCategory } from '../lib/articles';
+import { getHotMarkets } from '../lib/markets';
+import { faqLd, organizationLd, websiteLd } from '../lib/seo';
+
+const top = getExchange(FEATURED_ORDER[0]);
+const inApp = getExchanges(ALL_EXCHANGE_IDS).filter((e) => e.inAppPolymarket);
+const featured = FEATURED_ORDER.slice(0, 3);
+const { markets } = await getHotMarkets();
+const hot = markets.slice(0, 6);
+
+const byCat = await Promise.all(
+  CATEGORIES.map(async (c) => ({ cat: c, items: (await getArticlesByCategory(c.id)).slice(0, 3) })),
+);
+
+const faq = [
+  {
+    q: 'Polymarket 是什么？',
+    a: 'Polymarket 是一个基于区块链的预测市场。你可以针对现实世界的事件（选举、体育、加密货币价格、经济数据等）买入“是”或“否”的份额，价格在 0–1 美元之间，事件结果确定后，猜对的份额每份兑付 1 美元。',
+  },
+  {
+    q: '玩 Polymarket 需要准备什么？',
+    a: '一个 Polymarket 账户（可用 Google、邮箱或加密钱包注册），以及用来充值的稳定币。大多数人会在交易所（如 OKX、币安、Bitget）购买 USDC，再通过 Polygon 等网络提币到 Polymarket 的充值地址，到账后会自动换成平台使用的 pUSD（与美元 1:1）。',
+  },
+  {
+    q: '中国大陆可以用 Polymarket 吗？',
+    a: '不可以。中国大陆自 2021 年起把虚拟货币交易相关业务认定为非法金融活动，境外平台也不得向境内居民提供服务，所以本站内容不面向中国大陆用户。另外，Polymarket 国际站对美国、英国、新加坡、台湾、泰国等多个地区限制交易，请先确认你所在地区的规定，不要使用 VPN 规避限制。',
+  },
+  {
+    q: '通过邀请链接注册交易所有什么好处？',
+    a: '大多数交易所会给通过邀请链接注册的新用户一定比例的手续费返还或新人奖励，长期交易可以节省不少成本。具体比例以注册页面显示为准，你可以用本站的返佣计算器估算能省多少。',
+  },
+];
+
+const jsonLd = [organizationLd(), websiteLd(), faqLd(faq)];
+---
+
+<BaseLayout
+  title={`Polymarket 中文教程：怎么玩、怎么充值、交易所返佣 | ${SITE.name}`}
+  description={SITE.description}
+  path="/"
+  jsonLd={jsonLd}
+  mobileCta={top.id}
+>
+  <section class="hero">
+    <div class="container hero-grid">
+      <div>
+        <span class="kicker">🎯 2026 最新 · 中文新手指南</span>
+        <h1>Polymarket 怎么玩？<span class="h1-sub">中文新手指南：从买 USDC 到第一笔预测</span></h1>
+        <p class="lead">
+          Polymarket 是全球最大的预测市场。我们用中文把注册、充值入金、下注、提现出金每一步写清楚，并整理了各大交易所的手续费和邀请返佣，帮你少踩坑、少花手续费。
+        </p>
+        <div class="actions">
+          <a class="btn btn--primary btn--lg" href="/polymarket/">开始学习 →</a>
+          <a class="btn btn--accent btn--lg" href={top.goUrl} rel="sponsored nofollow" data-cta="hero" data-ex={top.id}>
+            注册 {top.nameZh} 领手续费返佣
+          </a>
+        </div>
+        <div class="trust-row">
+          <span>数据标注核对日期</span>
+          <span>不承诺收益</span>
+          <span>工具免费使用</span>
+        </div>
+      </div>
+      <div class="card card-pad" style="box-shadow:var(--shadow-lg)">
+        <p style="margin:0 0 6px;font-weight:800">举个例子：“是”的价格 0.65 美元</p>
+        <div class="outcome" style="margin:10px 0">
+          <span class="label">是（Yes）</span><span class="pct" style="color:var(--yes)">65%</span>
+          <div class="bar yes"><i style="width:65%"></i></div>
+        </div>
+        <div class="outcome" style="margin:10px 0 16px">
+          <span class="label">否（No）</span><span class="pct" style="color:var(--no)">35%</span>
+          <div class="bar"><i style="width:35%;background:var(--no)"></i></div>
+        </div>
+        <p class="small" style="margin:0 0 6px">花 <b>65 美元</b> 买 100 份“是”：</p>
+        <ul class="small" style="margin:0 0 12px;padding-left:1.2em">
+          <li>事件发生 → 拿回 <b class="pos">100 美元</b>（赚 35 美元）</li>
+          <li>事件没发生 → 份额归零（亏 65 美元）</li>
+        </ul>
+        <a class="btn btn--ghost btn--sm btn--block" href="/tools/odds-calculator/">用赔率计算器算一算 →</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <h2>三步开始玩 Polymarket</h2>
+          <p>大多数中文用户走的路线：交易所买币 → 链上提币 → 开始预测</p>
+        </div>
+        <a class="more" href="/deposit/">查看充值教程 →</a>
+      </div>
+      <div class="steps">
+        <div class="card step">
+          <h3>注册交易所，买 USDC</h3>
+          <p>在币安、OKX、Bitget 等交易所完成认证，用法币或 P2P 买入 USDT，再兑换成 USDC。通过邀请链接注册可享手续费优惠。</p>
+        </div>
+        <div class="card step">
+          <h3>提币到 Polymarket</h3>
+          <p>复制 Polymarket 的充值地址，在交易所选择正确的网络（通常是 Polygon）提币，先小额测试再大额转账。</p>
+        </div>
+        <div class="card step">
+          <h3>选市场，买“是”或“否”</h3>
+          <p>挑一个你熟悉的话题，看懂价格就是概率，小额下单。赢了可以随时提回交易所换成法币。</p>
+        </div>
+      </div>
+      <DepositFlow exchange={top.id} />
+    </div>
+  </section>
+
+  <section class="section section--soft">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <h2>推荐交易所 · 注册领手续费返佣</h2>
+          <p>都支持购买 USDC，并可提币到 Polymarket</p>
+        </div>
+        <a class="more" href="/exchange/">完整对比 →</a>
+      </div>
+      <div class="grid grid-3">
+        {featured.map((id) => <ExchangeCard id={id} placement="home" />)}
+      </div>
+      <ExchangeTable compact />
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <h2>不想折腾链上转账？在交易所 App 里直接参与</h2>
+          <p>2026 年起，部分交易所把 Polymarket 的市场接进了自己的 App，用账户里的稳定币就能下单</p>
+        </div>
+        <a class="more" href="/exchange/polymarket-in-exchange-apps/">详细教程 →</a>
+      </div>
+      <div class="grid grid-2">
+        {
+          inApp.map((ex) => (
+            <article class="card card-pad stack">
+              <div class="row">
+                <ExchangeBadge ex={ex} />
+                <div>
+                  <h3 style="margin:0;font-size:1.1rem">{ex.name} · 站内预测</h3>
+                  <span class="chip chip--yes">使用 Polymarket 市场</span>
+                </div>
+              </div>
+              <p class="muted small" style="margin:0">{ex.predictionAccess}</p>
+              <div class="row">
+                <a class="btn btn--accent" href={ex.goUrl} rel="sponsored nofollow" data-cta="home-inapp" data-ex={ex.id}>
+                  注册 {ex.name}
+                </a>
+                {ex.guidePath && <a class="small" href={ex.guidePath}>注册教程</a>}
+              </div>
+            </article>
+          ))
+        }
+      </div>
+      <p class="note">各地区能否使用以交易所公告为准；受限地区请勿尝试规避。与直接使用 polymarket.com 相比，站内入口的可选市场、费用可能不同。</p>
+    </div>
+  </section>
+
+  {
+    hot.length > 0 && (
+      <section class="section section--soft">
+        <div class="container">
+          <div class="section-head">
+            <div>
+              <h2>Polymarket 热门市场</h2>
+              <p>按 24 小时成交额排序，百分比即市场隐含概率</p>
+            </div>
+            <a class="more" href="/markets/">查看全部 →</a>
+          </div>
+          <div class="market-list market-list--3">
+            {hot.map((m) => (
+              <MarketCard m={m} />
+            ))}
+          </div>
+        </div>
+      </section>
+    )
+  }
+
+  <section class="section">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <h2>免费工具</h2>
+          <p>下注前算清楚，注册前比清楚</p>
+        </div>
+        <a class="more" href="/tools/">全部工具 →</a>
+      </div>
+      <div class="grid grid-3">
+        <a class="card a-card" href="/tools/odds-calculator/">
+          <span style="font-size:1.6rem">🎲</span>
+          <h3>赔率 / 收益计算器</h3>
+          <p>输入价格和金额，算出能买多少份、赢了赚多少、期望值是正是负。</p>
+        </a>
+        <a class="card a-card" href="/tools/rebate-calculator/">
+          <span style="font-size:1.6rem">💰</span>
+          <h3>交易所返佣计算器</h3>
+          <p>按你的月交易量估算手续费，看看通过邀请链接注册每年能省多少。</p>
+        </a>
+        <a class="card a-card" href="/tools/deposit-route/">
+          <span style="font-size:1.6rem">🧭</span>
+          <h3>入金路线查询</h3>
+          <p>选择你在用的交易所，查看提 USDC 到 Polymarket 的网络、步骤和注意事项。</p>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  {
+    byCat.map(({ cat, items }, i) =>
+      items.length > 0 ? (
+        <section class:list={['section', { 'section--soft': i % 2 === 0 }]}>
+          <div class="container">
+            <div class="section-head">
+              <div>
+                <h2>
+                  {cat.icon} {cat.name}
+                </h2>
+                <p>{cat.description}</p>
+              </div>
+              <a class="more" href={`/${cat.id}/`}>
+                更多 →
+              </a>
+            </div>
+            <div class="grid grid-3">
+              {items.map((a) => (
+                <ArticleCard article={a} showCategory={false} />
+              ))}
+            </div>
+          </div>
+        </section>
+      ) : null,
+    )
+  }
+
+  <section class="section">
+    <div class="container" style="max-width:860px">
+      <FAQ items={faq} />
+      <RiskNote />
+    </div>
+  </section>
+</BaseLayout>

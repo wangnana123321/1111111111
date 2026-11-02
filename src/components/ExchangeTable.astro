@@ -1,0 +1,87 @@
+---
+/**
+ * 交易所对比表：<ExchangeTable /> 或 <ExchangeTable ids="binance,okx,bitget" />
+ */
+import { ALL_EXCHANGE_IDS, getExchange, isExchangeId, type ExchangeId } from '../data/exchanges';
+import { FEATURED_ORDER } from '../config/affiliates';
+import { SITE } from '../config/site';
+import ExchangeBadge from './ExchangeBadge.astro';
+
+export interface Props {
+  ids?: string | ExchangeId[];
+  /** 精简模式只显示核心列 */
+  compact?: boolean;
+}
+const { ids, compact = false } = Astro.props;
+const order = [...FEATURED_ORDER, ...ALL_EXCHANGE_IDS.filter((i) => !FEATURED_ORDER.includes(i))];
+const list = (
+  typeof ids === 'string' ? ids.split(',').map((s) => s.trim()) : (ids ?? order)
+).filter(isExchangeId) as ExchangeId[];
+const rows = list.map(getExchange);
+const polygonText = (v: boolean | null) => (v === true ? '✅ 支持' : v === false ? '❌ 不支持' : '以提币页为准');
+---
+
+<div class="table-wrap">
+  <table class="table-compare">
+    <caption class="sr-only">主流交易所手续费与 USDC 提币对比</caption>
+    <thead>
+      <tr>
+        <th scope="col">交易所</th>
+        <th scope="col">现货费率<br /><span class="muted small">挂单 / 吃单</span></th>
+        {!compact && <th scope="col">合约费率<br /><span class="muted small">挂单 / 吃单</span></th>}
+        <th scope="col">Polygon 提 USDC</th>
+        {!compact && <th scope="col">法币入金</th>}
+        {!compact && <th scope="col">站内预测市场</th>}
+        <th scope="col">邀请优惠</th>
+        <th scope="col"><span class="sr-only">注册</span></th>
+      </tr>
+    </thead>
+    <tbody>
+      {
+        rows.map((ex) => (
+          <tr>
+            <th scope="row">
+              <span class="ex-cell">
+                <ExchangeBadge ex={ex} size="sm" />
+                <span>
+                  {ex.name}
+                  {ex.nameZh !== ex.name && <span class="muted small"> {ex.nameZh}</span>}
+                </span>
+              </span>
+              {ex.alert && <div class="ex-alert">⚠️ {ex.alert}</div>}
+            </th>
+            <td class="nowrap">
+              {ex.fees.spotMaker}% / {ex.fees.spotTaker}%
+              <div class="muted small">{ex.fees.tokenDiscount}</div>
+            </td>
+            {!compact && (
+              <td class="nowrap">
+                {ex.fees.futuresMaker}% / {ex.fees.futuresTaker}%
+              </td>
+            )}
+            <td>
+              {polygonText(ex.usdcPolygon.supported)}
+              {ex.usdcPolygon.supported === null && <div class="muted small">也可选 Polymarket 支持的其他网络</div>}
+            </td>
+            {!compact && <td class="small">{ex.fiat}</td>}
+            {!compact && (
+              <td class="small">
+                {ex.inAppPolymarket ? <span class="chip chip--yes">可玩 Polymarket</span> : null}
+                <div class="muted small">{ex.predictionAccess ?? '—'}</div>
+              </td>
+            )}
+            <td class="small">{ex.inviteeRebate != null ? `手续费返还 ${Math.round(ex.inviteeRebate * 100)}%` : '以注册页为准'}</td>
+            <td>
+              <a class="btn btn--accent btn--sm" href={ex.goUrl} rel="sponsored nofollow" data-cta="table" data-ex={ex.id}>
+                注册
+              </a>
+            </td>
+          </tr>
+        ))
+      }
+    </tbody>
+  </table>
+</div>
+<p class="note">
+  费率为普通用户（VIP0）标准费率，数据整理于 {SITE.factsCheckedAt}，交易所可能随时调整，请以官网费率页面为准。“邀请优惠”指通过本站邀请链接注册可获得的手续费返还。
+</p>

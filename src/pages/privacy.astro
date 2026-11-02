@@ -1,0 +1,29 @@
+---
+import PageLayout from '../layouts/PageLayout.astro';
+import { SITE } from '../config/site';
+const hasAnalytics = Boolean(SITE.analytics.ga4 || SITE.analytics.cloudflareToken);
+---
+
+<PageLayout title="隐私政策" description={`${SITE.name}隐私政策：我们收集哪些数据、如何使用，以及第三方服务说明。`} path="/privacy/">
+  <p>本隐私政策说明你访问{SITE.name}时我们如何处理信息。</p>
+  <h2>我们收集的信息</h2>
+  <ul>
+    <li>本站是纯静态网站，没有注册登录功能，不会要求你提供姓名、邮箱、钱包地址等个人信息。</li>
+    <li>计算器等工具完全在你的浏览器中运行，输入的数字不会上传到服务器。</li>
+    {
+      hasAnalytics ? (
+        <li>我们使用网站统计服务（如 Google Analytics 或 Cloudflare Web Analytics）了解页面访问量和推广链接点击情况，这些服务可能使用 Cookie 或类似技术收集匿名的访问数据。</li>
+      ) : (
+        <li>如果将来启用网站统计服务，我们只会用它了解匿名的页面访问量和链接点击情况，并在本页更新说明。</li>
+      )
+    }
+  </ul>
+  <h2>第三方网站与推广链接</h2>
+  <p>
+    当你点击站内链接前往 Polymarket 或交易所时，将适用对方的隐私政策。推广链接可能包含用于识别推荐来源的参数，以便平台结算佣金。
+  </p>
+  <h2>“热门市场”数据</h2>
+  <p>热门市场页面会从 Polymarket 公开接口读取市场数据，你的浏览器可能会直接请求 Polymarket 的接口和图片服务器。</p>
+  <h2>联系我们</h2>
+  <p>如对本政策有疑问，请通过<a href="/contact/">联系页面</a>与我们联系。</p>
+</PageLayout>

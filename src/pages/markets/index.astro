@@ -1,0 +1,172 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import MarketCard from '../../components/MarketCard.astro';
+import CTA from '../../components/CTA.astro';
+import PolymarketCTA from '../../components/PolymarketCTA.astro';
+import FAQ from '../../components/FAQ.astro';
+import RiskNote from '../../components/RiskNote.astro';
+import { SITE } from '../../config/site';
+import { AFFILIATES } from '../../config/affiliates';
+import { getHotMarkets } from '../../lib/markets';
+import { MARKET_CATEGORY_LABELS, refQueryFrom, type CategoryKey } from '../../lib/markets-parse';
+import { breadcrumbLd, faqLd } from '../../lib/seo';
+
+const { markets, fetchedAt } = await getHotMarkets();
+const cats = [...new Set(markets.map((m) => m.categoryKey))] as CategoryKey[];
+const refQuery = refQueryFrom(AFFILIATES.polymarket.inviteUrl);
+const updated = fetchedAt
+  ? fetchedAt.toISOString().replace('T', ' ').slice(0, 16) + ' UTC'
+  : '';
+
+const crumbs = [{ name: '首页', href: '/' }, { name: '热门市场' }];
+const faq = [
+  {
+    q: 'Polymarket 上的百分比是什么意思？',
+    a: '百分比就是“是”份额的当前价格。比如显示 65%，表示买 1 份“是”要花约 0.65 美元，事件发生时这份兑付 1 美元。价格由买卖双方交易形成，可以理解为市场对事件发生概率的集体估计，并不保证结果。',
+  },
+  {
+    q: '这些数据多久更新一次？',
+    a: '页面在每次网站构建时从 Polymarket 公开接口获取数据，并在你打开页面时尝试再刷新一次。实时价格以 Polymarket 官网为准。',
+  },
+  {
+    q: '我可以直接在这里下注吗？',
+    a: '不可以。本站只做信息展示和教程，点击市场会跳转到 Polymarket 官网。下注前请先确认你所在地区可以使用 Polymarket，并阅读我们的新手教程。',
+  },
+];
+const jsonLd = [breadcrumbLd(crumbs), faqLd(faq)];
+---
+
+<BaseLayout
+  title={`Polymarket 热门市场实时概率（中文版） | ${SITE.name}`}
+  description="Polymarket 当前成交最活跃的预测市场一览：政治、加密货币、体育、财经等热门事件的实时概率与 24 小时成交额，附中文解读和新手入门指引。"
+  path="/markets/"
+  jsonLd={jsonLd}
+  mobileCta="default"
+>
+  <section class="page-head">
+    <div class="container">
+      <Breadcrumbs items={crumbs} />
+      <h1>📈 Polymarket 热门市场</h1>
+      <p>按 24 小时成交额排序的 Polymarket 热门事件。百分比 = “是”的价格 = 市场认为该事件发生的概率。</p>
+      <p class="note" data-updated>
+        {updated ? `数据更新于 ${updated}，实时价格以 Polymarket 官网为准。` : '实时价格以 Polymarket 官网为准。'}
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="filter-row" data-filters hidden={cats.length < 2}>
+        <button type="button" aria-pressed="true" data-filter="all">全部</button>
+        {
+          cats.map((c) => (
+            <button type="button" aria-pressed="false" data-filter={c}>
+              {MARKET_CATEGORY_LABELS[c]}
+            </button>
+          ))
+        }
+      </div>
+
+      <div
+        class="market-list market-list--3"
+        data-market-list
+        data-ref={refQuery}
+        data-limit="40"
+        data-fetched={fetchedAt ? fetchedAt.toISOString() : ''}
+      >
+        {markets.map((m) => <MarketCard m={m} />)}
+      </div>
+
+      {
+        markets.length === 0 && (
+          <div class="card empty-state" data-empty>
+            <p style="margin:0 0 12px">正在获取 Polymarket 最新市场数据……</p>
+            <p class="note" style="margin:0 0 14px">
+              如果长时间没有显示，可以直接前往 Polymarket 官网查看热门市场。
+            </p>
+            <a class="btn btn--primary btn--sm" href="/go/polymarket/" rel="sponsored nofollow" data-cta="markets-empty">
+              打开 Polymarket
+            </a>
+          </div>
+        )
+      }
+
+      <CTA
+        title="想参与这些市场？第一步先准备 USDC"
+        text="Polymarket 用 USDC 结算。在交易所买好 USDC，选择 Polygon 网络提到 Polymarket 即可开始。"
+      />
+
+      <div class="prose" style="max-width:none">
+        <h2>怎么看懂一个预测市场？</h2>
+        <p>
+          每个市场都是一个“是 / 否”问题，例如“某候选人会赢得选举吗？”。你可以买“是”或“否”的份额，价格在 0–1 美元之间。事件结束后，猜对的一方每份兑付 1 美元，猜错的一方归零。
+        </p>
+        <p>
+          所以价格本身就是概率：“是”卖 0.30 美元，意味着市场认为发生的可能性约 30%。如果你认为真实概率更高，买入“是”就有正期望。想算清楚收益，可以用我们的
+          <a href="/tools/odds-calculator/">赔率 / 收益计算器</a>。
+        </p>
+        <p>
+          第一次接触？建议按顺序阅读：<a href="/polymarket/">Polymarket 新手教程</a> → <a href="/deposit/">充值教程</a> → 再回来挑一个你熟悉的话题小额试试。
+        </p>
+      </div>
+
+      <PolymarketCTA />
+      <FAQ items={faq} />
+      <RiskNote />
+    </div>
+  </section>
+</BaseLayout>
+
+<script>
+  import { fetchLive, renderMarket } from '../../lib/markets-client';
+  import { MARKET_CATEGORY_LABELS } from '../../lib/markets-parse';
+
+  const list = document.querySelector<HTMLElement>('[data-market-list]');
+  const filters = document.querySelector<HTMLElement>('[data-filters]');
+
+  function applyFilter(cat: string) {
+    list?.querySelectorAll<HTMLElement>('.market').forEach((el) => {
+      el.hidden = cat !== 'all' && el.dataset.cat !== cat;
+    });
+    filters?.querySelectorAll<HTMLButtonElement>('button').forEach((b) => {
+      b.setAttribute('aria-pressed', String(b.dataset.filter === cat));
+    });
+  }
+
+  filters?.addEventListener('click', (e) => {
+    const btn = (e.target as HTMLElement).closest<HTMLButtonElement>('button[data-filter]');
+    if (btn) applyFilter(btn.dataset.filter ?? 'all');
+  });
+
+  // 构建时数据在 3 小时内就不再请求接口（Polymarket 接口可能不允许跨域访问）
+  const fetchedAt = list?.dataset.fetched ? Date.parse(list.dataset.fetched) : NaN;
+  const fresh = Number.isFinite(fetchedAt) && Date.now() - fetchedAt < 3 * 3600 * 1000;
+
+  if (list && !fresh) {
+    const ref = list.dataset.ref ?? '';
+    const limit = Number(list.dataset.limit ?? 40);
+    fetchLive(ref, limit).then((markets) => {
+      if (!markets) {
+        const empty = document.querySelector<HTMLElement>('[data-empty] p');
+        if (empty) empty.textContent = '暂时无法获取实时数据，可以直接前往 Polymarket 官网查看。';
+        return;
+      }
+      list.innerHTML = markets.map(renderMarket).join('');
+      document.querySelector('[data-empty]')?.remove();
+      const note = document.querySelector('[data-updated]');
+      if (note) note.textContent = '数据已实时刷新，价格以 Polymarket 官网为准。';
+      if (filters) {
+        const present = [...new Set(markets.map((m) => m.categoryKey))];
+        filters.innerHTML = [
+          '<button type="button" aria-pressed="true" data-filter="all">全部</button>',
+          ...present.map(
+            (c) => `<button type="button" aria-pressed="false" data-filter="${c}">${MARKET_CATEGORY_LABELS[c]}</button>`,
+          ),
+        ].join('');
+        filters.hidden = present.length < 2;
+      }
+      applyFilter('all');
+    });
+  }
+</script>

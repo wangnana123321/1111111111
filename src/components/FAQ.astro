@@ -1,0 +1,21 @@
+---
+export interface Props {
+  items: { q: string; a: string }[];
+  title?: string;
+}
+const { items, title = '常见问题' } = Astro.props;
+---
+
+{
+  items.length > 0 && (
+    <section class="faq" aria-labelledby="faq-title">
+      <h2 id="faq-title">{title}</h2>
+      {items.map((item, i) => (
+        <details open={i === 0}>
+          <summary>{item.q}</summary>
+          <div class="answer">{item.a}</div>
+        </details>
+      ))}
+    </section>
+  )
+}

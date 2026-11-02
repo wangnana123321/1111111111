@@ -1,0 +1,60 @@
+---
+import { SITE } from '../config/site';
+import { CATEGORIES } from '../data/categories';
+import BrandMark from './BrandMark.astro';
+
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="about">
+        <a class="brand" href="/">
+          <BrandMark size={26} />
+          <span>{SITE.name}</span>
+        </a>
+        <p class="muted small" style="margin:10px 0 0;max-width:360px">
+          {SITE.description}
+        </p>
+      </div>
+      <div>
+        <h2>栏目</h2>
+        <ul>
+          {CATEGORIES.map((c) => <li><a href={`/${c.id}/`}>{c.name}</a></li>)}
+          <li><a href="/markets/">热门市场</a></li>
+        </ul>
+      </div>
+      <div>
+        <h2>工具</h2>
+        <ul>
+          <li><a href="/tools/odds-calculator/">赔率 / 收益计算器</a></li>
+          <li><a href="/tools/rebate-calculator/">返佣计算器</a></li>
+          <li><a href="/tools/deposit-route/">入金路线查询</a></li>
+          <li><a href="/exchange/">交易所对比</a></li>
+        </ul>
+      </div>
+      <div>
+        <h2>关于</h2>
+        <ul>
+          <li><a href="/about/">关于本站</a></li>
+          <li><a href="/disclaimer/">风险提示与免责声明</a></li>
+          <li><a href="/privacy/">隐私政策</a></li>
+          <li><a href="/contact/">联系我们</a></li>
+          <li><a href="/rss.xml">RSS 订阅</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="fine">
+      <p style="margin:0 0 6px">
+        <strong>广告披露：</strong>本站部分链接为交易所或平台的邀请（推广）链接，你通过这些链接注册，我们可能获得佣金，你通常也能获得手续费优惠，不会增加你的任何成本。我们不会因为佣金改变对产品的客观描述。
+      </p>
+      <p style="margin:0 0 6px">
+        <strong>风险提示：</strong>加密货币和预测市场价格波动大，可能损失全部本金。本站内容仅为信息分享与教程，不构成投资、法律或税务建议。Polymarket 和各交易所都有服务地区限制；中国大陆禁止虚拟货币交易相关活动，本站不面向中国大陆用户。请先确认并遵守你所在地区的法律法规。
+      </p>
+      <p style="margin:0">
+        © {year} {SITE.name}. 本站与 Polymarket 及文中提及的任何交易所均无隶属关系，相关商标归其各自所有者。
+      </p>
+    </div>
+  </div>
+</footer>

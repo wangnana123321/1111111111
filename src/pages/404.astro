@@ -1,0 +1,17 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { SITE } from '../config/site';
+---
+
+<BaseLayout title={`页面不存在 | ${SITE.name}`} description="你访问的页面不存在或已移动。" path="/404/" noindex>
+  <section class="section">
+    <div class="container center">
+      <h1 style="font-size:3rem;margin:0">404</h1>
+      <p class="muted">你访问的页面不存在或已经移动。</p>
+      <div class="row" style="justify-content:center;margin-top:16px">
+        <a class="btn btn--primary" href="/">返回首页</a>
+        <a class="btn btn--ghost" href="/polymarket/">看新手教程</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

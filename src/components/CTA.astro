@@ -1,0 +1,33 @@
+---
+/**
+ * 文章内推广条：<CTA exchange="binance" />
+ * 可选：title / text 覆盖默认文案
+ */
+import { getExchange, isExchangeId, type ExchangeId } from '../data/exchanges';
+import { FEATURED_ORDER } from '../config/affiliates';
+import ExchangeBadge from './ExchangeBadge.astro';
+
+export interface Props {
+  exchange?: ExchangeId | string;
+  title?: string;
+  text?: string;
+}
+const { exchange, title, text } = Astro.props;
+const id: ExchangeId = exchange && isExchangeId(exchange) ? exchange : FEATURED_ORDER[0];
+const ex = getExchange(id);
+const heading = title ?? `还没有交易所账户？先注册 ${ex.nameZh}（${ex.name}）`;
+const desc =
+  text ??
+  `${ex.rebateLabel}。${ex.inviteCode ? `邀请码 ${ex.inviteCode}。` : ''}注册后即可购买 USDC 并提到 Polymarket。`;
+---
+
+<aside class="cta-inline" aria-label={`推荐：${ex.name}`}>
+  <ExchangeBadge ex={ex} />
+  <div class="body">
+    <p class="title">{heading}</p>
+    <p class="desc">{desc}</p>
+  </div>
+  <a class="btn btn--accent" href={ex.goUrl} rel="sponsored nofollow" data-cta="inline" data-ex={ex.id}>
+    立即注册
+  </a>
+</aside>

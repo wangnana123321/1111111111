@@ -1,0 +1,24 @@
+---
+/**
+ * 多家交易所卡片：<CTAGroup /> 或 <CTAGroup ids="binance,okx" />
+ */
+import { FEATURED_ORDER } from '../config/affiliates';
+import { isExchangeId, type ExchangeId } from '../data/exchanges';
+import ExchangeCard from './ExchangeCard.astro';
+
+export interface Props {
+  ids?: string | ExchangeId[];
+  title?: string;
+}
+const { ids, title } = Astro.props;
+const list = (
+  typeof ids === 'string' ? ids.split(',').map((s) => s.trim()) : (ids ?? FEATURED_ORDER.slice(0, 3))
+).filter(isExchangeId) as ExchangeId[];
+---
+
+<section class="cta-group" style="margin:28px 0">
+  {title && <p style="font-weight:800;margin:0 0 12px">{title}</p>}
+  <div class:list={['grid', list.length >= 3 ? 'grid-3' : 'grid-2']}>
+    {list.map((id) => <ExchangeCard id={id} placement="group" />)}
+  </div>
+</section>

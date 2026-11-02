@@ -1,0 +1,49 @@
+---
+import { getExchange, type ExchangeId } from '../data/exchanges';
+
+export interface Props {
+  exchange: ExchangeId;
+}
+const ex = getExchange(Astro.props.exchange);
+---
+
+<div class="mobile-cta" data-mobile-cta role="complementary" aria-label="推荐交易所">
+  <span class="ex-badge ex-badge--sm" style={`background:${ex.color};color:${ex.textColor}`}>{ex.initials}</span>
+  <div class="txt">
+    <b>先在 {ex.nameZh} 买 USDC</b>
+    <span>邀请注册享手续费优惠</span>
+  </div>
+  <a class="btn btn--accent btn--sm" href={ex.goUrl} rel="sponsored nofollow" data-cta="mobile-sticky" data-ex={ex.id}>
+    去注册
+  </a>
+  <button class="close" type="button" aria-label="关闭" data-close>×</button>
+</div>
+
+<script>
+  const bar = document.querySelector<HTMLElement>('[data-mobile-cta]');
+  if (bar) {
+    let dismissed = false;
+    try {
+      dismissed = sessionStorage.getItem('mcta-dismissed') === '1';
+    } catch {
+      /* storage 不可用时忽略 */
+    }
+    if (!dismissed) {
+      const onScroll = () => {
+        const progress = window.scrollY / Math.max(1, document.body.scrollHeight - window.innerHeight);
+        bar.classList.toggle('show', progress > 0.25 && progress < 0.95);
+      };
+      window.addEventListener('scroll', onScroll, { passive: true });
+      bar.querySelector('[data-close]')?.addEventListener('click', () => {
+        bar.remove();
+        try {
+          sessionStorage.setItem('mcta-dismissed', '1');
+        } catch {
+          /* ignore */
+        }
+      });
+    } else {
+      bar.remove();
+    }
+  }
+</script>

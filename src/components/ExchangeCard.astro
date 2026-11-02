@@ -1,0 +1,61 @@
+---
+import { getExchange, type ExchangeId } from '../data/exchanges';
+import ExchangeBadge from './ExchangeBadge.astro';
+import Stars from './Stars.astro';
+
+export interface Props {
+  id: ExchangeId;
+  /** 卡片位置标识，用于点击统计 */
+  placement?: string;
+  showFacts?: boolean;
+}
+const { id, placement = 'card', showFacts = true } = Astro.props;
+const ex = getExchange(id);
+const polygon =
+  ex.usdcPolygon.supported === true ? '支持' : ex.usdcPolygon.supported === false ? '不支持' : '以官网为准';
+---
+
+<article class="card ex-card">
+  <div class="top">
+    <ExchangeBadge ex={ex} />
+    <div>
+      <div class="name">{ex.name}{ex.nameZh !== ex.name && <small>{ex.nameZh}</small>}</div>
+      <Stars rating={ex.rating} />
+    </div>
+  </div>
+  <div class="tagline">{ex.tagline}</div>
+  {ex.inAppPolymarket && <span class="chip chip--yes" style="align-self:flex-start">App 内可参与 Polymarket 市场</span>}
+  <div class="perk">🎁 {ex.rebateLabel}</div>
+  {ex.alert && <div class="ex-alert">⚠️ {ex.alert}</div>}
+  {
+    showFacts && (
+      <dl class="facts">
+        <dt>现货费率</dt>
+        <dd>
+          {ex.fees.spotMaker}% / {ex.fees.spotTaker}%
+        </dd>
+        <dt>合约费率</dt>
+        <dd>
+          {ex.fees.futuresMaker}% / {ex.fees.futuresTaker}%
+        </dd>
+        <dt>Polygon 提 USDC</dt>
+        <dd>{polygon}</dd>
+      </dl>
+    )
+  }
+  <div class="actions">
+    <a class="btn btn--accent btn--block" href={ex.goUrl} rel="sponsored nofollow" data-cta={placement} data-ex={ex.id}>
+      注册 {ex.nameZh} 领返佣 →
+    </a>
+    {ex.inviteCode && (
+      <div class="code">
+        邀请码：<b>{ex.inviteCode}</b>
+      </div>
+    )}
+    {ex.guidePath && (
+      <a class="small center" href={ex.guidePath}>
+        查看 {ex.nameZh} 注册教程
+      </a>
+    )}
+  </div>
+</article>

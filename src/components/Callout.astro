@@ -1,0 +1,21 @@
+---
+/**
+ * 提示框：<Callout type="warning" title="注意">内容</Callout>
+ * type: info | tip | warning | danger
+ */
+export interface Props {
+  type?: 'info' | 'tip' | 'warning' | 'danger' | 'note';
+  title?: string;
+}
+const { type = 'info', title } = Astro.props;
+const kind = type === 'note' ? 'info' : type;
+const icons = { info: 'ℹ️', tip: '💡', warning: '⚠️', danger: '⛔' } as const;
+---
+
+<div class:list={['callout', `callout--${kind}`]} role="note">
+  <span class="icon" aria-hidden="true">{icons[kind]}</span>
+  <div class="content">
+    {title && <p class="ctitle">{title}</p>}
+    <slot />
+  </div>
+</div>

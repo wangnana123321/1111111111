@@ -1,0 +1,38 @@
+---
+import { MARKET_CATEGORY_LABELS, pct, type HotMarket } from '../lib/markets-parse';
+import { formatUsdShort } from '../lib/format';
+
+export interface Props {
+  m: HotMarket;
+}
+const { m } = Astro.props;
+const end = m.endDate ? m.endDate.slice(0, 10) : '';
+---
+
+<article class="card market" data-cat={m.categoryKey}>
+  <div class="head">
+    {m.image && <img class="icon" src={m.image} alt="" width="40" height="40" loading="lazy" decoding="async" referrerpolicy="no-referrer" />}
+    <h3 class="title">
+      <a href={m.url} target="_blank" rel="sponsored nofollow noopener" data-cta="market">{m.title}</a>
+    </h3>
+  </div>
+  <div class="outcomes">
+    {
+      m.outcomes.map((o, i) => (
+        <div class="outcome">
+          <span class="label">{o.label}</span>
+          <span class="pct">{pct(o.price)}</span>
+          <div class:list={['bar', { yes: m.binary && i === 0 }]}>
+            <i style={`width:${Math.max(1, Math.min(100, o.price * 100)).toFixed(1)}%`} />
+          </div>
+        </div>
+      ))
+    }
+  </div>
+  <div class="foot">
+    <span class="chip">{MARKET_CATEGORY_LABELS[m.categoryKey]}</span>
+    <span>24h 成交 {formatUsdShort(m.volume24h)}</span>
+    {end && <span>截止 {end}</span>}
+    <a href={m.url} target="_blank" rel="sponsored nofollow noopener" data-cta="market">去看看 →</a>
+  </div>
+</article>

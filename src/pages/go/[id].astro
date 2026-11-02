@@ -1,0 +1,55 @@
+---
+/**
+ * 推广链接跳转页：/go/<id>/
+ * Cloudflare Pages 上会优先使用构建生成的 _redirects（302 服务端跳转），
+ * 其他托管平台则使用本页面的 meta refresh + JS 跳转。
+ */
+import { resolveGoTarget } from '../../data/exchanges';
+import type { AffiliateId } from '../../config/affiliates';
+import { SITE } from '../../config/site';
+
+export function getStaticPaths() {
+  const ids: AffiliateId[] = ['binance', 'okx', 'bitget', 'gate', 'bybit', 'polymarket'];
+  return ids.map((id) => ({ params: { id } }));
+}
+
+const { id } = Astro.params as { id: AffiliateId };
+const target = resolveGoTarget(id);
+---
+
+<!doctype html>
+<html lang={SITE.lang}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex, nofollow" />
+    <meta http-equiv="refresh" content={`0;url=${target}`} />
+    <title>正在跳转… | {SITE.name}</title>
+    <script is:inline define:vars={{ target }}>
+      window.location.replace(target);
+    </script>
+    <style>
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+        display: grid;
+        place-items: center;
+        min-height: 100vh;
+        margin: 0;
+        color: #334155;
+        background: #f5f7fb;
+      }
+      @media (prefers-color-scheme: dark) {
+        body {
+          color: #c5cde0;
+          background: #0b1020;
+        }
+        a {
+          color: #8aa5ff;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <p>正在跳转到官方网站… 如果没有自动跳转，<a href={target} rel="sponsored nofollow">请点击这里</a>。</p>
+  </body>
+</html>

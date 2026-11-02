@@ -1,0 +1,27 @@
+---
+/**
+ * Polymarket 推广条：<PolymarketCTA />
+ */
+import { AFFILIATES } from '../config/affiliates';
+
+export interface Props {
+  title?: string;
+  text?: string;
+}
+const {
+  title = '准备好了？打开 Polymarket 开始你的第一笔预测',
+  text = '用邮箱或钱包即可注册。充值前请先确认你所在地区可以合法使用。',
+} = Astro.props;
+const code = AFFILIATES.polymarket.inviteCode;
+---
+
+<aside class="cta-inline" aria-label="Polymarket">
+  <span class="ex-badge" style="background:#1652f0;color:#fff" aria-hidden="true">PM</span>
+  <div class="body">
+    <p class="title">{title}</p>
+    <p class="desc">{text}{code && ` 邀请码：${code}`}</p>
+  </div>
+  <a class="btn btn--primary" href="/go/polymarket/" rel="sponsored nofollow" data-cta="pm-inline" data-ex="polymarket">
+    前往 Polymarket
+  </a>
+</aside>

@@ -1,0 +1,215 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import ExchangeBadge from '../../components/ExchangeBadge.astro';
+import Callout from '../../components/Callout.astro';
+import CTAGroup from '../../components/CTAGroup.astro';
+import FAQ from '../../components/FAQ.astro';
+import RiskNote from '../../components/RiskNote.astro';
+import { SITE } from '../../config/site';
+import { FEATURED_ORDER } from '../../config/affiliates';
+import { getExchanges, ALL_EXCHANGE_IDS } from '../../data/exchanges';
+import { POLYMARKET } from '../../data/polymarket';
+import { breadcrumbLd, faqLd, webAppLd } from '../../lib/seo';
+
+const path = '/tools/deposit-route/';
+const name = 'Polymarket 入金路线查询';
+const description =
+  '选择你使用的交易所，查看把 USDC 充值到 Polymarket 的完整路线：选哪个网络、提币手续费和最低额度、操作步骤和避坑提醒。支持币安、OKX、Bitget、Gate、Bybit。';
+const crumbs = [{ name: '首页', href: '/' }, { name: '工具', href: '/tools/' }, { name: '入金路线查询' }];
+const exchanges = getExchanges(FEATURED_ORDER);
+const inApp = getExchanges(ALL_EXCHANGE_IDS).filter((e) => e.inAppPolymarket);
+const net = POLYMARKET.recommendedNetwork;
+const faq = [
+  {
+    q: '从交易所给 Polymarket 充值选什么网络？',
+    a: `最常用的是 ${net} 网络，手续费低、到账快。务必让交易所提币页面选择的网络与 Polymarket 充值页面显示的网络完全一致，选错网络可能导致资产丢失。`,
+  },
+  {
+    q: '可以直接充 USDT 吗？',
+    a: '据 Polymarket 官方文档，充值桥支持多条链上的 USDT 等资产，到账后会自动换成平台使用的 pUSD。不过新手最稳妥的做法仍是在交易所把 USDT 换成 USDC，再用 Polygon 网络提币；具体支持的币种和网络以充值页面显示为准。',
+  },
+  {
+    q: '充值后余额为什么显示的是 pUSD？',
+    a: '2026 年 4 月 28 日起，Polymarket 用 pUSD（Polymarket USD，与 USDC 1:1 锚定）作为交易余额。你充入的 USDC 等资产会被自动转换，提现时再换回 USDC 等资产。',
+  },
+  {
+    q: '提币多久到账？',
+    a: '交易所审核通常需要几分钟，链上确认一般几分钟内完成。如果超过 1 小时未到账，先在交易所提币记录里查看交易哈希（TxID），再到区块浏览器确认状态。',
+  },
+];
+const jsonLd = [breadcrumbLd(crumbs), webAppLd({ name, description, path }), faqLd(faq)];
+---
+
+<BaseLayout title={`${name}：从交易所提 USDC 到 Polymarket | ${SITE.name}`} description={description} path={path} jsonLd={jsonLd} mobileCta="default">
+  <section class="page-head">
+    <div class="container">
+      <Breadcrumbs items={crumbs} />
+      <h1>🧭 {name}</h1>
+      <p>选择你正在使用（或准备注册）的交易所，查看给 Polymarket 充值的推荐路线、费用和步骤。</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container" style="max-width:900px">
+      <div class="route-picker" role="group" aria-label="选择交易所">
+        {
+          exchanges.map((e, i) => (
+            <button type="button" data-pick={e.id} aria-pressed={i === 0 ? 'true' : 'false'}>
+              <ExchangeBadge ex={e} size="sm" />
+              {e.name}
+            </button>
+          ))
+        }
+        <button type="button" data-pick="inapp" aria-pressed="false">
+          <span class="ex-badge ex-badge--sm" style="background:var(--yes);color:#fff" aria-hidden="true">App</span>
+          不想链上转账
+        </button>
+        <button type="button" data-pick="none" aria-pressed="false">
+          <span class="ex-badge ex-badge--sm" style="background:var(--bg-muted);color:var(--text)" aria-hidden="true">?</span>
+          还没有交易所账户
+        </button>
+      </div>
+
+      {
+        exchanges.map((e, i) => (
+          <section class="card card-pad route" data-route={e.id} hidden={i !== 0} aria-label={`${e.name} 入金路线`}>
+            <div class="row" style="justify-content:space-between">
+              <div class="row">
+                <ExchangeBadge ex={e} />
+                <div>
+                  <h2 style="margin:0;font-size:1.25rem">从 {e.name} 充值到 Polymarket</h2>
+                  <span class="muted small">{e.tagline}</span>
+                </div>
+              </div>
+              <a class="btn btn--accent" href={e.goUrl} rel="sponsored nofollow" data-cta="route" data-ex={e.id}>
+                注册 {e.nameZh}
+              </a>
+            </div>
+
+            <div class="table-wrap" style="margin-top:16px">
+              <table>
+                <tbody>
+                  <tr>
+                    <th scope="row">推荐网络</th>
+                    <td>
+                      {e.usdcPolygon.supported === false
+                        ? `${e.name} 不支持 ${net} 提 USDC，请看下方“替代方案”`
+                        : `USDC · ${net}`}
+                      {e.usdcPolygon.supported === null && <span class="muted small">（以提币页面实际显示为准）</span>}
+                    </td>
+                  </tr>
+                  <tr>
+                    <th scope="row">提币手续费</th>
+                    <td>{e.usdcPolygon.fee}</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">最低提币额</th>
+                    <td>{e.usdcPolygon.min}</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">其他可用网络</th>
+                    <td>{e.usdcNetworks.join('、')}</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">法币买币</th>
+                    <td>{e.fiat}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            {e.usdcPolygon.note && <p class="note">{e.usdcPolygon.note}</p>}
+
+            <ol class="route-steps">
+              <li>
+                <strong>注册并完成认证：</strong>通过邀请链接注册 {e.name}，完成身份认证（KYC）。{e.rebateLabel}。
+              </li>
+              <li>
+                <strong>买入 USDC：</strong>用法币或 P2P 买入 USDT，再在现货市场把 USDT 兑换成 USDC（或直接购买 USDC）。
+              </li>
+              <li>
+                <strong>复制 Polymarket 充值地址：</strong>登录 Polymarket，点击 <b>Deposit（充值）</b>，选择用加密货币转账（按钮名称以页面为准），币种选 USDC、网络选 {net}，复制你自己的充值地址。最低充值额以页面显示为准。
+              </li>
+              <li>
+                <strong>在 {e.name} 提币：</strong>进入“资产 → 提币”，选择 USDC，粘贴地址，网络选择与 Polymarket 页面一致的 <b>{net}</b>，先提一小笔测试。
+              </li>
+              <li>
+                <strong>确认到账：</strong>通常几分钟内到账，余额会自动换成 pUSD（与 USDC 1:1）。测试成功后再转入剩余金额，然后就可以开始交易了。
+              </li>
+            </ol>
+            {e.depositGuidePath && (
+              <p>
+                <a href={e.depositGuidePath}>查看图文详细教程：从 {e.name} 充值到 Polymarket →</a>
+              </p>
+            )}
+          </section>
+        ))
+      }
+
+      <section class="card card-pad route" data-route="inapp" hidden aria-label="在交易所 App 内参与">
+        <h2 style="margin:0 0 8px;font-size:1.25rem">不想做链上转账？在交易所 App 里直接参与</h2>
+        <p class="muted" style="margin:0 0 12px">
+          2026 年起，部分交易所把 Polymarket 的市场接入了自己的 App：不用复制地址、不用选网络，用交易所账户里的稳定币就能下单。可选市场和费用可能与 polymarket.com 不同，各地区能否使用以交易所公告为准。
+        </p>
+        <div class="grid grid-2">
+          {
+            inApp.map((e) => (
+              <div class="card card-pad stack">
+                <div class="row">
+                  <ExchangeBadge ex={e} />
+                  <strong>{e.name}</strong>
+                </div>
+                <p class="small muted" style="margin:0">{e.predictionAccess}</p>
+                <a class="btn btn--accent btn--sm" href={e.goUrl} rel="sponsored nofollow" data-cta="route-inapp" data-ex={e.id}>
+                  注册 {e.name}
+                </a>
+              </div>
+            ))
+          }
+        </div>
+        <p><a href="/exchange/polymarket-in-exchange-apps/">查看交易所站内入口详细教程 →</a></p>
+      </section>
+
+      <section class="card card-pad route" data-route="none" hidden aria-label="没有交易所账户">
+        <h2 style="margin:0 0 8px;font-size:1.25rem">还没有交易所账户？先选一家注册</h2>
+        <p class="muted" style="margin:0 0 4px">
+          新手建议选择流动性好、支持 {net} 网络提 USDC、法币入金方便的头部交易所。通过邀请链接注册，交易手续费可享返还。
+        </p>
+        <CTAGroup />
+        <p><a href="/exchange/">查看完整的交易所对比 →</a></p>
+      </section>
+
+      <Callout type="warning" title="充值前必看的 3 个避坑提醒">
+        <ul style="margin:0;padding-left:1.2em">
+          <li>网络必须一致：交易所提币选择的网络，要和 Polymarket 充值页面显示的网络完全相同（交易所可能把 Polygon 显示为 Polygon POS 或 POL）。</li>
+          <li>先小额测试：第一次充值先转一小笔，确认到账后再转大额。</li>
+          <li>只认官方入口：Polymarket 和交易所都只从官网或官方应用商店进入，警惕“空投领取”“客服”私信。</li>
+        </ul>
+      </Callout>
+
+      <div class="prose">
+        <h2>想了解更多？</h2>
+        <ul>
+          <li><a href="/deposit/">Polymarket 充值与提现教程合集</a></li>
+          <li><a href="/exchange/">交易所手续费与返佣对比</a></li>
+          <li><a href="/tools/odds-calculator/">赔率 / 收益计算器</a></li>
+        </ul>
+      </div>
+
+      <FAQ items={faq} />
+      <RiskNote />
+    </div>
+  </section>
+</BaseLayout>
+
+<script>
+  const buttons = document.querySelectorAll<HTMLButtonElement>('[data-pick]');
+  const routes = document.querySelectorAll<HTMLElement>('[data-route]');
+  function pick(id: string) {
+    buttons.forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.pick === id)));
+    routes.forEach((r) => (r.hidden = r.dataset.route !== id));
+  }
+  buttons.forEach((b) => b.addEventListener('click', () => pick(b.dataset.pick!)));
+  const fromHash = location.hash.replace('#', '');
+  if (fromHash && document.querySelector(`[data-route="${CSS.escape(fromHash)}"]`)) pick(fromHash);
+</script>
