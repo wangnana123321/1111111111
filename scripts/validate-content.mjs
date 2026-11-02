@@ -36,12 +36,17 @@ const STATIC_ROUTES = [
 ];
 
 const FORBIDDEN = [
-  { re: /稳赚|躺赚|暴富|保本|稳赢|包赚|百分百赚|100%\s*胜率|零风险|无风险套利/g, msg: '禁用的收益承诺用语' },
+  { re: /稳赚|躺赚|暴富|稳赢|包赚|百分百赚|100%\s*胜率|零风险|(?:保证|承诺|稳定|绝对)\s*保本|保本保息/g, msg: '禁用的收益承诺用语' },
   { re: /官方合作|独家内部|内部渠道/g, msg: '不得暗示官方合作或内部渠道' },
   { re: /翻墙|科学上网|梯子|挂代理|换\s*IP|改\s*IP|切换节点/gi, msg: '不得出现规避地区限制的方法' },
   { re: /(?:用|使用|开|挂|借助|通过)\s*VPN\s*(?:就|即可|可以|来|访问|注册|登录|绕过)/gi, msg: '疑似在教用 VPN 规避限制' },
   { re: /大陆(?:用户)?(?:也)?(?:可以|能够|能)\s*(?:正常)?(?:使用|注册|访问|玩)/g, msg: '不得暗示中国大陆用户可以使用' },
-  { re: /领取\s*POLY|POLY\s*(?:代币)?\s*领取地址|空投\s*领取\s*入口/g, msg: '不得提供空投领取入口' },
+];
+
+/** 只在“非警示语境”下才算违规的说法（按句子判断） */
+const CONTEXTUAL = [
+  { re: /领取\s*POLY|POLY\s*(?:代币)?\s*领取地址|空投\s*领取\s*入口/i, ok: /警惕|骗|诈|不要|别|假|钓鱼|尚未|没有|不存在|切勿|小心|一律/, msg: '疑似提供空投领取入口' },
+  { re: /无风险/, ok: /不是|并非|没有|不存在|不等于|看似|所谓|号称|宣称|声称|误以为|以为|不能|并不|绝非|哪有|“无风险”|几乎/, msg: '“无风险”只能出现在否定或提醒语境中' },
 ];
 
 async function listAll() {
@@ -177,6 +182,11 @@ async function validate(file, routes) {
   for (const rule of FORBIDDEN) {
     const hits = plain.match(rule.re);
     if (hits) errors.push(`${rule.msg}：${[...new Set(hits)].slice(0, 3).join('、')}`);
+  }
+  for (const sent of plain.split(/[。！？\n]/)) {
+    for (const rule of CONTEXTUAL) {
+      if (rule.re.test(sent) && !rule.ok.test(sent)) errors.push(`${rule.msg}：「${sent.trim().slice(0, 60)}」`);
+    }
   }
   // 提到 VPN 的句子必须带否定/禁止语气
   for (const sent of plain.split(/[。！？\n]/)) {

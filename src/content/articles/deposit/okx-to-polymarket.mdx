@@ -5,9 +5,9 @@ description: "用 OKX（欧易）充值 Polymarket 的详细步骤：注册认�
 keywords: ["okx 充值 polymarket", "欧易 提币 polymarket", "okx usdc polygon", "polymarket okx"]
 tldr:
   - "OKX 提币选 USDC，网络选 Polygon，地址从 Polymarket 充值页复制"
-  - "Polygon 提 USDC 手续费据追踪站数据通常只有几美分，以提币页为准"
-  - "也可以走 Base、Arbitrum 等 Polymarket 支持的网络，注意各链最低额"
-  - "OKX 不服务香港、加拿大、中国大陆，美国和新加坡由独立实体服务"
+  - "据追踪站数据，Polygon 提 USDC 手续费通常只有几美分"
+  - "也可走 Base、Arbitrum 等网络，地址要按网络重新复制"
+  - "OKX 全球站不服务香港、加拿大、中国大陆和美国"
   - "被邀请人返佣由邀请方设定，交易后按净手续费返还，以注册页为准"
 faq:
   - q: "OKX 提币到 Polymarket 选哪个网络？"
@@ -17,9 +17,11 @@ faq:
   - q: "OKX 的 Polygon USDC 是原生 USDC 还是 USDC.e？"
     a: "OKX 官方没有明确写明。提币前可以在 App 的币种详情里核对合约地址：原生 USDC 以 0x3c499c 开头，USDC.e 以 0x2791Bc 开头。按目前资料，Polymarket 网页充值时两者据称都会转换，但优先使用原生 USDC。"
   - q: "OKX 邀请码返佣是多少？"
-    a: "据 OKX 帮助中心，被邀请人返佣在 0–20% 之间，由邀请方设定，不是每个邀请码都带返佣。返佣在交易后按净手续费返还，下单时并不打折，可在用户中心的“我的奖励”查看，具体以注册页面显示为准。"
+    a: "据 OKX 帮助中心的说明（条款可能更新），被邀请人返佣在 0–20% 之间，由邀请方设定，不是每个邀请码都带返佣。返佣在交易后按净手续费返还，下单时并不打折，可在用户中心的“我的奖励”查看，具体以注册页面显示为准。"
   - q: "香港用户能用 OKX 充值 Polymarket 吗？"
-    a: "OKX 自 2024 年 5 月 31 日起停止向香港居民提供交易所服务，2026 年仍列为受限地区，香港用户无法用 OKX 交易所走本文路线。另外香港投委会曾警告参与预测市场可能构成非法赌博，请自行评估法律风险。"
+    a: "OKX 自 2024 年 5 月 31 日起停止向香港居民提供交易所服务，2026 年仍列为受限地区，香港用户无法用 OKX 交易所走本文路线。另外香港投委会 2026 年 4 月曾警告，参与预测市场交易可能构成非法赌博，且不受《证券及期货条例》保障，请自行评估法律风险。"
+  - q: "OKX Wallet 和 OKX 交易所账户是一回事吗？"
+    a: "不是。OKX Wallet（web3.okx.com）是自托管钱包，资产在你自己的地址里，和交易所账户分开。钱包里的 USDC 也能转到 Polymarket 充值地址，但代币和网络要和充值页一致。OKX Wallet 目前是否直接接入 Polymarket 未确认。"
 publishDate: 2026-11-02
 featuredExchanges: ["okx", "binance", "bitget"]
 order: 3
@@ -40,11 +42,11 @@ order: 3
 | 中国大陆 | 不服务 |
 | 香港 | 2024 年 5 月 31 日起停止对香港居民的交易所服务，2026 年仍受限 |
 | 加拿大 | 2023 年退出 |
-| 美国 | 由独立的 OKX US 服务，不走全球站 |
+| 美国 | 据资料由独立的 OKX US 服务，不走全球站 |
 | 新加坡 | 据资料由持牌的 OKX SG 提供服务，不走全球站 |
 | 马来西亚 | 据第三方资料被列为禁止地区 |
 
-**Polymarket 这一端**，美国、英国、法国、德国、澳大利亚、新加坡、泰国、台湾等地的新用户**无法开新仓**。Polymarket 用户协议禁止用 VPN 规避地区限制，违反可能导致账户受限。各地区详情见 [Polymarket 哪些地区能用](/polymarket/availability/)。
+**Polymarket 这一端**，美国、英国、法国、德国、澳大利亚、新加坡、泰国、台湾、加拿大部分省份等地的新用户**无法开新仓**。香港用户另需注意：OKX 交易所已不服务香港居民，香港投委会也曾警告参与预测市场交易可能构成非法赌博。Polymarket 用户协议禁止用 VPN 规避地区限制，违反可能导致账户受限。各地区详情见 [Polymarket 哪些地区能用](/polymarket/availability/)。
 
 中国大陆禁止虚拟货币交易相关活动，本站不面向中国大陆用户。以上地区信息会变化，注册前以 OKX 用户协议为准。
 
@@ -62,11 +64,11 @@ OKX 要求完成 KYC 身份认证后才能正常买币和提币。注册时有�
 
 很多人以为填了邀请码下单就会打折，其实不是。据 OKX 帮助中心的说明：
 
-- 被邀请人返佣在 **0–20%** 之间，由邀请方自行设定，不是每个邀请码都带返佣。
+- 被邀请人返佣在 **0–20%** 之间（以注册页为准），由邀请方自行设定，不是每个邀请码都带返佣。
 - 返佣是在你交易之后，按**净手续费**的一定比例返还，下单时的手续费并不会变少。
 - 返佣记录可以在“用户中心 > 我的奖励”里查看。
 
-具体比例以注册页面显示为准。想估算一年能返多少，可以用 [返佣计算器](/tools/rebate-calculator/)，原理见 [交易所返佣是什么](/exchange/what-is-rebate/)。
+帮助中心的条款可能更新，具体比例以注册页面显示为准。想估算一年能返多少，可以用 [返佣计算器](/tools/rebate-calculator/)，原理见 [交易所返佣是什么](/exchange/what-is-rebate/)。
 
 ## 第 2 步：在 OKX 买 USDT 再换成 USDC
 
@@ -75,7 +77,7 @@ OKX 要求完成 KYC 身份认证后才能正常买币和提币。注册时有�
 1. **P2P 或银行卡买 USDT**：OKX 的 P2P 支持 USD、EUR、AUD 等法币，银行卡（Visa、Mastercard、Apple Pay）购买支持的法币取决于地区，以页面显示为准。
 2. **现货市场把 USDT 换成 USDC**：在交易页搜索 USDC，用 USDT 买入。
 
-手续费方面，OKX 普通用户（Regular 等级）现货挂单 0.08%、吃单 0.10%（以 OKX 费率页为准）。举例：用 300 USDT 以吃单方式买 USDC，手续费约 300 × 0.10% = 0.3 USDC，得到约 299.7 USDC；如果挂限价单成交，手续费约 300 × 0.08% = 0.24 USDC。实际兑换价按成交价计算。
+手续费方面，OKX 普通用户（Regular 等级）现货挂单 0.08%、吃单 0.10%（全球站费率；美国、阿联酋、欧洲经济区等地区主体费率不同，以 OKX 费率页为准）。举例：用 300 USDT 以吃单方式买 USDC，手续费约 300 × 0.10% = 0.3 USDC，得到约 299.7 USDC；如果挂限价单成交，手续费约 300 × 0.08% = 0.24 USDC。实际兑换价按成交价计算。
 
 更多购买方式见 [USDC 怎么买](/deposit/buy-usdc/)。
 
@@ -110,14 +112,14 @@ OKX 官方没有明确说明 Polygon 网络上的 USDC 是原生 USDC 还是 USD
 
 ### 不走 Polygon，还能选哪些网络？
 
-OKX 的 USDC 还支持 Ethereum、Solana、Base、Arbitrum、Optimism、Avalanche 等网络。Polymarket 的充值桥官方支持 Ethereum、Base、Arbitrum、Optimism、Solana 等链，到账后同样自动转成 pUSD。
+据第三方资料，OKX 的 USDC 还支持 Ethereum、Solana、Base、Arbitrum、Optimism、Avalanche 等网络。Polymarket 充值桥的官方文档列出了 Ethereum、Base、Arbitrum、Optimism、Solana 等链，到账后同样自动转成 pUSD；支持清单会调整，以充值页为准。
 
 | 网络 | 适合情况 | 注意 |
 |---|---|---|
-| Polygon | 首选，Polymarket 余额本身就在这条链上 | 官方文档参考最低额约 $2 |
+| Polygon | 首选，Polymarket 余额本身就在这条链上 | 官方文档参考最低额约 $2，以充值页为准 |
 | Base / Arbitrum / Optimism / Solana | Polygon 通道维护时的备选 | 参考最低额约 $2，以充值页为准 |
-| Ethereum | 一般不推荐 | 参考最低额约 $7，提币费通常更高 |
-| Avalanche 等 | 不要用 | 不在本文能确认的 Polymarket 支持列表里 |
+| Ethereum | 一般不推荐 | 参考最低额约 $7，提币费通常更高，以充值页为准 |
+| Avalanche 等其他网络 | 不建议 | 只用 Polymarket 充值页明确列出的网络，没列出的不要转 |
 
 用其他网络时，**要在 Polymarket 充值页选择对应的网络，再复制该网络的地址**，不要把 Polygon 的地址直接填到别的链上。
 
@@ -136,7 +138,7 @@ OKX 的 USDC 还支持 Ethereum、Solana、Base、Arbitrum、Optimism、Avalanch
 
 到账通常只要几分钟。余额增加后，就可以按 [Polymarket 新手下单教程](/polymarket/how-to-play/) 开始交易。超过一小时没到账，先在 OKX 提币记录里找到交易哈希（TxID），再按 [充值没到账的解决办法](/deposit/deposit-troubleshooting/) 排查。
 
-## OKX 提币到 Polymarket 常见问题
+## OKX 提币到 Polymarket 遇到问题怎么办？
 
 **能直接提 USDT 到 Polymarket 吗？**
 OKX 在 Polygon 上的 USDT 显示为“Polygon (USDT0)”（2025 年 9 月起支持）。USDT0 是否在 Polymarket 的支持资产里，目前没有核实，所以建议先换成 USDC 再提，最稳。
@@ -148,7 +150,7 @@ OKX 在 Polygon 上的 USDT 显示为“Polygon (USDT0)”（2025 年 9 月起�
 交易所会因网络升级临时暂停某条链的充提，OKX 也发布过 Polygon 网络升级的相关公告。先看公告等待恢复，或改用上表里 Polymarket 支持的其他网络。
 
 **OKX 的“事件合约”和 Polymarket 是一回事吗？**
-不是。OKX 2026 年 4 月上线的 Event Contracts 只做 BTC、ETH 等加密货币价格的涨跌，按 OKX 指数结算，不是综合型预测市场。OKX Wallet 目前是否接入 Polymarket 也没有确认。
+不是。OKX 2026 年 4 月上线的 Event Contracts 只做 BTC、ETH 等加密货币价格的涨跌，无杠杆，按 OKX 指数结算，不是综合型预测市场，和 Polymarket 也没有关系。OKX Wallet 目前是否接入 Polymarket 也没有确认。
 
 ## 充值之后：交易手续费和提现
 
