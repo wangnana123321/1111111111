@@ -1,5 +1,5 @@
 ---
-import { getExchange, type ExchangeId } from '../data/exchanges';
+import { feePair, getExchange, type ExchangeId } from '../data/exchanges';
 import ExchangeBadge from './ExchangeBadge.astro';
 import Stars from './Stars.astro';
 
@@ -32,11 +32,11 @@ const polygon =
       <dl class="facts">
         <dt>现货费率</dt>
         <dd>
-          {ex.fees.spotMaker}% / {ex.fees.spotTaker}%
+          {feePair(ex.fees.spotMaker, ex.fees.spotTaker)}
         </dd>
         <dt>合约费率</dt>
         <dd>
-          {ex.fees.futuresMaker}% / {ex.fees.futuresTaker}%
+          {feePair(ex.fees.futuresMaker, ex.fees.futuresTaker)}
         </dd>
         <dt>Polygon 提 USDC</dt>
         <dd>{polygon}</dd>

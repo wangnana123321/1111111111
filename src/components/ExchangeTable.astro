@@ -2,7 +2,7 @@
 /**
  * 交易所对比表：<ExchangeTable /> 或 <ExchangeTable ids="binance,okx,bitget" />
  */
-import { ALL_EXCHANGE_IDS, getExchange, isExchangeId, type ExchangeId } from '../data/exchanges';
+import { ALL_EXCHANGE_IDS, feePair, getExchange, isExchangeId, type ExchangeId } from '../data/exchanges';
 import { FEATURED_ORDER } from '../config/affiliates';
 import { SITE } from '../config/site';
 import ExchangeBadge from './ExchangeBadge.astro';
@@ -51,12 +51,12 @@ const polygonText = (v: boolean | null) => (v === true ? '✅ 支持' : v === fa
               {ex.alert && <div class="ex-alert">⚠️ {ex.alert}</div>}
             </th>
             <td class="nowrap">
-              {ex.fees.spotMaker}% / {ex.fees.spotTaker}%
+              {feePair(ex.fees.spotMaker, ex.fees.spotTaker)}
               <div class="muted small">{ex.fees.tokenDiscount}</div>
             </td>
             {!compact && (
               <td class="nowrap">
-                {ex.fees.futuresMaker}% / {ex.fees.futuresTaker}%
+                {feePair(ex.fees.futuresMaker, ex.fees.futuresTaker)}
               </td>
             )}
             <td>

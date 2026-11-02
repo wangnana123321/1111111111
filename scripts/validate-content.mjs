@@ -10,10 +10,11 @@
  */
 import { readFile, readdir } from 'node:fs/promises';
 import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 import yaml from 'js-yaml';
 import { compile } from '@mdx-js/mdx';
 
-const ROOT = path.resolve(path.dirname(new URL(import.meta.url).pathname), '..');
+const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const ARTICLES_DIR = path.join(ROOT, 'src/content/articles');
 const CATEGORIES = ['polymarket', 'deposit', 'exchange', 'strategy'];
 const EXCHANGES = ['binance', 'okx', 'bitget', 'gate', 'bybit'];
@@ -45,8 +46,8 @@ const FORBIDDEN = [
 
 /** 只在“非警示语境”下才算违规的说法（按句子判断） */
 const CONTEXTUAL = [
-  { re: /领取\s*POLY|POLY\s*(?:代币)?\s*领取地址|空投\s*领取\s*入口/i, ok: /警惕|骗|诈|不要|别|假|钓鱼|尚未|没有|不存在|切勿|小心|一律|私信|社群|陌生|“[^”]*(?:领取|空投)[^”]*”/, msg: '疑似提供空投领取入口' },
-  { re: /无风险/, ok: /不是|并非|没有|不存在|不等于|看似|所谓|号称|宣称|声称|误以为|以为|不能|并不|绝非|哪有|“无风险”|几乎/, msg: '“无风险”只能出现在否定或提醒语境中' },
+  { re: /领取\s*POLY|POLY\s*(?:代币)?\s*领取地址|空投\s*领取\s*入口/i, ok: /警惕|骗|诈|不要|别(?:去|信|点|碰|用|轻信|相信)|假|钓鱼|尚未|没有|不存在|切勿|小心|一律|私信|社群|陌生|“[^”]*(?:领取|空投)[^”]*”/, msg: '疑似提供空投领取入口' },
+  { re: /无风险/, ok: /不是|并非|没有|不存在|不等于|看似|所谓|号称|宣称|声称|误以为|以为|不能|并不|绝非|哪有|“无风险”/, msg: '“无风险”只能出现在否定或提醒语境中' },
 ];
 
 async function listAll() {
@@ -124,8 +125,8 @@ async function validate(file, routes) {
     else if (n < 60 || n > 140) warns.push(`description 长度 ${n}，建议 70–120`);
   }
   if (!Array.isArray(fm.keywords) || fm.keywords.length === 0) errors.push('keywords 至少 1 个');
-  if (!Array.isArray(fm.tldr) || fm.tldr.length < 3 || fm.tldr.length > 6) errors.push('tldr 需要 3–5 条');
-  if (!Array.isArray(fm.faq) || fm.faq.length < 3 || fm.faq.length > 8) errors.push('faq 需要 4–6 组');
+  if (!Array.isArray(fm.tldr) || fm.tldr.length < 3 || fm.tldr.length > 5) errors.push('tldr 需要 3–5 条');
+  if (!Array.isArray(fm.faq) || fm.faq.length < 4 || fm.faq.length > 6) errors.push('faq 需要 4–6 组');
   else
     fm.faq.forEach((item, i) => {
       if (!item || !str(item.q) || !str(item.a)) errors.push(`faq 第 ${i + 1} 组缺少 q 或 a`);
@@ -190,7 +191,7 @@ async function validate(file, routes) {
   }
   // 提到 VPN 的句子必须带否定/禁止语气
   for (const sent of plain.split(/[。！？\n]/)) {
-    if (/VPN/i.test(sent) && !/不要|禁止|不得|违反|切勿|不能|不建议|不可|风险|受限|封|冻结|限制|别|勿|查到|追诉|起诉|识别/.test(sent))
+    if (/VPN/i.test(sent) && !/不要|禁止|不得|违反|切勿|不能|不建议|不可|风险|受限|封|冻结|限制|别(?:用|去|碰|信)|勿|查到|追诉|起诉|识别/.test(sent))
       warns.push(`提到 VPN 的句子缺少否定/风险语气：「${sent.trim().slice(0, 60)}」`);
   }
 
@@ -211,6 +212,10 @@ async function validate(file, routes) {
 
 const args = process.argv.slice(2);
 const files = args.length ? args.map((f) => path.resolve(f)) : await listAll();
+if (!files.length) {
+  console.error('未找到任何文章：' + ARTICLES_DIR);
+  process.exit(1);
+}
 const routes = await plannedRoutes();
 let errorCount = 0;
 for (const file of files) {

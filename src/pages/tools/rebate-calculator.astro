@@ -7,7 +7,7 @@ import RiskNote from '../../components/RiskNote.astro';
 import ExchangeBadge from '../../components/ExchangeBadge.astro';
 import { SITE } from '../../config/site';
 import { FEATURED_ORDER } from '../../config/affiliates';
-import { getExchanges } from '../../data/exchanges';
+import { feePair, getExchanges } from '../../data/exchanges';
 import { breadcrumbLd, faqLd, webAppLd } from '../../lib/seo';
 
 const path = '/tools/rebate-calculator/';
@@ -89,8 +89,8 @@ const jsonLd = [breadcrumbLd(crumbs), webAppLd({ name, description, path }), faq
           </div>
           <div class="field">
             <label for="rebate">返佣比例（%）</label>
-            <input class="input" id="rebate" type="number" inputmode="decimal" min="0" max="100" step="1" value="20" />
-            <span class="hint" id="rebate-hint">填入通过邀请链接注册后实际获得的手续费返还比例，以注册页面显示为准。</span>
+            <input class="input" id="rebate" type="number" inputmode="decimal" min="0" max="100" step="1" value="" placeholder="例如 10（以注册页面为准）" />
+            <span class="hint" id="rebate-hint">填入通过邀请链接注册后实际获得的手续费返还比例（以注册页面显示为准）。不填时按示例 10% 估算。</span>
           </div>
         </form>
 
@@ -132,7 +132,7 @@ const jsonLd = [breadcrumbLd(crumbs), webAppLd({ name, description, path }), faq
                     </span>
                   </th>
                   <td class="nowrap" data-cell="rate">
-                    {e.fees.spotMaker}% / {e.fees.spotTaker}%
+                    {feePair(e.fees.spotMaker, e.fees.spotTaker)}
                   </td>
                   <td class="nowrap" data-cell="fee">—</td>
                   <td class="nowrap pos" data-cell="year">—</td>
@@ -147,7 +147,7 @@ const jsonLd = [breadcrumbLd(crumbs), webAppLd({ name, description, path }), faq
           </tbody>
         </table>
       </div>
-      <p class="note">对比表统一使用上方填写的返佣比例；各家实际返佣比例以注册页面为准。</p>
+      <p class="note">对比表统一使用上方填写的返佣比例（未填写时按示例 10% 估算）；各家实际返佣比例以注册页面为准，“以官网为准”表示该费率本站暂未核实。</p>
 
       <div class="prose" style="max-width:860px">
         <h2>返佣是怎么算出来的？</h2>
@@ -180,8 +180,11 @@ const jsonLd = [breadcrumbLd(crumbs), webAppLd({ name, description, path }), faq
     nameZh: string;
     goUrl: string;
     rebate: number | null;
-    fees: { spotMaker: number; spotTaker: number; futuresMaker: number; futuresTaker: number };
+    fees: { spotMaker: number; spotTaker: number; futuresMaker: number | null; futuresTaker: number | null };
   };
+  /** 未填写返佣比例时用于演示的示例值（不代表本站链接的实际比例） */
+  const EXAMPLE_REBATE = 10;
+  const HINT_DEFAULT = '填入通过邀请链接注册后实际获得的手续费返还比例（以注册页面显示为准）。不填时按示例 10% 估算。';
   const data: Ex[] = JSON.parse(document.getElementById('ex-data')!.textContent || '[]');
   const $ = <T extends HTMLElement>(id: string) => document.getElementById(id) as T;
   const exSel = $<HTMLSelectElement>('ex');
@@ -193,9 +196,14 @@ const jsonLd = [breadcrumbLd(crumbs), webAppLd({ name, description, path }), faq
   const usd = (v: number) =>
     `$${v.toLocaleString('en-US', { minimumFractionDigits: v < 100 ? 2 : 0, maximumFractionDigits: v < 100 ? 2 : 0 })}`;
 
-  function feeFor(ex: Ex, volume: number, takerShare: number) {
-    const maker = market === 'spot' ? ex.fees.spotMaker : ex.fees.futuresMaker;
-    const tk = market === 'spot' ? ex.fees.spotTaker : ex.fees.futuresTaker;
+  function ratesFor(ex: Ex): [number | null, number | null] {
+    return market === 'spot' ? [ex.fees.spotMaker, ex.fees.spotTaker] : [ex.fees.futuresMaker, ex.fees.futuresTaker];
+  }
+
+  /** 返回 null 表示该交易所此类费率未核实 */
+  function feeFor(ex: Ex, volume: number, takerShare: number): number | null {
+    const [maker, tk] = ratesFor(ex);
+    if (maker == null || tk == null) return null;
     return volume * ((takerShare * tk + (1 - takerShare) * maker) / 100);
   }
 
@@ -203,18 +211,28 @@ const jsonLd = [breadcrumbLd(crumbs), webAppLd({ name, description, path }), faq
     const ex = data.find((d) => d.id === exSel.value) ?? data[0];
     const v = Math.max(0, parseFloat(vol.value) || 0);
     const t = Number(taker.value) / 100;
-    const r = Math.min(100, Math.max(0, parseFloat(rebate.value) || 0)) / 100;
+    const typed = parseFloat(rebate.value);
+    const usingExample = !Number.isFinite(typed);
+    const r = Math.min(100, Math.max(0, usingExample ? EXAMPLE_REBATE : typed)) / 100;
     $('taker-val').textContent = `${Math.round(t * 100)}%`;
 
     const fee = feeFor(ex, v, t);
-    const month = fee * r;
-    $('r-fee').textContent = usd(fee);
-    $('r-month').textContent = usd(month);
-    $('r-year').textContent = usd(month * 12);
-    $('r-3y').textContent = usd(month * 36);
-    $('r-explain').textContent =
-      `在 ${ex.name} 每月${market === 'spot' ? '现货' : '合约'}交易 ${v.toLocaleString('en-US')} USDT（吃单 ${Math.round(t * 100)}%），` +
-      `按标准费率每月手续费约 ${usd(fee)}。如果手续费返还 ${Math.round(r * 100)}%，每月可省 ${usd(month)}，一年约 ${usd(month * 12)}。`;
+    const kind = market === 'spot' ? '现货' : '合约';
+    if (fee == null) {
+      ['r-fee', 'r-month', 'r-year', 'r-3y'].forEach((id) => ($(id).textContent = '—'));
+      $('r-explain').textContent = `${ex.name} 的${kind}标准费率本站暂未核实，请以官网费率页面为准，或换一家交易所 / 切换到现货计算。`;
+    } else {
+      const month = fee * r;
+      $('r-fee').textContent = usd(fee);
+      $('r-month').textContent = usd(month);
+      $('r-year').textContent = usd(month * 12);
+      $('r-3y').textContent = usd(month * 36);
+      $('r-explain').textContent =
+        `在 ${ex.name} 每月${kind}交易 ${v.toLocaleString('en-US')} USDT（吃单 ${Math.round(t * 100)}%），` +
+        `按标准费率每月手续费约 ${usd(fee)}。如果手续费返还 ${Math.round(r * 100)}%` +
+        (usingExample ? '（示例比例，实际以注册页面为准）' : '') +
+        `，每月可省 ${usd(month)}，一年约 ${usd(month * 12)}。`;
+    }
     const cta = $<HTMLAnchorElement>('r-cta');
     cta.href = ex.goUrl;
     cta.dataset.ex = ex.id;
@@ -224,11 +242,11 @@ const jsonLd = [breadcrumbLd(crumbs), webAppLd({ name, description, path }), faq
       const row = document.querySelector(`[data-row="${d.id}"]`);
       if (!row) continue;
       const f = feeFor(d, v, t);
-      const maker = market === 'spot' ? d.fees.spotMaker : d.fees.futuresMaker;
-      const tk = market === 'spot' ? d.fees.spotTaker : d.fees.futuresTaker;
-      row.querySelector('[data-cell="rate"]')!.textContent = `${maker}% / ${tk}%`;
-      row.querySelector('[data-cell="fee"]')!.textContent = usd(f);
-      row.querySelector('[data-cell="year"]')!.textContent = usd(f * r * 12);
+      const [maker, tk] = ratesFor(d);
+      row.querySelector('[data-cell="rate"]')!.textContent =
+        maker == null || tk == null ? '以官网为准' : `${maker}% / ${tk}%`;
+      row.querySelector('[data-cell="fee"]')!.textContent = f == null ? '—' : usd(f);
+      row.querySelector('[data-cell="year"]')!.textContent = f == null ? '—' : usd(f * r * 12);
     }
   }
 
@@ -236,7 +254,14 @@ const jsonLd = [breadcrumbLd(crumbs), webAppLd({ name, description, path }), faq
     const ex = data.find((d) => d.id === exSel.value);
     if (ex && ex.rebate != null) {
       rebate.value = String(Math.round(ex.rebate * 100));
+      rebate.dataset.auto = '1';
       $('rebate-hint').textContent = `通过本站链接注册 ${ex.name} 可获得 ${Math.round(ex.rebate * 100)}% 手续费返还（以注册页面为准）。`;
+    } else {
+      if (rebate.dataset.auto) {
+        rebate.value = '';
+        delete rebate.dataset.auto;
+      }
+      $('rebate-hint').textContent = HINT_DEFAULT;
     }
     calc();
   });
@@ -253,8 +278,14 @@ const jsonLd = [breadcrumbLd(crumbs), webAppLd({ name, description, path }), faq
       calc();
     }),
   );
+  rebate.addEventListener('input', () => {
+    delete rebate.dataset.auto;
+  });
   [vol, taker, rebate].forEach((el) => el.addEventListener('input', calc));
   const first = data.find((d) => d.id === exSel.value);
-  if (first && first.rebate != null) rebate.value = String(Math.round(first.rebate * 100));
+  if (first && first.rebate != null) {
+    rebate.value = String(Math.round(first.rebate * 100));
+    rebate.dataset.auto = '1';
+  }
   calc();
 </script>

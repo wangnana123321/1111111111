@@ -41,10 +41,16 @@ jobs:
       - run: npm ci
 
       - name: Validate content
-        run: node scripts/validate-content.mjs
+        run: npm run validate
 
       - name: Build
         run: npm run build
+
+      - name: Check site domain and project
+        if: env.HAS_CF == 'true'
+        run: |
+          if grep -q 'example.com' dist/robots.txt; then echo '::error::站点域名仍是占位的 example.com，请设置仓库变量 SITE_URL 或修改 src/config/site.ts 后再部署'; exit 1; fi
+          if [ -z "${{ vars.CF_PAGES_PROJECT }}" ]; then echo '::error::请设置仓库变量 CF_PAGES_PROJECT'; exit 1; fi
 
       - name: Deploy to Cloudflare Pages
         if: env.HAS_CF == 'true'

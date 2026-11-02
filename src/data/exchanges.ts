@@ -27,8 +27,9 @@ export interface ExchangeData {
     /** 百分比数字，0.1 表示 0.1% */
     spotMaker: number;
     spotTaker: number;
-    futuresMaker: number;
-    futuresTaker: number;
+    /** null = 未能核实，页面显示“以官网为准” */
+    futuresMaker: number | null;
+    futuresTaker: number | null;
     tokenDiscount: string;
   };
   usdcPolygon: {
@@ -180,8 +181,8 @@ export const EXCHANGE_DATA: Record<ExchangeId, ExchangeData> = {
     fees: {
       spotMaker: 0.1,
       spotTaker: 0.1,
-      futuresMaker: 0.02,
-      futuresTaker: 0.05,
+      futuresMaker: null,
+      futuresTaker: null,
       tokenDiscount: '用 GT 抵扣手续费可享折扣',
     },
     usdcPolygon: {
@@ -245,6 +246,11 @@ export interface Exchange extends ExchangeData {
   /** 返佣文案：已配置比例时显示具体比例，否则统一提示以注册页为准 */
   rebateLabel: string;
   rebateNote?: string;
+}
+
+/** 费率对显示：0.02% / 0.05%；未核实时显示“以官网为准” */
+export function feePair(maker: number | null, taker: number | null): string {
+  return maker == null || taker == null ? '以官网为准' : `${maker}% / ${taker}%`;
 }
 
 export function formatPct(value: number, digits = 0): string {
