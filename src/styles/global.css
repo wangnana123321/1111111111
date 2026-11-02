@@ -20,6 +20,7 @@
   --primary-hover: #1b43c4;
   --primary-soft: #eaf0ff;
   --primary-ink: #1a3fb8;
+  --on-primary: #ffffff;
 
   --accent: #f5b30b;
   --accent-hover: #e4a300;
@@ -73,6 +74,7 @@
     --primary-hover: #8aa5ff;
     --primary-soft: #1a2550;
     --primary-ink: #a9bdff;
+    --on-primary: #0b1020;
 
     --accent: #f7bd2a;
     --accent-hover: #ffcb47;
@@ -176,7 +178,7 @@ textarea {
   top: 8px;
   z-index: 100;
   background: var(--primary);
-  color: #fff;
+  color: var(--on-primary);
   padding: 8px 14px;
   border-radius: var(--radius-sm);
 }
@@ -237,7 +239,7 @@ main {
   -webkit-backdrop-filter: saturate(180%) blur(12px);
   border-bottom: 1px solid var(--border);
 }
-.site-header .bar {
+.site-header .header-bar {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -377,11 +379,11 @@ main {
 }
 .btn--primary {
   background: var(--primary);
-  color: #fff;
+  color: var(--on-primary);
 }
 .btn--primary:hover {
   background: var(--primary-hover);
-  color: #fff;
+  color: var(--on-primary);
 }
 .btn--ghost {
   background: transparent;
@@ -621,7 +623,7 @@ main {
   height: 32px;
   border-radius: 50%;
   background: var(--primary);
-  color: #fff;
+  color: var(--on-primary);
   font-weight: 800;
   display: grid;
   place-items: center;
@@ -1384,7 +1386,7 @@ tr:last-child td {
 .filter-row button[aria-pressed='true'] {
   background: var(--primary);
   border-color: var(--primary);
-  color: #fff;
+  color: var(--on-primary);
 }
 .empty-state {
   padding: 28px;
@@ -1597,7 +1599,7 @@ tr:last-child td {
   height: 26px;
   border-radius: 50%;
   background: var(--primary);
-  color: #fff;
+  color: var(--on-primary);
   font-weight: 800;
   font-size: 0.85rem;
   display: grid;
@@ -1686,10 +1688,13 @@ tr:last-child td {
   box-shadow: var(--shadow-lg);
   font-size: 0.88rem;
   transform: translateY(140%);
-  transition: transform 0.25s ease;
+  visibility: hidden;
+  transition: transform 0.25s ease, visibility 0s linear 0.25s;
 }
 .mobile-cta.show {
   transform: none;
+  visibility: visible;
+  transition: transform 0.25s ease;
 }
 .mobile-cta .txt {
   flex: 1;

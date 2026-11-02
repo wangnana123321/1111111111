@@ -127,7 +127,7 @@ const jsonLd = [breadcrumbLd(crumbs), webAppLd({ name, description, path }), faq
           <li><strong>隐含概率</strong> = 买入价格（0.65 美元 = 65%）</li>
           <li><strong>十进制赔率</strong> = 1 ÷ 价格；<strong>美式赔率</strong>：价格低于 0.5 时为 +（1/价格 − 1）× 100，高于 0.5 时为 −100 ÷（1/价格 − 1）</li>
           <li><strong>期望收益</strong> = 你的概率 × 猜对可拿回 − 投入金额</li>
-          <li><strong>凯利仓位</strong> =（你的概率 − 价格）÷（1 − 价格），仅在你的概率高于价格时为正</li>
+          <li><strong>凯利仓位</strong> =（你的概率 − 含手续费的平均成本）÷（1 − 含手续费的平均成本），仅在你的概率高于平均成本时为正</li>
         </ul>
         <h2>举个例子</h2>
         <p>
@@ -179,9 +179,17 @@ const jsonLd = [breadcrumbLd(crumbs), webAppLd({ name, description, path }), faq
     const s = num(stake);
     const r = Math.max(0, parseFloat(feecat.value) || 0);
     if (!(p > 0 && p < 1) || !(s > 0)) {
+      ['r-shares', 'r-payout', 'r-profit', 'r-roi', 'r-loss', 'r-implied', 'r-decimal', 'r-american', 'r-fee', 'r-avg', 'r-ev', 'r-kelly', 'r-sell', 'r-sellpl'].forEach((id) =>
+        setText(id, '—', '')
+      );
+      $('ev-block').hidden = true;
+      $('sell-block').hidden = true;
+      $('price-pct').textContent = '—';
+      price.setAttribute('aria-invalid', String(!(p > 0 && p < 1)));
       $('r-explain').textContent = '请输入 0.01–0.99 之间的价格和大于 0 的金额。';
       return;
     }
+    price.removeAttribute('aria-invalid');
     $('price-pct').textContent = `≈ ${Math.round(p * 100)}%`;
     // 官方吃单手续费公式：fee = 份数 × 费率 × p × (1 − p)
     // 总花费 S = 份数 × p + 手续费 → 份数 = S / (p × (1 + r × (1 − p)))
@@ -196,7 +204,7 @@ const jsonLd = [breadcrumbLd(crumbs), webAppLd({ name, description, path }), faq
     setText('r-payout', usd(payout));
     setText('r-profit', usd(profit), profit >= 0 ? 'pos' : 'neg');
     setText('r-roi', pctText(profit / s), profit >= 0 ? 'pos' : 'neg');
-    setText('r-loss', usd(-s));
+    setText('r-loss', usd(-s), 'neg');
     setText('r-implied', pctText(p, 0));
     setText('r-decimal', decimal.toFixed(2));
     setText('r-american', american);
@@ -210,7 +218,8 @@ const jsonLd = [breadcrumbLd(crumbs), webAppLd({ name, description, path }), faq
       evBlock.hidden = false;
       const ev = b * payout - s;
       setText('r-ev', usd(ev), ev >= 0 ? 'pos' : 'neg');
-      const kelly = (b - p) / (1 - p);
+      const pEff = s / shares;
+      const kelly = (b - pEff) / (1 - pEff);
       setText('r-kelly', kelly > 0 ? `${pctText(kelly)} 资金` : '不建议下注', kelly > 0 ? 'pos' : 'neg');
       evText =
         ev >= 0
@@ -224,8 +233,9 @@ const jsonLd = [breadcrumbLd(crumbs), webAppLd({ name, description, path }), faq
     const sellBlock = $('sell-block');
     if (sp >= 0 && sp <= 1 && sell.value !== '') {
       sellBlock.hidden = false;
-      const proceeds = shares * sp;
-      setText('r-sell', usd(proceeds));
+      const sellFee = shares * r * sp * (1 - sp);
+      const proceeds = shares * sp - sellFee;
+      setText('r-sell', sellFee > 0 ? `${usd(proceeds)}（已扣约 ${usd(sellFee)} 吃单手续费）` : usd(proceeds));
       setText('r-sellpl', usd(proceeds - s), proceeds - s >= 0 ? 'pos' : 'neg');
     } else {
       sellBlock.hidden = true;
