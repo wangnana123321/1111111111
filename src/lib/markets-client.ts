@@ -18,7 +18,7 @@ export function renderMarket(m: HotMarket): string {
   const outcomes = m.outcomes
     .map(
       (o, i) => `<div class="outcome"><span class="label">${esc(o.label)}</span><span class="pct">${pct(o.price)}</span><div class="bar${
-        m.binary && i === 0 ? ' yes' : ''
+        m.binary && i === 0 ? ' yes' : m.binary && i === 1 ? ' no' : ''
       }"><i style="width:${Math.max(1, Math.min(100, o.price * 100)).toFixed(1)}%"></i></div></div>`,
     )
     .join('');

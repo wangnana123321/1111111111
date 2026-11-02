@@ -22,7 +22,7 @@ const end = m.endDate ? m.endDate.slice(0, 10) : '';
         <div class="outcome">
           <span class="label">{o.label}</span>
           <span class="pct">{pct(o.price)}</span>
-          <div class:list={['bar', { yes: m.binary && i === 0 }]}>
+          <div class:list={['bar', { yes: m.binary && i === 0, no: m.binary && i === 1 }]}>
             <i style={`width:${Math.max(1, Math.min(100, o.price * 100)).toFixed(1)}%`} />
           </div>
         </div>

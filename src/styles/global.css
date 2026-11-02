@@ -1351,6 +1351,9 @@ tr:last-child td {
 .bar.yes > i {
   background: var(--yes);
 }
+.bar.no > i {
+  background: var(--no);
+}
 .market .foot {
   margin-top: auto;
   display: flex;

@@ -1,0 +1,206 @@
+---
+title: "Polymarket 怎么充值？2026 入金方法全对比"
+seoTitle: "Polymarket 怎么充值：USDC 入金教程与最低额（2026）"
+description: "Polymarket 怎么充值？本文对比交易所提 USDC、其他链、USDT、银行卡和钱包转入五种入金方式，给出 Polygon 网络通用步骤、最低额、手续费算例和到账排查，新手照着做一次就会。"
+keywords: ["polymarket 充值", "polymarket 入金", "polymarket 怎么充值", "polymarket 充值 usdt", "polymarket 最低充值"]
+tldr:
+  - "最推荐：交易所买 USDC，选 Polygon 网络提到 Polymarket 充值地址"
+  - "账户余额是 pUSD，充值的 USDC 会自动 1:1 转换，不用自己买"
+  - "Polymarket 不收充值费，gas 由平台代付，主要成本是交易所提币费"
+  - "最低充值额以充值页显示为准，第一次先小额测试"
+  - "每次都从充值页重新复制地址，网络必须和页面显示一致"
+faq:
+  - q: "Polymarket 充值最低多少钱？"
+    a: "官方充值桥文档给出的参考值是：Polygon、Base、Arbitrum 等链约 2 美元，以太坊约 7 美元，比特币和 Tron 上的 USDT 约 9 美元。但第三方资料的数字不同，低于最低额的充值可能不处理，一律以充值页面显示的最低额为准。"
+  - q: "Polymarket 可以直接充 USDT 吗？"
+    a: "官方支持资产清单里包含多条链上的 USDT，充值后会自动转换成 pUSD。不过 USDT 的具体链和最低额变化较多，新手最稳的做法仍是在交易所把 USDT 换成 USDC，再走 Polygon 网络充值。"
+  - q: "Polymarket 充值要多久到账？"
+    a: "通常几分钟，取决于交易所处理提币的速度和链上确认时间，官方没有给出固定时长。如果超过一小时仍未到账，先在交易所提币记录里查看交易哈希，再按充值排查教程逐项核对。"
+  - q: "Polymarket 充值收手续费吗？"
+    a: "Polymarket 本身不收充值费，Polygon 上的 gas 也由平台代付，你不需要持有 POL。实际成本主要是交易所的提币手续费，以及买币时的交易手续费；用银行卡通过 MoonPay 购买则费率明显更高。"
+  - q: "充值后余额为什么显示 pUSD 而不是 USDC？"
+    a: "2026 年 4 月 28 日交易所升级后，Polymarket 的抵押品换成了 pUSD，官方说明它由 USDC 1:1 支持。你充进去的 USDC 会自动转换，提现时界面默认可以提回 Polygon 上的 USDC。"
+publishDate: 2026-11-02
+featuredExchanges: ["okx", "binance", "bitget"]
+order: 1
+---
+
+Polymarket 充值最简单、成本最低的方法是：在交易所买入 USDC，提币时网络选 **Polygon**，收款地址填你在 Polymarket 充值页复制的专属地址。到账后资金会自动转换成账户余额 pUSD（官方说明 1:1 由 USDC 支持）。Polymarket 本身不收充值费，链上 gas 也由平台代付，你要承担的主要是交易所的提币手续费。第一次操作先小额测试，最低额以充值页面显示为准。
+
+<Callout type="info" title="先确认你所在的地区">
+
+中国大陆禁止虚拟货币交易相关活动，本站不面向中国大陆用户。Polymarket 国际站对美国（另有独立的 Polymarket US）、英国、法国、德国、意大利、比利时、波兰、澳大利亚、新加坡、泰国、台湾以及加拿大部分省份等地区设有限制，新用户在这些地区**无法开新仓**。Polymarket 用户协议禁止用 VPN 规避地区限制，违反可能导致账户受限。详见 [Polymarket 哪些地区能用](/polymarket/availability/)。
+
+</Callout>
+
+## 充值前先搞懂：Polymarket 余额为什么是 pUSD？
+
+2026 年 4 月 28 日，Polymarket 完成了一次交易所升级（Exchange Upgrade），账户抵押品从原来的 USDC.e 换成了 **pUSD**。pUSD 是 Polygon 链上的代币，官方说明由 USDC 按 1:1 支持。对普通用户来说，这件事只意味着三点：
+
+1. **你不需要自己去买 pUSD**。充值 USDC（以及充值桥支持的其他资产）后，系统会自动转换。
+2. **你不需要准备 gas 币**。Polymarket 的中继服务代付 Polygon 上的 gas，钱包里不用放 POL。
+3. **pUSD 不是空投，也不是 POLY 代币**。截至 2026 年 11 月，POLY 尚未发行，任何自称可以“领 POLY 代币”的页面都应按诈骗处理。
+
+USDC、USDC.e、pUSD 和 Polygon 之间的关系第一次看容易混，可以先读 [Polygon、USDC、USDC.e 与 pUSD 的区别](/deposit/polygon-usdc-pusd/)，再回来操作。
+
+## Polymarket 有哪些充值方式？5 种方法对比
+
+Polymarket 的充值页面背后有一个多链充值桥。按官方文档，支持 Ethereum、Polygon、Base、Arbitrum、Optimism、Solana、Bitcoin、Tron、BNB Chain 等链上的资产，到账后统一转换成 Polygon 上的 pUSD。官方也说明支持的资产清单会调整，所以下表只是方向，具体以充值页面为准。
+
+| 充值方式 | 适合谁 | 主要成本 | 注意事项 |
+|---|---|---|---|
+| ① 交易所提 USDC（Polygon 网络） | 大多数新手，**最推荐** | 交易所提币费，通常约 1 USDC 或更低 | 网络选 Polygon，最低额要求低 |
+| ② 交易所或钱包从其他链提 USDC | 资产已经在 Arbitrum、Base、Solana 等链上 | 各链提币费不同，以太坊通常最贵 | 经充值桥自动转换，各链最低额不同 |
+| ③ 充值 USDT | 手里只有 USDT | 可能有兑换价差 | 支持哪些链以充值页为准 |
+| ④ 银行卡购买（MoonPay） | 没有交易所账户、金额小 | 据第三方资料约 1%–4.5% | 是否可用取决于所在国家 |
+| ⑤ 从自己的钱包转入 | 已在用 MetaMask、Phantom 等钱包 | 链上 gas | 代币和网络都要和充值页一致 |
+
+为什么首推第①种？Polygon 链上转账便宜、确认快，官方文档里 Polygon 的参考最低额也属于最低一档；交易所买 USDC 只付现货手续费，比刷卡便宜得多。整条路线就三步：
+
+<DepositFlow />
+
+## Polymarket 充值最低多少？到账要多久？
+
+这是搜索最多、也最容易写错的问题。目前能找到的数据互相冲突：
+
+| 充值网络 / 资产 | 官方充值桥文档参考值 | 说明 |
+|---|---|---|
+| Polygon、Base、Arbitrum、Optimism、Solana | 约 $2 | 第三方资料有写 $3 的 |
+| Ethereum | 约 $7 | 以太坊主网提币费本身也较高 |
+| Bitcoin、Tron 上的 USDT | 约 $9 | 第三方资料有写 $10 的 |
+
+**结论：一律以充值页面显示的最低额为准。** 低于最低额的充值可能不会被处理，或者一直挂起，处理起来很麻烦。
+
+还有一个新手常踩的坑：**到账金额 = 提币数量 − 交易所提币手续费**（多数交易所从提币数量里扣费，具体看提币页的“到账数量”）。举个例子，假设某交易所 Polygon 网络提 USDC 的手续费是 1 USDC，你提 3 USDC，链上实际只到 2 USDC，很可能刚好卡在最低额边缘。所以测试金额建议用 10 USDC 左右，既能覆盖手续费，又明显高于最低额。
+
+到账时间方面，官方没有给出固定数字。实际通常是几分钟，取决于交易所处理提币的速度和链上确认。交易所端的审核或风控有时会更慢。
+
+## 交易所提 USDC 充值 Polymarket：通用步骤
+
+下面是适用于各家交易所的通用流程。界面文字各家不同，按钮名称以页面为准；分交易所的截图级教程见下一节。
+
+### 第 1 步：注册交易所并完成身份认证
+
+主流交易所都要求完成 KYC 身份认证后才能买币和提币。还没有账户的话，先选一家在你所在地区能合法使用的交易所。不知道怎么选，可以看 [2026 交易所对比](/exchange/best-exchanges/)。
+
+<CTA title="还没有交易所账户？" text="先注册并完成认证，买 USDC 后就能按本文步骤充值 Polymarket。" />
+
+### 第 2 步：在交易所买 USDC
+
+常见做法是用 P2P 或银行卡先买 USDT，再在现货市场把 USDT 换成 USDC；有些交易所也能直接买 USDC。详细方法见 [USDC 怎么买](/deposit/buy-usdc/)。
+
+### 第 3 步：在 Polymarket 复制你的充值地址
+
+登录 polymarket.com，点击 **Deposit（充值）**。如果页面让你选择币种和网络，选 USDC 和 Polygon，然后复制页面上显示的地址。**每次充值都回到充值页重新复制**，不要用聊天记录、截图或别人发来的地址。
+
+### 第 4 步：在交易所发起提币
+
+进入交易所的资产页，找到 USDC 的提币（Withdraw）入口：
+
+1. 币种选 **USDC**。
+2. 网络选 **Polygon**。不同交易所可能显示为“Polygon”“Polygon POS”或“POL”，都是同一条链。
+3. 粘贴刚才复制的地址，核对开头和结尾各 4–6 位字符。
+4. 填写数量，看清提币页显示的手续费和到账数量（以页面显示为准）。
+5. 完成邮箱、短信或 2FA 验证后提交。
+
+<Callout type="warning" title="网络一定要选对">
+
+交易所提币选择的网络，必须和 Polymarket 充值页面显示的网络一致。网络选错是充值丢钱最常见的原因，有些链转错后目前无法找回。
+
+</Callout>
+
+### 第 5 步：先小额测试，再正式充值
+
+第一次往某个地址提币，先提 10 USDC 左右测试。确认 Polymarket 余额到账后，再把剩余金额一次提过去。多付一次手续费，换来的是确认地址、网络都没问题，非常值得。
+
+### 第 6 步：确认到账
+
+到账后刷新 Polymarket 页面，账户余额会相应增加。接下来就可以按 [Polymarket 新手下单教程](/polymarket/how-to-play/) 买入第一笔“是 / 否”份额了。
+
+## 充 200 美元要花多少手续费？两种路线算一笔账
+
+用一个具体例子比较“交易所路线”和“刷卡路线”。下面的费率是举例假设，实际以各平台页面显示为准：
+
+**路线 A：交易所买 USDC → Polygon 提币**
+
+- 用 200 USDT 在现货市场买 USDC，按常见的 0.1% 吃单费率，手续费约 200 × 0.1% = 0.2 USDC，得到约 199.8 USDC（USDT 与 USDC 的兑换价按实际成交价计算）。
+- 提币手续费假设为 1 USDC，到账约 199.8 − 1 = 198.8 pUSD。
+- 合计成本约 1.2 美元，约占本金的 0.6%。
+
+**路线 B：银行卡通过 MoonPay 购买**
+
+- 据第三方资料，MoonPay 手续费约 1%–4.5%，200 美元对应 2–9 美元。
+- 到账约 191–198 美元。
+
+| 路线 | 手续费（举例） | 到账（举例） |
+|---|---|---|
+| A：交易所 + Polygon 提币 | 约 1.2 美元 | 约 198.8 pUSD |
+| B：银行卡（MoonPay） | 约 2–9 美元 | 约 191–198 美元 |
+
+金额越大，路线 A 的优势越明显，因为提币费是固定的一小笔，而刷卡费用是按比例收的。如果你想按自己的金额和地区查最合适的路线，可以用 [入金路线查询工具](/tools/deposit-route/)。
+
+另外提醒一句：充值不收费，但**下单时吃单要收手续费**（2026 年起多数类别收费，挂单不收）。计算方式见 [Polymarket 手续费说明](/polymarket/fees/)。
+
+## 币安、OKX、Bitget 怎么充值 Polymarket？
+
+各交易所的提币界面、网络名称和到账规则略有不同，下面是分交易所的专门教程：
+
+- [币安充值 Polymarket 教程](/deposit/binance-to-polymarket/)：币安支持 Polygon 上的原生 USDC，不支持 USDC.e。据报道，币安在 2026 年 10 月 29 日发生热钱包被盗事件，11 月 1 日起分阶段恢复提币，截至 2026 年 11 月初首批已包含 Polygon，请以币安官方公告为准。
+- [OKX 充值 Polymarket 教程](/deposit/okx-to-polymarket/)：欧易 Polygon 网络提 USDC 的手续费据追踪站数据通常很低，以提币页为准。
+- [Bitget 充值 Polymarket 教程](/deposit/bitget-to-polymarket/)：提币前在 App 里核对 USDC 的网络和合约地址。
+
+几家交易所的现货费率和 Polygon 提币支持情况对比：
+
+<ExchangeTable compact />
+
+如果你不想自己提币，Gate App 自 2026 年 3 月起以公测形式接入了 Polymarket，Bybit Prediction 约 2026 年 6 月上线并使用 Polymarket 的流动性，可以在交易所 App 里直接参与 Polymarket 市场。各地区能否使用尚未核实，详见 [交易所 App 内的 Polymarket 入口](/exchange/polymarket-in-exchange-apps/)。
+
+## 银行卡、USDT、其他链和钱包转入怎么选？
+
+**银行卡（MoonPay）**：充值页里可以通过 MoonPay 刷卡购买，支持 Apple Pay、Google Pay，部分用户还能连接 Coinbase 账户。优点是不用开交易所账户，缺点是费率高（据第三方资料约 1%–4.5%），而且是否可用要看国家。适合小额试水。
+
+**USDT**：官方支持资产清单里有多条链上的 USDT（包括 Tron），会自动转换。但 USDT 支持哪些链、最低额多少变化较多。新手建议在交易所先换成 USDC，再走 Polygon，最稳。
+
+**其他链的 USDC**：资产已经在 Arbitrum、Base、Optimism、Solana 上，可以直接从这些链充值，充值桥会自动转换。注意各链最低额不同，以太坊主网的最低额和提币费都更高，一般不划算。
+
+**自己的钱包转入**：用 MetaMask、Rabby、Phantom 等钱包转账时，代币和网络都要和充值页显示的一致。Polygon 上有原生 USDC 和 USDC.e 两种代币，合约地址不同：
+
+- 原生 USDC：`0x3c499c542cEF5E3811e1192ce70d8cC03d5c3359`
+- USDC.e：`0x2791Bca1f2de4661ED88A30C99A7a9449Aa84174`
+
+据称网页充值时两者都会 1:1 转成 pUSD，但没有覆盖所有流程的官方说法，优先用原生 USDC。
+
+## Polymarket 充值没到账、转错网络怎么办？
+
+先别慌，按顺序排查：
+
+1. 在交易所的提币记录里确认状态是“已完成”，并复制交易哈希（TxID）。
+2. 用 Polygon 区块浏览器查这笔交易，确认收款地址就是你的充值地址、代币是 USDC。
+3. 确认金额高于充值页显示的最低额。
+
+如果是转错了币或链，官方帮助中心给出的处理方式大致是：以太坊上转错的资产可以用官方的恢复工具（recovery.polymarket.com）找回；Polygon 上非 pUSD 的代币可以尝试 Polygon 恢复工具；Base、Arbitrum、Optimism、BSC 上的需要联系客服；其他链目前无法找回。**直接转到 CTF Exchange 合约地址的资金会永久丢失。**
+
+<Callout type="danger" title="小心冒充“资金恢复”的诈骗">
+
+充值出问题时，只通过 polymarket.com 官网和官方帮助中心处理。凡是私信你、声称可以代为找回资金并要求你提供助记词、私钥或先付费的，都是诈骗。
+
+</Callout>
+
+完整排查步骤见 [Polymarket 充值没到账的解决办法](/deposit/deposit-troubleshooting/)。
+
+## Polymarket 充值安全清单
+
+每次充值前花 30 秒对一遍：
+
+- 网址是 polymarket.com，没有点搜索广告或陌生链接
+- 地址是刚刚从充值页复制的，首尾字符已核对
+- 币种是 USDC，网络是 Polygon（或充值页明确支持的其他网络）
+- 到账数量扣掉手续费后，仍高于充值页显示的最低额
+- 第一次往这个地址转账，已经先小额测试
+- 只投入你能承受全部亏损的钱
+
+更多账户和资金安全的注意事项，见 [Polymarket 安全吗](/polymarket/is-it-safe/)。
+
+<PolymarketCTA />
+
+赚到钱或者想换回法币时，流程正好反过来：从 Polymarket 提 USDC（Polygon）回交易所，再卖出。注意不要把 pUSD 或 USDC.e 直接发到交易所，具体见 [Polymarket 提现教程](/deposit/withdraw/)。

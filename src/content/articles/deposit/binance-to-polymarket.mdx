@@ -1,0 +1,149 @@
+---
+title: "币安充值 Polymarket 教程：买 USDC 提到 Polygon"
+seoTitle: "币安充值 Polymarket：USDC 提币 Polygon 教程（2026）"
+description: "用币安充值 Polymarket 的完整步骤：注册认证、买 USDC、复制 Polymarket 充值地址、提币选 Polygon 网络、小额测试和到账确认，并说明 2026 年 10 月被盗事件后的提币恢复情况与常见提币限制。"
+keywords: ["币安 充值 polymarket", "币安 提币 polymarket", "币安 usdc polygon", "polymarket 币安"]
+tldr:
+  - "币安提币选 USDC，网络选 Polygon（可能显示为 Polygon POS 或 POL）"
+  - "币安只支持 Polygon 原生 USDC，不支持 USDC.e"
+  - "2026-10-29 事件后提币分阶段恢复，操作前先看币安官方公告"
+  - "地址每次从 Polymarket 充值页复制，先提 10 USDC 左右测试"
+  - "币安钱包里的预测市场接的是 predict.fun，不是 Polymarket"
+faq:
+  - q: "币安提币到 Polymarket 选什么网络？"
+    a: "选 Polygon。币安提币页上这个网络可能显示为“Polygon POS”或“POL”，都是同一条链。币种选 USDC，币安提的是 Polygon 原生 USDC，到账后 Polymarket 会自动转换成 pUSD。"
+  - q: "币安现在能正常提币到 Polygon 吗？"
+    a: "据报道，币安在 2026 年 10 月 29 日发生热钱包被盗事件，11 月 1 日起分阶段恢复提币，首批 15 个网络里包括 Polygon 上的 USDC。截至 2026 年 11 月初情况仍在变化，提币前请先查看币安官方公告。"
+  - q: "币安提币到 Polymarket 手续费多少？"
+    a: "Polygon 网络提 USDC 的手续费通常约 1 USDC 或更低，最低提币额也会变动，以币安提币页显示为准。Polymarket 本身不收充值费，链上 gas 由平台代付。"
+  - q: "币安提币被暂时锁定怎么办？"
+    a: "新注册账户、刚修改过密码或 2FA、刚添加的新地址，常会触发临时提币限制，一般等锁定期结束即可。部分地区还需要做 Travel Rule 申报，按页面提示如实填写，具体规则以币安页面为准。"
+  - q: "币安钱包里的预测市场就是 Polymarket 吗？"
+    a: "不是。币安钱包 2026 年 4 月上线的预测市场接入的是 BNB Chain 上的 predict.fun，使用独立的预测账户和 USDT。想在 Polymarket 下单，仍需按本文把 USDC 提到 Polymarket 的充值地址。"
+publishDate: 2026-11-02
+featuredExchanges: ["binance", "okx", "bitget"]
+order: 2
+---
+
+用币安充值 Polymarket，核心就一句话：在币安买入 USDC，提币时币种选 **USDC**、网络选 **Polygon**（界面上可能显示为 Polygon POS 或 POL），地址填你在 Polymarket 充值页复制的专属地址，先小额测试再正式转账。到账后 Polymarket 会自动把 USDC 转成账户余额 pUSD。币安支持 Polygon 原生 USDC，手续费通常约 1 USDC 或更低，以提币页显示为准。
+
+<Callout type="warning" title="截至 2026 年 11 月初：币安提币仍在分阶段恢复">
+
+据 CNBC、Cointelegraph 等媒体报道，币安于 2026 年 10 月 29 日发生热钱包被盗事件，官方表示用户不承担损失。2026 年 11 月 1 日起，币安分阶段恢复提币，第一阶段包含 Polygon 网络上的 USDC、USDT 和 POL，第二阶段尚未公布时间。情况仍在快速变化，**提币前请先查看 [币安官方公告](https://www.binance.com/en/support/announcement)，确认 Polygon USDC 提币通道处于开放状态**。
+
+</Callout>
+
+<CTA exchange="binance" title="还没有币安账户？" text="注册并完成 KYC 后即可买 USDC，再按下面的步骤提到 Polymarket。" />
+
+## 用币安充值 Polymarket 前，先确认三件事
+
+**1. 你所在地区能用币安吗？**
+
+按目前能查到的资料，binance.com 不服务以下用户：
+
+| 地区 | 情况 |
+|---|---|
+| 美国 | 不服务，美国用户使用独立公司 Binance.US |
+| 中国大陆 | 不服务（2017 年退出，2021 年清退） |
+| 香港 | 没有持牌实体，官网声明产品不面向香港用户 |
+| 马来西亚 | 无牌，网站和 App 被封，证监会已将其列入投资者警示名单 |
+| 新加坡 | 2021–22 年退出，不服务新加坡居民 |
+| 加拿大 | 2023 年退出 |
+| 英国 | 2023 年起不接受新用户 |
+| 欧盟 / 欧洲经济区 | 据报道约 2026 年 7 月起暂停新业务 |
+
+以上信息会变化，注册前以币安用户协议为准。中国大陆禁止虚拟货币交易相关活动，本站不面向中国大陆用户。
+
+**2. 你所在地区能用 Polymarket 吗？**
+
+就算能用币安，也要确认 Polymarket 那一头没有限制。美国、英国、法国、德国、澳大利亚、新加坡、泰国、台湾等地的新用户**无法开新仓**，详见 [Polymarket 哪些地区能用](/polymarket/availability/)。Polymarket 用户协议禁止用 VPN 规避地区限制，违反可能导致账户受限。
+
+**3. 币安的 Polygon USDC 提币通道开着吗？**
+
+见上方提示。另外，币安平时也会因为网络升级临时暂停某条链的充提，操作前看一眼公告总没错。
+
+## 第 1 步：注册币安并完成 KYC
+
+币安自 2021 年 8 月起对全体用户强制 KYC，没有完成认证的账户只能提币，不能买币。注册时注意：
+
+- 只从 binance.com 进入，App 只从官方应用商店或 binance.com 上的链接下载。拿不准的网址、客服账号，可以用币安的 [官方验证工具](https://www.binance.com/en/official-verification) 查一下。
+- 邀请码一般需要在注册时填写，事后通常无法补填。被邀请人的手续费返佣比例由邀请人设置，以注册页面显示为准，返佣原理见 [交易所返佣是什么](/exchange/what-is-rebate/)。
+
+完整注册和认证流程见 [币安注册教程](/exchange/binance-register/)。
+
+## 第 2 步：在币安买 USDC
+
+币安上常见的两种买法：
+
+1. **P2P 买 USDT，再换成 USDC**：P2P 支持多种法币，平台对 P2P 交易本身不收手续费，具体可选的法币和商家以页面为准。买到 USDT 后，到现货市场用 USDT 买 USDC。
+2. **银行卡直接购买**：操作简单，但卡购手续费通常明显高于现货交易，以页面显示为准。
+
+现货交易手续费方面，币安普通用户（VIP0）挂单和吃单都是 0.10%，用 BNB 抵扣可以打 75 折，即 0.075%（以币安费率页为准）。举例：用 200 USDT 买 USDC，手续费约 200 × 0.1% = 0.2 USDC；用 BNB 抵扣则约 200 × 0.075% = 0.15 USDC。成交价按实际盘口计算，USDT 和 USDC 的兑换价不一定正好是 1。
+
+更多买法对比见 [USDC 怎么买](/deposit/buy-usdc/)。
+
+## 第 3 步：在 Polymarket 复制 Polygon 充值地址
+
+1. 打开 polymarket.com 并登录。
+2. 点击 **Deposit（充值）**。
+3. 如果页面让你选择币种和网络，选 USDC 和 Polygon。
+4. 复制页面上显示的充值地址。
+
+**每次充值都回到充值页重新复制地址**，不要从聊天记录、截图或旧的提币地址簿里取。
+
+## 第 4 步：币安提币到 Polygon 网络
+
+在币安 App 或网页进入资产页，找到 USDC，点击提币（Withdraw，按钮名称以页面为准），按下表填写：
+
+| 提币页字段 | 怎么填 | 说明 |
+|---|---|---|
+| 币种 | USDC | 不要选 USDT 或其他币 |
+| 地址 | 粘贴 Polymarket 充值地址 | 核对开头和结尾各 4–6 位 |
+| 网络 | Polygon | 可能显示为“Polygon POS”或“POL” |
+| 数量 | 先填 10 USDC 左右测试 | 看清页面显示的到账数量 |
+| 手续费 | 页面自动显示 | 通常约 1 USDC 或更低，以提币页为准 |
+
+确认无误后，完成邮箱、短信或身份验证器（2FA）验证并提交。
+
+<Callout type="warning" title="网络必须和 Polymarket 充值页一致">
+
+币安只支持 Polygon 上的**原生 USDC**，不支持 USDC.e（币安已把它改名为 MATICUSDCE）。提币时选 Polygon 网络的 USDC 即可，不要选 BSC、Ethereum 等其他网络后填同一个地址。为什么原生 USDC 和 USDC.e 要分清，见 [Polygon、USDC、USDC.e 与 pUSD 的区别](/deposit/polygon-usdc-pusd/)。
+
+</Callout>
+
+<DepositFlow exchange="binance" />
+
+## 第 5 步：先小额测试，再确认到账
+
+第一次往这个地址提币，先提 10 USDC 左右。为什么不是 2、3 USDC？因为到账金额 = 提币数量 − 提币手续费，太小的金额扣完手续费后可能低于 Polymarket 充值页显示的最低额，反而不会被处理。
+
+用一个完整例子算一遍（手续费为举例假设，以页面为准）：
+
+1. 200 USDT 买成 USDC，按 0.1% 手续费，得到约 199.8 USDC。
+2. 测试提币 10 USDC，假设手续费 1 USDC 从数量里扣除，Polymarket 到账 9 pUSD。
+3. 测试到账后，把剩余的 189.8 USDC 全部提出，再扣 1 USDC 手续费，到账 188.8 pUSD。
+4. 最终 Polymarket 余额约 9 + 188.8 = 197.8 pUSD，总成本约 2.2 美元。
+
+测试多付了一次手续费，但能确认地址和网络都没问题，值得。到账通常只要几分钟。确认余额增加后，就可以按 [Polymarket 新手下单教程](/polymarket/how-to-play/) 开始第一笔交易了。如果迟迟没到账，按 [充值没到账的解决办法](/deposit/deposit-troubleshooting/) 逐项排查，先在币安提币记录里找到交易哈希（TxID）。
+
+## 币安提币失败或被暂时锁定怎么办？
+
+几种常见情况：
+
+- **新账户或刚改过安全设置**：新注册账户、刚修改过密码或 2FA，常会被临时限制提币，等锁定期过去即可。
+- **新添加的地址**：首次向某个地址提币，可能需要额外验证或等待。
+- **Travel Rule 申报**：部分地区提币时要申报收款方信息，例如确认地址是否属于本人。按页面提示如实填写，选项名称以页面为准。
+- **网络维护或暂停**：除了 2026 年 10 月底事件后的分阶段恢复，币安平时也会因链上升级暂停某条网络的充提。提币页如果显示 Polygon 暂停，先等公告，**不要换成其他不熟悉的网络硬转**。
+- **数量低于最低提币额**：币安对每个网络都有最低提币额，以提币页显示为准。
+
+如果币安通道迟迟不恢复，也可以用其他交易所走同样的路线，例如 [OKX 充值 Polymarket 教程](/deposit/okx-to-polymarket/)。各种入金方式的总体对比见 [Polymarket 怎么充值](/deposit/how-to-deposit/)。
+
+## 币安钱包里的预测市场是 Polymarket 吗？
+
+不是，这一点很多人搞混。据 CoinDesk 等报道，币安钱包（Binance Wallet）2026 年 4 月 9 日上线的预测市场功能，接入的是 BNB Chain 上的 predict.fun：用户要开一个独立的 MPC“预测账户”，用 USDT 入金，并非所有地区可用，**没有接入 Polymarket**。
+
+如果你想直接在交易所 App 里参与 Polymarket 的市场，目前公开报道的是 Gate App（2026 年 3 月公测接入）和 Bybit Prediction（约 2026 年 6 月上线，使用 Polymarket 流动性），各地区能否使用尚未核实，详见 [交易所 App 内的 Polymarket 入口](/exchange/polymarket-in-exchange-apps/)。
+
+<PolymarketCTA />
+
+以后想把盈利换回法币，路线反过来：从 Polymarket 提 USDC（Polygon）回币安。提现时选 USDC，不要把 pUSD 或 USDC.e 直接发到币安，否则可能无法入账，具体见 [Polymarket 提现教程](/deposit/withdraw/)。

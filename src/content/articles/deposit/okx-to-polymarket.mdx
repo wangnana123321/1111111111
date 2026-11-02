@@ -1,0 +1,157 @@
+---
+title: "OKX 充值 Polymarket 教程：欧易提 USDC 详细步骤"
+seoTitle: "OKX 充值 Polymarket：欧易提 USDC 到 Polygon 教程"
+description: "用 OKX（欧易）充值 Polymarket 的详细步骤：注册认证、买 USDT 换 USDC、复制 Polymarket 充值地址、提币选 Polygon 网络、小额测试与到账确认，附手续费算例、适用地区和邀请返佣机制说明。"
+keywords: ["okx 充值 polymarket", "欧易 提币 polymarket", "okx usdc polygon", "polymarket okx"]
+tldr:
+  - "OKX 提币选 USDC，网络选 Polygon，地址从 Polymarket 充值页复制"
+  - "Polygon 提 USDC 手续费据追踪站数据通常只有几美分，以提币页为准"
+  - "也可以走 Base、Arbitrum 等 Polymarket 支持的网络，注意各链最低额"
+  - "OKX 不服务香港、加拿大、中国大陆，美国和新加坡由独立实体服务"
+  - "被邀请人返佣由邀请方设定，交易后按净手续费返还，以注册页为准"
+faq:
+  - q: "OKX 提币到 Polymarket 选哪个网络？"
+    a: "推荐选 Polygon，币种选 USDC。Polymarket 的余额本身就在 Polygon 上，这条路线手续费低、到账快。Base、Arbitrum、Optimism、Solana 等网络的 USDC 也可以经充值桥自动转换，但最低额不同，以 Polymarket 充值页为准。"
+  - q: "OKX 提 USDC 到 Polygon 手续费多少？"
+    a: "据第三方追踪站数据，OKX 在 Polygon 网络提 USDC 的手续费通常只有几美分，最低提币额各站说法不一。费用会变动，一律以 OKX 提币页显示为准。Polymarket 本身不收充值费。"
+  - q: "OKX 的 Polygon USDC 是原生 USDC 还是 USDC.e？"
+    a: "OKX 官方没有明确写明。提币前可以在 App 的币种详情里核对合约地址：原生 USDC 以 0x3c499c 开头，USDC.e 以 0x2791Bc 开头。按目前资料，Polymarket 网页充值时两者据称都会转换，但优先使用原生 USDC。"
+  - q: "OKX 邀请码返佣是多少？"
+    a: "据 OKX 帮助中心，被邀请人返佣在 0–20% 之间，由邀请方设定，不是每个邀请码都带返佣。返佣在交易后按净手续费返还，下单时并不打折，可在用户中心的“我的奖励”查看，具体以注册页面显示为准。"
+  - q: "香港用户能用 OKX 充值 Polymarket 吗？"
+    a: "OKX 自 2024 年 5 月 31 日起停止向香港居民提供交易所服务，2026 年仍列为受限地区，香港用户无法用 OKX 交易所走本文路线。另外香港投委会曾警告参与预测市场可能构成非法赌博，请自行评估法律风险。"
+publishDate: 2026-11-02
+featuredExchanges: ["okx", "binance", "bitget"]
+order: 3
+---
+
+用 OKX（欧易）充值 Polymarket，步骤是：在 OKX 买 USDT 并换成 USDC，打开 Polymarket 充值页复制你的专属地址，回到 OKX 提币，币种选 **USDC**、网络选 **Polygon**，先提 10 USDC 左右测试，到账后再转剩余金额。资金到账后会自动转成 Polymarket 账户余额 pUSD。据追踪站数据，OKX 在 Polygon 上提 USDC 的手续费通常只有几美分，以提币页显示为准。
+
+<CTA exchange="okx" title="还没有 OKX 账户？" text="注册并完成认证后即可买 USDC，再按本文步骤提到 Polymarket。" />
+
+## OKX 充值 Polymarket 适合哪些地区的用户？
+
+这条路线要同时满足两个条件：你能合法使用 OKX，也能使用 Polymarket。
+
+**OKX 这一端**，按目前能查到的资料：
+
+| 地区 | OKX 全球站情况 |
+|---|---|
+| 中国大陆 | 不服务 |
+| 香港 | 2024 年 5 月 31 日起停止对香港居民的交易所服务，2026 年仍受限 |
+| 加拿大 | 2023 年退出 |
+| 美国 | 由独立的 OKX US 服务，不走全球站 |
+| 新加坡 | 据资料由持牌的 OKX SG 提供服务，不走全球站 |
+| 马来西亚 | 据第三方资料被列为禁止地区 |
+
+**Polymarket 这一端**，美国、英国、法国、德国、澳大利亚、新加坡、泰国、台湾等地的新用户**无法开新仓**。Polymarket 用户协议禁止用 VPN 规避地区限制，违反可能导致账户受限。各地区详情见 [Polymarket 哪些地区能用](/polymarket/availability/)。
+
+中国大陆禁止虚拟货币交易相关活动，本站不面向中国大陆用户。以上地区信息会变化，注册前以 OKX 用户协议为准。
+
+## 第 1 步：注册欧易并完成认证
+
+OKX 要求完成 KYC 身份认证后才能正常买币和提币。注册时有三点建议：
+
+1. **认准官方域名 okx.com**（2022 年由 OKEx 改名而来），不要点搜索引擎里的广告链接。OKX 的 Web3 钱包在 web3.okx.com，和交易所账户是两回事。
+2. **设置防钓鱼码**。设置后，OKX 发出的官方邮件里会带上你设定的这串字符，没有的就是假邮件。
+3. **注册时就填好邀请码**。邀请码一般不能事后补填。
+
+完整注册和认证流程见 [OKX 欧易注册教程](/exchange/okx-register/)。
+
+### OKX 邀请返佣是怎么回事？
+
+很多人以为填了邀请码下单就会打折，其实不是。据 OKX 帮助中心的说明：
+
+- 被邀请人返佣在 **0–20%** 之间，由邀请方自行设定，不是每个邀请码都带返佣。
+- 返佣是在你交易之后，按**净手续费**的一定比例返还，下单时的手续费并不会变少。
+- 返佣记录可以在“用户中心 > 我的奖励”里查看。
+
+具体比例以注册页面显示为准。想估算一年能返多少，可以用 [返佣计算器](/tools/rebate-calculator/)，原理见 [交易所返佣是什么](/exchange/what-is-rebate/)。
+
+## 第 2 步：在 OKX 买 USDT 再换成 USDC
+
+常见做法：
+
+1. **P2P 或银行卡买 USDT**：OKX 的 P2P 支持 USD、EUR、AUD 等法币，银行卡（Visa、Mastercard、Apple Pay）购买支持的法币取决于地区，以页面显示为准。
+2. **现货市场把 USDT 换成 USDC**：在交易页搜索 USDC，用 USDT 买入。
+
+手续费方面，OKX 普通用户（Regular 等级）现货挂单 0.08%、吃单 0.10%（以 OKX 费率页为准）。举例：用 300 USDT 以吃单方式买 USDC，手续费约 300 × 0.10% = 0.3 USDC，得到约 299.7 USDC；如果挂限价单成交，手续费约 300 × 0.08% = 0.24 USDC。实际兑换价按成交价计算。
+
+更多购买方式见 [USDC 怎么买](/deposit/buy-usdc/)。
+
+## 第 3 步：复制 Polymarket 充值地址
+
+1. 打开 polymarket.com 并登录。
+2. 点击 **Deposit（充值）**。
+3. 如果页面让你选择币种和网络，选 USDC 和 Polygon。
+4. 复制页面显示的地址。
+
+**每次充值都从充值页重新复制**，不要用旧记录或别人发来的地址。
+
+## 第 4 步：OKX 提币，选 USDC 和 Polygon 网络
+
+在 OKX App 或网页进入资产页，选择 USDC，点击提币（按钮名称以页面为准），提币方式选链上提币，然后按下表填写：
+
+| 提币页字段 | 怎么填 | 说明 |
+|---|---|---|
+| 币种 | USDC | 不要选 USDT |
+| 网络 | Polygon | 名称可能带有“Polygon”或“POL”字样 |
+| 地址 | 粘贴 Polymarket 充值地址 | 核对开头和结尾各 4–6 位 |
+| 数量 | 先填 10 USDC 左右 | 看清到账数量 |
+| 手续费 | 页面自动显示 | 据追踪站数据通常几美分，以页面为准 |
+
+完成邮箱、短信或身份验证器验证后提交。
+
+<Callout type="warning" title="提币前核对 USDC 的合约地址">
+
+OKX 官方没有明确说明 Polygon 网络上的 USDC 是原生 USDC 还是 USDC.e。可以在 App 的币种或网络详情里核对合约地址：原生 USDC 是 `0x3c499c542cEF5E3811e1192ce70d8cC03d5c3359`，USDC.e 是 `0x2791Bca1f2de4661ED88A30C99A7a9449Aa84174`。两者的区别见 [Polygon、USDC、USDC.e 与 pUSD 的区别](/deposit/polygon-usdc-pusd/)。
+
+</Callout>
+
+### 不走 Polygon，还能选哪些网络？
+
+OKX 的 USDC 还支持 Ethereum、Solana、Base、Arbitrum、Optimism、Avalanche 等网络。Polymarket 的充值桥官方支持 Ethereum、Base、Arbitrum、Optimism、Solana 等链，到账后同样自动转成 pUSD。
+
+| 网络 | 适合情况 | 注意 |
+|---|---|---|
+| Polygon | 首选，Polymarket 余额本身就在这条链上 | 官方文档参考最低额约 $2 |
+| Base / Arbitrum / Optimism / Solana | Polygon 通道维护时的备选 | 参考最低额约 $2，以充值页为准 |
+| Ethereum | 一般不推荐 | 参考最低额约 $7，提币费通常更高 |
+| Avalanche 等 | 不要用 | 不在本文能确认的 Polymarket 支持列表里 |
+
+用其他网络时，**要在 Polymarket 充值页选择对应的网络，再复制该网络的地址**，不要把 Polygon 的地址直接填到别的链上。
+
+<DepositFlow exchange="okx" />
+
+## 第 5 步：小额测试与到账确认
+
+到账金额 = 提币数量 − 提币手续费。测试金额太小，扣完手续费可能低于 Polymarket 充值页显示的最低额，所以建议测试 10 USDC 左右。
+
+接着上面的例子算一遍（手续费为举例假设，以页面为准）：
+
+1. 300 USDT 吃单买入 USDC，得到约 299.7 USDC。
+2. 测试提币 10 USDC，假设手续费 0.05 USDC，Polymarket 到账 9.95 pUSD。
+3. 确认到账后，提出剩余的 289.7 USDC，再扣 0.05 USDC，到账 289.65 pUSD。
+4. Polymarket 余额合计 9.95 + 289.65 = 299.6 pUSD，总成本约 0.4 美元。
+
+到账通常只要几分钟。余额增加后，就可以按 [Polymarket 新手下单教程](/polymarket/how-to-play/) 开始交易。超过一小时没到账，先在 OKX 提币记录里找到交易哈希（TxID），再按 [充值没到账的解决办法](/deposit/deposit-troubleshooting/) 排查。
+
+## OKX 提币到 Polymarket 常见问题
+
+**能直接提 USDT 到 Polymarket 吗？**
+OKX 在 Polygon 上的 USDT 显示为“Polygon (USDT0)”（2025 年 9 月起支持）。USDT0 是否在 Polymarket 的支持资产里，目前没有核实，所以建议先换成 USDC 再提，最稳。
+
+**提币被临时限制怎么办？**
+新账户、刚修改过密码或 2FA、刚添加的新地址，常会被临时锁定提币。部分地区提币时需要做 Travel Rule 申报，例如确认地址是否属于本人，按页面提示如实填写。各家规则不同，以 OKX 页面为准。
+
+**提币页显示 Polygon 暂停充提？**
+交易所会因网络升级临时暂停某条链的充提，OKX 也发布过 Polygon 网络升级的相关公告。先看公告等待恢复，或改用上表里 Polymarket 支持的其他网络。
+
+**OKX 的“事件合约”和 Polymarket 是一回事吗？**
+不是。OKX 2026 年 4 月上线的 Event Contracts 只做 BTC、ETH 等加密货币价格的涨跌，按 OKX 指数结算，不是综合型预测市场。OKX Wallet 目前是否接入 Polymarket 也没有确认。
+
+## 充值之后：交易手续费和提现
+
+充值不收费，但在 Polymarket 下单时，吃单要付手续费，公式是：手续费 = 份数 × 费率 × 价格 × (1 − 价格)，挂单不收费，地缘政治类市场免手续费。详细算法见 [Polymarket 手续费说明](/polymarket/fees/)。
+
+想把盈利换回法币时，从 Polymarket 提 USDC（Polygon）回 OKX，再卖出。不要把 pUSD 或 USDC.e 直接发到交易所，具体见 [Polymarket 提现教程](/deposit/withdraw/)。如果还想比较币安、Bitget 等其他交易所的路线，见 [Polymarket 怎么充值：入金方法全对比](/deposit/how-to-deposit/)。

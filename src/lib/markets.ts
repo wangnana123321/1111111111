@@ -16,6 +16,12 @@ export interface MarketsSnapshot {
 let pending: Promise<MarketsSnapshot> | null = null;
 
 async function load(): Promise<MarketsSnapshot> {
+  // 本地调试：MARKETS_FIXTURE=/path/to/events.json 使用本地 JSON（结构同 Gamma API /events 返回）
+  if (process.env.MARKETS_FIXTURE) {
+    const { readFile } = await import('node:fs/promises');
+    const json = JSON.parse(await readFile(process.env.MARKETS_FIXTURE, 'utf8'));
+    return { markets: parseEvents(json, refQueryFrom(AFFILIATES.polymarket.inviteUrl)), fetchedAt: new Date() };
+  }
   if (process.env.SKIP_MARKETS_FETCH === '1') {
     return { markets: [], fetchedAt: null, error: 'skipped' };
   }
