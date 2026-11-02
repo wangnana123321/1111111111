@@ -1,0 +1,162 @@
+---
+title: "Bitget 充值 Polymarket 教程：提 USDC 步骤与注意事项"
+seoTitle: "Bitget 充值 Polymarket：提 USDC 步骤与网络选择"
+description: "用 Bitget 充值 Polymarket 的完整步骤：买 USDC、复制 Polymarket 充值地址、提币时怎么选网络、小额测试与到账核对，附手续费算例、没有 Polygon 时的备选网络，以及 Bitget Wallet 路线的区别。"
+keywords: ["bitget 充值 polymarket", "bitget 提币 polymarket", "bitget usdc", "polymarket bitget"]
+tldr:
+  - "Bitget 提币选 USDC，网络优先选 Polygon，地址从 Polymarket 充值页复制"
+  - "提币页没有 Polygon 时，可选 Arbitrum、Base、Solana 等，两边网络必须一致"
+  - "第一次先小额测试，到账后自动转成 pUSD，Polymarket 不收充值费"
+  - "Bitget Wallet 是自托管钱包，和 Bitget 交易所是两个产品"
+  - "Bitget 的网络支持、手续费和最低额本站未核实，以提币页为准"
+faq:
+  - q: "Bitget 提币到 Polymarket 选哪个网络？"
+    a: "优先选 Polygon，币种选 USDC，因为 Polymarket 的余额本身就在 Polygon 上。如果 Bitget 提币页没有 USDC 的 Polygon 网络，可以选 Polymarket 充值桥支持的 Arbitrum、Base、Solana 等网络，但 Polymarket 充值页也要选同一个网络再复制地址。"
+  - q: "Bitget 提 USDC 手续费多少？"
+    a: "本站没有核实到 Bitget 在各网络提 USDC 的手续费和最低额。一般来说，Polygon 等网络的提币费通常约 1 USDC 或更低，以 Bitget 提币页实时显示为准。Polymarket 本身不收充值费，链上 gas 也由平台代付。"
+  - q: "可以直接从 Bitget 提 USDT 到 Polymarket 吗？"
+    a: "Polymarket 官方支持资产清单里有多条链上的 USDT，据称会自动转换，但具体组合和最低额本站没有实测。最稳的做法是先在 Bitget 把 USDT 换成 USDC，再走 Polygon 网络提币，其他组合以 Polymarket 充值页显示为准。"
+  - q: "Bitget 充值 Polymarket 多久到账？"
+    a: "通常几分钟，取决于 Bitget 的处理速度和链上确认。新账户或刚添加的地址可能被临时限制提币，会更慢。超过一小时没到账，先在 Bitget 提币记录里找交易哈希，再到 Polymarket 充值页和区块浏览器核对。"
+  - q: "Bitget Wallet 和 Bitget 交易所充值 Polymarket 有什么区别？"
+    a: "Bitget 交易所是中心化账户，用它提币到 Polymarket 充值地址即可。Bitget Wallet 是自托管钱包，据报道 2026 年 4 月接入了 Polymarket，资产由你自己的助记词控制，资金同样要先从交易所转进钱包。两者是不同的产品。"
+publishDate: 2026-11-02
+featuredExchanges: ["bitget", "okx", "binance"]
+order: 4
+---
+
+用 Bitget 充值 Polymarket，步骤是：在 Bitget 买 USDC（或用 USDT 换成 USDC），到 Polymarket 充值页复制你自己的地址，回到 Bitget 提币，币种选 **USDC**、网络优先选 **Polygon**，先提一小笔测试，到账后再转剩余金额。资金到账会自动转成 Polymarket 账户余额 pUSD。如果 Bitget 提币页没有 USDC 的 Polygon 网络，可以改用 Polymarket 支持的 Arbitrum、Base、Solana 等网络，但两边选择的网络必须一致。
+
+<CTA exchange="bitget" title="还没有 Bitget 账户？" text="注册并完成认证后即可买 USDC，再按本文步骤提到 Polymarket。" />
+
+## 开始之前：这条路线适合谁？
+
+这条路线要同时满足两个条件：你能使用 Bitget，也能使用 Polymarket。
+
+**Bitget 这一端**，据资料（本站未能实时核实，以 Bitget 用户协议为准）：
+
+| 地区 | Bitget 情况 |
+|---|---|
+| 中国大陆 | 不服务。中国大陆禁止虚拟货币交易相关活动，本站不面向中国大陆用户 |
+| 美国、加拿大、新加坡 | 据资料受限 |
+| 香港 | 据资料约 2023 年 12 月撤回香港牌照申请并退出 |
+| 英国 | 据资料 2023 年 10 月起停止接受新用户 |
+| 台湾、马来西亚 | 未核实 |
+
+**Polymarket 这一端**，美国（美国居民要用单独的 Polymarket US）、英国、法国、德国、意大利、比利时、波兰、澳大利亚、新加坡、泰国、台湾以及加拿大部分省份的用户**无法开新仓**。Polymarket 用户协议禁止用 VPN 规避地区限制，违反可能导致账户受限。详见 [Polymarket 哪些地区能用](/polymarket/availability/)。
+
+还要说明一点：本站关于 Bitget 的资料大多未能实时核实，尤其是**它的 USDC 支持哪些提币网络、手续费和最低额**。所以下面的步骤写的是通用版，每一步都请以 Bitget 和 Polymarket 页面上实际显示的内容为准。
+
+## 第 1 步：注册 Bitget 并完成认证
+
+Bitget 要求完成 KYC 身份认证后才能正常买币和提币。三点建议：
+
+1. **认准官方域名 bitget.com**，下载 App 时确认是交易所 App，不是 Bitget Wallet；
+2. **注册时填好邀请码**，邀请码一般不能事后补填；
+3. **提前做好安全设置**：2FA、防钓鱼码、提币白名单。新账户、刚改过密码或 2FA、刚添加的提币地址，常会被临时限制提币，最好提前一两天弄好。
+
+完整流程见 [Bitget 注册教程](/exchange/bitget-register/)。Bitget 的新用户福利主要是任务奖励（券、体验金等），返佣比例本站没有核实，以注册页显示为准。
+
+## 第 2 步：在 Bitget 买 USDC
+
+常见做法有两种：
+
+1. **用法币买 USDT**：Bitget 有 P2P 市场，支持哪些法币、哪些付款方式，以及是否有其他法币入金渠道，以 App 内显示为准；
+2. **现货市场用 USDT 换 USDC**：在交易页搜索 USDC，用 USDT 买入。
+
+手续费方面，据资料 Bitget 现货普通用户费率约 0.1%，用 BGB 抵扣据称打 8 折（约 0.08%），以官网费率页为准。举例：
+
+| 项目 | 计算 | 结果 |
+|---|---|---|
+| 用 300 USDT 买 USDC（0.1%） | 300 × 0.1% | 手续费约 0.3 USDC，得到约 299.7 USDC |
+| 用 BGB 抵扣（0.08%） | 300 × 0.08% | 手续费约 0.24 USDC |
+
+实际兑换按成交价计算，部分稳定币交易对可能有优惠费率。更多购买方式见 [USDC 怎么买](/deposit/buy-usdc/)。
+
+## 第 3 步：复制 Polymarket 充值地址
+
+1. 打开 polymarket.com 并登录；
+2. 点击 **Deposit（充值）**；
+3. 如果页面让你选择币种和网络，选 USDC 和你准备在 Bitget 使用的网络（优先 Polygon）；
+4. 复制页面显示的地址。
+
+**每次充值都从充值页重新复制**，不要用聊天记录里的旧地址，也不要用别人发来的地址。Polymarket 的每个用户都有自己的充值地址。
+
+## 第 4 步：Bitget 提币，网络怎么选？
+
+在 Bitget 资产页选择 USDC，点击提币（按钮名称以页面为准），选择链上提币，然后按下表填写：
+
+| 提币页字段 | 怎么填 | 说明 |
+|---|---|---|
+| 币种 | USDC | 不要选成 USDT |
+| 网络 | 优先 Polygon | 名称可能显示为 “Polygon”“Polygon POS” 或 “POL” |
+| 地址 | 粘贴 Polymarket 充值地址 | 核对开头和结尾各 4–6 位 |
+| 数量 | 先填一小笔，例如 10 USDC | 扣除手续费后不要低于 Polymarket 充值页显示的最低额 |
+| 手续费 | 页面自动显示 | 通常约 1 USDC 或更低，以页面为准 |
+
+完成邮箱、短信或身份验证器验证后提交。
+
+<Callout type="warning" title="提币前核对 USDC 的合约地址">
+
+Bitget 在 Polygon 上提供的是原生 USDC 还是 USDC.e，本站没有核实。可以在币种或网络详情里核对合约地址：原生 USDC 是 `0x3c499c542cEF5E3811e1192ce70d8cC03d5c3359`，USDC.e 是 `0x2791Bca1f2de4661ED88A30C99A7a9449Aa84174`。优先使用原生 USDC。两者的区别见 [Polygon、USDC、USDC.e 与 pUSD 有什么区别](/deposit/polygon-usdc-pusd/)。
+
+</Callout>
+
+### 提币页没有 Polygon，怎么办？
+
+Polymarket 的多链充值桥官方支持 Ethereum、Polygon、Base、Arbitrum、Optimism、Solana、Bitcoin、Tron、BNB Chain 等链，到账后都会自动转成 Polygon 上的 pUSD（支持清单会变，以充值页为准）。所以 Bitget 提币页如果没有 USDC 的 Polygon 网络，可以这样选：
+
+| Bitget 提币网络 | 是否可用 | 注意 |
+|---|---|---|
+| Polygon | 首选 | Polymarket 余额本身就在这条链上，路径最短 |
+| Arbitrum、Base、Optimism、Solana | 可作为备选 | Polymarket 充值页要选同一个网络，再复制该网络的地址 |
+| Ethereum | 能用但一般不推荐 | 提币费通常更高，充值最低额也比 Polygon 等链高 |
+| 充值页没有列出的网络 | 不要用 | 转错链的资产可能无法找回 |
+
+关键只有一条：**Bitget 选什么网络，Polymarket 充值页就选什么网络**，然后用那个网络对应的地址。不要把 Polygon 的地址填到别的链上。拿不准时，可以用 [入金路线查询工具](/tools/deposit-route/) 查一下。
+
+<DepositFlow exchange="bitget" />
+
+## 第 5 步：小额测试与到账确认
+
+到账金额 = 提币数量 − 提币手续费。下面接着第 2 步的例子算一遍，提币手续费**假设为每笔 1 USDC**（偏保守的假设，实际以 Bitget 提币页为准）：
+
+| 步骤 | 计算 | Polymarket 到账 |
+|---|---|---|
+| 测试提币 10 USDC | 10 − 1 | 9 pUSD |
+| 剩余 289.7 USDC 全部提出 | 289.7 − 1 | 288.7 pUSD |
+| 合计 | 9 + 288.7 | 297.7 pUSD |
+
+从 300 USDT 到 297.7 pUSD，总成本约 2.3 美元：买币手续费 0.3，加两笔提币费。多出的一笔测试费，买的是“地址和网络确认无误”的保险，第一次充值很值得。如果实际手续费只有几美分，成本会低得多。
+
+到账通常只要几分钟。确认 Polymarket 余额增加后，就可以按 [Polymarket 新手下单教程](/polymarket/how-to-play/) 开始交易。
+
+## 充值没到账或转错了怎么办？
+
+先别慌，按顺序排查：
+
+1. **看 Bitget 提币记录**：状态是否为已完成，找到交易哈希（TxID）；
+2. **用区块浏览器查 TxID**：确认网络和收款地址是否正确；
+3. **核对最低额**：扣掉手续费后低于 Polymarket 充值页最低额的入金，可能不处理或一直挂起；
+4. **看 Bitget 公告**：交易所会因网络升级临时暂停某条链的充提。
+
+转错币或转错链时，按 Polymarket 帮助中心的说法：Ethereum 上转错的资产可以用官方的恢复工具找回；Polygon 上非 pUSD 的代币可以试 Polygon 恢复工具；Base、Arbitrum、Optimism、BSC 需要联系客服；其他链目前无法找回；**转到 CTF Exchange 合约的资金会永久丢失**。注意冒充“恢复服务”的诈骗，不要把助记词或私钥交给任何人。详细排查见 [Polymarket 充值没到账的解决办法](/deposit/deposit-troubleshooting/)。
+
+## 另一条路：用 Bitget Wallet 参与 Polymarket
+
+据 GlobeNewswire 上的新闻稿，自托管的 **Bitget Wallet** 在 2026 年 4 月接入了 Polymarket，并提供 AI 分析功能。这经常让人以为“Bitget 可以直接玩 Polymarket”，其实要分清：
+
+| 对比项 | Bitget 交易所提币 | Bitget Wallet |
+|---|---|---|
+| 产品性质 | 中心化交易所 | 自托管钱包，和交易所是两个产品 |
+| 资产控制 | 交易所托管，到 Polymarket 后在你的 Polymarket 账户里 | 自己保管助记词或私钥 |
+| 资金来源 | 交易所余额直接提币 | 仍要先从交易所把资产转进钱包 |
+| 适合谁 | 新手，按本文步骤即可 | 已经会用钱包、愿意自己承担保管责任的人 |
+
+Bitget 交易所本身没有预测市场。如果你想在交易所 App 里直接参与 Polymarket 市场、完全不碰链上转账，可以看 Gate App 和 Bybit Prediction，见 [不用钱包也能玩 Polymarket？](/exchange/polymarket-in-exchange-apps/)。
+
+## 充值之后：手续费和提现
+
+充值本身不收费，但在 Polymarket 下单时，吃单要付手续费：**手续费 = 份数 × 费率 × 价格 ×（1 − 价格）**，挂单不收费，地缘政治类市场免手续费。比如在费率参数 0.05 的市场（2026-10 参考，以下单预览为准）以 0.50 美元买 100 份，手续费是 100 × 0.05 × 0.50 × 0.50 = 1.25 美元。详见 [Polymarket 手续费是多少](/polymarket/fees/)。
+
+想把资金换回法币时，从 Polymarket 提 USDC（Polygon）回 Bitget 再卖出。不要把 pUSD 或 USDC.e 直接发到交易所，并在 Bitget 充值页核对合约地址，步骤见 [Polymarket 提现教程](/deposit/withdraw/)。想比较其他交易所的路线，可以看 [OKX 充值 Polymarket 教程](/deposit/okx-to-polymarket/) 和 [Polymarket 怎么充值：入金方法全对比](/deposit/how-to-deposit/)。
